@@ -1,7 +1,13 @@
 import React from 'react';
+import { connect } from 'react-redux';
+
 import {
   Row,
   Col,
+  Dropdown,
+  DropdownToggle,
+  DropdownItem,
+  DropdownMenu,
 } from 'reactstrap';
 
 import Widget from '../../components/Widget';
@@ -26,13 +32,29 @@ import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official'
 import exporting from 'highcharts/modules/exporting';
 import exportData from 'highcharts/modules/export-data';
+import { requestSuppliers } from '../../actions/suppliers';
 
 exporting(Highcharts);
 exportData(Highcharts);
 
+const mapStateToProps = (state) => {
+  console.log(state.suppliers);
+  return {
+    suppliers: state.suppliers.suppliers,
+    isPending: state.suppliers.isPending
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onRequestSuppliers: () => dispatch(requestSuppliers())
+  }
+}
+
 class Dashboard extends React.Component {
   
   state = {
+    dropdownOpen: false,
     cd: chartData,
     ld: liveChart,
     initEchartsOptions: {
@@ -59,15 +81,45 @@ class Dashboard extends React.Component {
     }
   }
 
+  toggle(event) {
+    this.setState({
+        dropdownOpen: !this.state.dropdownOpen
+    });
+  }
+
+  componentDidMount() {
+    this.props.onRequestSuppliers();
+  }
+
   componentWillUnmount() {
     clearInterval(liveChartInterval);
   }
 
   render() {
+    const { suppliers, isPending } = this.props;
+    let supplierName = isPending ? '' : suppliers[0].supplier_name;
     const { cd, ld, initEchartsOptions, sparklineData } = this.state
-    return (
+
+    return isPending ? 
+      <h1>Loading...</h1> :
+      (
       <div className={s.root}>
-        <h1 className="page-title">Visual - <span className="fw-semi-bold">Charts</span></h1>
+        <div style={{display: "flex", alignItems: "center"}}>
+          <h1 className="page-title"><span className="fw-semi-bold">{suppliers[0].supplier_name}</span></h1>
+        <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} style={{marginLeft: "40px", alignItems: "stretch"}}>
+      <DropdownToggle caret className="fw-semi-bold text-inverse">
+        {supplierName}
+        </DropdownToggle>
+      <DropdownMenu>
+        <DropdownItem header>Header</DropdownItem>
+        <DropdownItem>Some Action</DropdownItem>
+        <DropdownItem disabled>Action (disabled)</DropdownItem>
+        <DropdownItem divider />
+        <DropdownItem>Foo Action</DropdownItem>
+        <DropdownItem>Bar Action</DropdownItem>
+        <DropdownItem>Quo Action</DropdownItem>
+      </DropdownMenu>
+    </Dropdown></div>
         <div>
           <Row>
             <Col lg={7} xs={12}>
@@ -197,7 +249,6 @@ class Dashboard extends React.Component {
       </div>
     );
   }
-
 }
 
-export default Dashboard;
+export default connect(mapStateToProps, mapDispatchToProps)(Dashboard)
