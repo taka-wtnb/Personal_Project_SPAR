@@ -38,7 +38,6 @@ exporting(Highcharts);
 exportData(Highcharts);
 
 const mapStateToProps = (state) => {
-  console.log(state.suppliers);
   return {
     suppliers: state.suppliers.suppliers,
     isPending: state.suppliers.isPending
@@ -52,38 +51,53 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 class Dashboard extends React.Component {
-  
-  state = {
-    dropdownOpen: false,
-    cd: chartData,
-    ld: liveChart,
-    initEchartsOptions: {
-      renderer: 'canvas'
-    },
-    sparklineData: {
-      series: [{data: [1,7,3,5,7,8]}],
-      options1: {
-        colors: ['#ffc247'],
-        plotOptions: {
-          bar: {
-            columnWidth: '50%'
-          }
-        }
+
+  constructor(props) {
+    super(props);
+    this.toggle = this.toggle.bind(this);
+    this.select = this.select.bind(this);
+    this.state = {
+      isFirstRender: true,
+      supplierName: '',
+      dropdownOpen: false,
+      cd: chartData,
+      ld: liveChart,
+      initEchartsOptions: {
+        renderer: 'canvas'
       },
-      options2: {
-        colors: ['#ffc0d9'],
-        plotOptions: {
-          bar: {
-            columnWidth: '50%'
+      sparklineData: {
+        series: [{data: [1,7,3,5,7,8]}],
+        options1: {
+          colors: ['#ffc247'],
+          plotOptions: {
+            bar: {
+              columnWidth: '50%'
+            }
+          }
+        },
+        options2: {
+          colors: ['#ffc0d9'],
+          plotOptions: {
+            bar: {
+              columnWidth: '50%'
+            }
           }
         }
       }
     }
   }
 
-  toggle(event) {
+  toggle = () => {
     this.setState({
-        dropdownOpen: !this.state.dropdownOpen
+      dropdownOpen: !this.state.dropdownOpen
+    });
+  }
+
+  select(event) {
+    this.setState({
+      dropdownOpen: !this.state.dropdownOpen,
+      supplierName: event.target.innerText,
+      isFirstRender: false
     });
   }
 
@@ -97,7 +111,15 @@ class Dashboard extends React.Component {
 
   render() {
     const { suppliers, isPending } = this.props;
-    let supplierName = isPending ? '' : suppliers[0].supplier_name;
+
+    let initialSupplierName = isPending ? '' : suppliers[0].supplier_name;
+
+    let supplierList = isPending ? [] : suppliers.map((supplier, i) => {
+      return (
+        <DropdownItem key={i} onClick={this.select}>{supplier.supplier_name}</DropdownItem>
+      )
+    });
+
     const { cd, ld, initEchartsOptions, sparklineData } = this.state
 
     return isPending ? 
@@ -105,21 +127,16 @@ class Dashboard extends React.Component {
       (
       <div className={s.root}>
         <div style={{display: "flex", alignItems: "center"}}>
-          <h1 className="page-title"><span className="fw-semi-bold">{suppliers[0].supplier_name}</span></h1>
-        <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} style={{marginLeft: "40px", alignItems: "stretch"}}>
-      <DropdownToggle caret className="fw-semi-bold text-inverse">
-        {supplierName}
-        </DropdownToggle>
-      <DropdownMenu>
-        <DropdownItem header>Header</DropdownItem>
-        <DropdownItem>Some Action</DropdownItem>
-        <DropdownItem disabled>Action (disabled)</DropdownItem>
-        <DropdownItem divider />
-        <DropdownItem>Foo Action</DropdownItem>
-        <DropdownItem>Bar Action</DropdownItem>
-        <DropdownItem>Quo Action</DropdownItem>
-      </DropdownMenu>
-    </Dropdown></div>
+          <h1 className="page-title"><span className="fw-semi-bold">{this.state.isFirstRender ? initialSupplierName : this.state.supplierName}</span></h1>
+          <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} style={{marginLeft: "40px", alignItems: "stretch"}}>
+            <DropdownToggle caret className="fw-semi-bold text-inverse">
+              {this.state.isFirstRender ? initialSupplierName : this.state.supplierName}
+            </DropdownToggle>
+            <DropdownMenu>
+              {supplierList}
+            </DropdownMenu>
+          </Dropdown>
+        </div>
         <div>
           <Row>
             <Col lg={7} xs={12}>
