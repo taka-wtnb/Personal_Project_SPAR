@@ -11,20 +11,22 @@ import {
 //import s from './Charts.module.scss';
 import s from './SupplierSelection.module.scss';
 
+import { selectSupplier } from '../../actions/change_supplier';
 import { requestSuppliers } from '../../actions/suppliers';
 import { withRouter } from 'react-router';
-
 
 const mapStateToProps = (state) => {
   return {
     suppliers: state.suppliers.suppliers,
-    isPending: state.suppliers.isPending
+    isPending: state.suppliers.isPending,
+    isSupplierSelected: state.change_supplier.isSupplierSelected
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onRequestSuppliers: () => dispatch(requestSuppliers())
+    onRequestSuppliers: () => dispatch(requestSuppliers()),
+    onSelectSupplier: () => dispatch(selectSupplier()),
   }
 }
 
@@ -35,7 +37,6 @@ class SupplierSelection extends React.Component {
     this.toggle = this.toggle.bind(this);
     this.select = this.select.bind(this);
     this.state = {
-      isFirstRender: true,
       supplierName: '',
       dropdownOpen: false,
     }
@@ -48,10 +49,10 @@ class SupplierSelection extends React.Component {
   }
 
   select(event) {
+    this.props.onSelectSupplier();
     this.setState({
       dropdownOpen: !this.state.dropdownOpen,
       supplierName: event.target.innerText,
-      isFirstRender: false
     });
   }
 
@@ -60,7 +61,7 @@ class SupplierSelection extends React.Component {
   }
 
   render() {
-    const { suppliers, isPending } = this.props;
+    const { suppliers, isPending, isSupplierSelected } = this.props;
 
     let initialSupplierName = isPending ? '' : suppliers[0].supplier_name;
 
@@ -75,10 +76,10 @@ class SupplierSelection extends React.Component {
       (
       <div className={s.root}>
         <div style={{display: "flex", alignItems: "center"}}>
-          <h1 className="page-title"><span className="fw-semi-bold">{this.state.isFirstRender ? initialSupplierName : this.state.supplierName}</span></h1>
+          <h1 className="page-title"><span className="fw-semi-bold">{isSupplierSelected ? this.state.supplierName : initialSupplierName}</span></h1>
           <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} style={{marginLeft: "40px", alignItems: "stretch"}}>
             <DropdownToggle caret className="fw-semi-bold text-inverse">
-              {this.state.isFirstRender ? initialSupplierName : this.state.supplierName}
+              {isSupplierSelected ? this.state.supplierName : initialSupplierName}
             </DropdownToggle>
             <DropdownMenu>
               {supplierList}

@@ -4,7 +4,7 @@ import navigation from './navigation';
 import alerts from './alerts';
 import register from './register';
 import suppliers from './suppliers';
-import first_render from './first_render';
+import change_supplier from './change_supplier';
 
 export default combineReducers({
   alerts,
@@ -12,5 +12,5 @@ export default combineReducers({
   navigation,
   register,
   suppliers,
-  first_render,
+  change_supplier,
 });

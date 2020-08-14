@@ -1,5 +1,4 @@
 import React from 'react';
-import { connect } from 'react-redux';
 
 import {
   Row,
@@ -29,23 +28,9 @@ import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official'
 import exporting from 'highcharts/modules/exporting';
 import exportData from 'highcharts/modules/export-data';
-import { requestSuppliers } from '../../actions/suppliers';
 
 exporting(Highcharts);
 exportData(Highcharts);
-
-const mapStateToProps = (state) => {
-  return {
-    suppliers: state.suppliers.suppliers,
-    isPending: state.suppliers.isPending
-  }
-}
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onRequestSuppliers: () => dispatch(requestSuppliers())
-  }
-}
 
 class Dashboard extends React.Component {
 
@@ -220,4 +205,4 @@ class Dashboard extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Dashboard)
+export default Dashboard;
