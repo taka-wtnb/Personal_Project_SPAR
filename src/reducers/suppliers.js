@@ -8,12 +8,12 @@ const initialState = {
 export default function suppliers(state=initialState, action={}) {
     switch (action.type) {
         case REQUEST_SUPPLIERS_PENDING:
-        return Object.assign({}, state, {isPending: true})
+            return Object.assign({}, state, {isPending: true})
         case REQUEST_SUPPLIERS_SUCCESS:
-        return Object.assign({}, state, {suppliers: action.payload, isPending: false})
+            return Object.assign({}, state, {suppliers: action.payload, isPending: false})
         case REQUEST_SUPPLIERS_FAILURE:
-        return Object.assign({}, state, {error: action.payload})
+            return Object.assign({}, state, {error: action.payload})
         default:
-        return state
+            return state
     }
 }
