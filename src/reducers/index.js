@@ -5,6 +5,7 @@ import alerts from './alerts';
 import register from './register';
 import suppliers from './suppliers';
 import change_supplier from './change_supplier';
+import selected_supplier from './selected_supplier';
 
 export default combineReducers({
   alerts,
@@ -13,4 +14,5 @@ export default combineReducers({
   register,
   suppliers,
   change_supplier,
+  selected_supplier,
 });

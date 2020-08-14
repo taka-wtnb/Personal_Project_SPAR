@@ -12,6 +12,7 @@ import {
 import s from './SupplierSelection.module.scss';
 
 import { selectSupplier } from '../../actions/change_supplier';
+import { displaySupplier } from '../../actions/selected_supplier';
 import { requestSuppliers } from '../../actions/suppliers';
 import { withRouter } from 'react-router';
 
@@ -19,7 +20,8 @@ const mapStateToProps = (state) => {
   return {
     suppliers: state.suppliers.suppliers,
     isPending: state.suppliers.isPending,
-    isSupplierSelected: state.change_supplier.isSupplierSelected
+    isSupplierSelected: state.change_supplier.isSupplierSelected,
+    selectedSupplier: state.selected_supplier.selectedSupplier,
   }
 }
 
@@ -27,6 +29,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onRequestSuppliers: () => dispatch(requestSuppliers()),
     onSelectSupplier: () => dispatch(selectSupplier()),
+    onDisplaySupplier: (event) => dispatch(displaySupplier(event.target.innerText)),
   }
 }
 
@@ -37,7 +40,6 @@ class SupplierSelection extends React.Component {
     this.toggle = this.toggle.bind(this);
     this.select = this.select.bind(this);
     this.state = {
-      supplierName: '',
       dropdownOpen: false,
     }
   }
@@ -50,9 +52,9 @@ class SupplierSelection extends React.Component {
 
   select(event) {
     this.props.onSelectSupplier();
+    this.props.onDisplaySupplier(event);
     this.setState({
       dropdownOpen: !this.state.dropdownOpen,
-      supplierName: event.target.innerText,
     });
   }
 
@@ -61,7 +63,7 @@ class SupplierSelection extends React.Component {
   }
 
   render() {
-    const { suppliers, isPending, isSupplierSelected } = this.props;
+    const { suppliers, isPending, isSupplierSelected, selectedSupplier } = this.props;
 
     let initialSupplierName = isPending ? '' : suppliers[0].supplier_name;
 
@@ -76,10 +78,10 @@ class SupplierSelection extends React.Component {
       (
       <div className={s.root}>
         <div style={{display: "flex", alignItems: "center"}}>
-          <h1 className="page-title"><span className="fw-semi-bold">{isSupplierSelected ? this.state.supplierName : initialSupplierName}</span></h1>
+          <h1 className="page-title"><span className="fw-semi-bold">{isSupplierSelected ? selectedSupplier : initialSupplierName}</span></h1>
           <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} style={{marginLeft: "40px", alignItems: "stretch"}}>
             <DropdownToggle caret className="fw-semi-bold text-inverse">
-              {isSupplierSelected ? this.state.supplierName : initialSupplierName}
+              {isSupplierSelected ? selectedSupplier : initialSupplierName}
             </DropdownToggle>
             <DropdownMenu>
               {supplierList}
