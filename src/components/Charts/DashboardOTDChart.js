@@ -18,7 +18,10 @@ import Widget from '../Widget';
 import { selectSupplier } from '../../actions/change_supplier';
 import { displaySupplier } from '../../actions/selected_supplier';
 
+// import cloud from "../../images/cloud_icon.svg";
+// import download from "../../images/cloud.png";
 import config from './config';
+
 const colors = config.chartColors;
 
 let columnColors = [colors.blue, colors.green, colors.orange, colors.red, colors.default, colors.gray, colors.teal, colors.pink];
@@ -49,7 +52,22 @@ const chartData = {
         options: {
           chart: {
             height: 350,
-            type: 'bar'
+            type: 'line',
+            toolbar: {
+              show: true,
+              offsetX: 0,
+              offsetY: 0,
+              tools: {
+                download: '<img src="/static/media/cloud_icon.c69e7ae2.svg" height="30" width="30"/>',
+                selection: false,
+                zoom: false,
+                zoomin: false,
+                zoomout: false,
+                pan: false,
+                reset: false,
+                customIcons: []
+              }
+            }
           },
           colors: columnColors,
           plotOptions: {
@@ -161,6 +179,7 @@ class DashboardOTDChart extends React.Component {
   }
 
   render() {
+    //console.log(cloud);
     const { isPending, } = this.props;
     //const { suppliers, isPending, isSupplierSelected, selectedSupplier } = this.props;
 
@@ -201,7 +220,7 @@ class DashboardOTDChart extends React.Component {
                 height={350} 
                 series={chartData.apex.column.series}
                 options={chartData.apex.column.options}
-                type={"bar"}
+                type={"line"}
             />
         </Widget>
     );
