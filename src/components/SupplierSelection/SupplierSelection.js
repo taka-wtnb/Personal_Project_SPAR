@@ -13,7 +13,6 @@ import s from './SupplierSelection.module.scss';
 
 import { selectSupplier } from '../../actions/change_supplier';
 import { displaySupplier } from '../../actions/selected_supplier';
-import { withRouter } from 'react-router';
 
 const mapStateToProps = (state) => {
   return {
@@ -87,4 +86,4 @@ class SupplierSelection extends React.Component {
   }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(SupplierSelection));
+export default connect(mapStateToProps, mapDispatchToProps)(SupplierSelection);

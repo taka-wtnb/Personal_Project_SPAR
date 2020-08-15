@@ -6,6 +6,7 @@ import {
 } from 'reactstrap';
 
 import SupplierSelection from '../../components/SupplierSelection/SupplierSelection';
+import DashboardOTDChart from '../../components/Charts/DashboardOTDChart';
 import Widget from '../../components/Widget';
 import ApexChart from 'react-apexcharts';
 
@@ -77,18 +78,7 @@ class Dashboard extends React.Component {
         <div>
           <Row>
             <Col lg={7} xs={12}>
-              <Widget
-                title={<h5>Apex <span className='fw-semi-bold'>Column Chart</span></h5>}
-                close collapse
-              >
-                <ApexChart 
-                  className="sparkline-chart" 
-                  height={350} 
-                  series={cd.apex.column.series}
-                  options={cd.apex.column.options}
-                  type={"bar"}
-                />
-              </Widget>
+              <DashboardOTDChart />
             </Col>
             <Col lg={5} xs={12}>
               <Widget
