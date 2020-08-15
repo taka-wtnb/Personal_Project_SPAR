@@ -13,7 +13,7 @@ import LayoutComponent from '../components/Layout';
 import Login from '../pages/login';
 import Register from '../pages/register';
 import { logoutUser } from '../actions/user';
-//import { detectFirstRender } from '../actions/first_render';
+import { requestSuppliers } from '../actions/suppliers';
 
 const PrivateRoute = ({dispatch, component, ...rest }) => {
     if (!Login.isAuthenticated(JSON.parse(localStorage.getItem('authenticated')))) {
@@ -29,35 +29,47 @@ const PrivateRoute = ({dispatch, component, ...rest }) => {
 const CloseButton = ({closeToast}) => <i onClick={closeToast} className="la la-close notifications-close"/>
 
 class App extends React.PureComponent {
-  render() {
-    return (
-        <div>
-            <ToastContainer
-                autoClose={5000}
-                hideProgressBar
-                closeButton={<CloseButton/>}
-            />
-            <HashRouter>
-                <Switch>
-                    <Route path="/" exact render={() => <Redirect to="/app/main"/>}/>
-                    <Route path="/app" exact render={() => <Redirect to="/app/main"/>}/>
-                    <PrivateRoute path="/app" dispatch={this.props.dispatch} component={LayoutComponent}/>
-                    <Route path="/register" exact component={Register}/>
-                    <Route path="/login" exact component={Login}/>
-                    <Route path="/error" exact component={ErrorPage}/>
-                    <Route component={ErrorPage}/>
-                    <Redirect from="*" to="/app/main/dashboard"/>
-                </Switch>
-            </HashRouter>
-        </div>
 
-    );
-  }
+    componentDidMount() {
+        this.props.onRequestSuppliers();
+    }
+
+    render() {
+        return (
+            <div>
+                <ToastContainer
+                    autoClose={5000}
+                    hideProgressBar
+                    closeButton={<CloseButton/>}
+                />
+                <HashRouter>
+                    <Switch>
+                        <Route path="/" exact render={() => <Redirect to="/app/main"/>}/>
+                        <Route path="/app" exact render={() => <Redirect to="/app/main"/>}/>
+                        <PrivateRoute path="/app" dispatch={this.props.dispatch} component={LayoutComponent}/>
+                        <Route path="/register" exact component={Register}/>
+                        <Route path="/login" exact component={Login}/>
+                        <Route path="/error" exact component={ErrorPage}/>
+                        <Route component={ErrorPage}/>
+                        <Redirect from="*" to="/app/main/dashboard"/>
+                    </Switch>
+                </HashRouter>
+            </div>
+
+        );
+    }
 }
 
 const mapStateToProps = state => ({
-  isAuthenticated: state.auth.isAuthenticated,
-  //isFirstRender: state.first_render.isFirstRender,
+    isAuthenticated: state.auth.isAuthenticated,
+    suppliers: state.suppliers.suppliers,
+    isPending: state.suppliers.isPending,
 });
 
-export default connect(mapStateToProps)(App);
+const mapDispatchToProps = (dispatch) => {
+    return {
+        onRequestSuppliers: () => dispatch(requestSuppliers()),
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(App);

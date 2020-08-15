@@ -13,7 +13,6 @@ import s from './SupplierSelection.module.scss';
 
 import { selectSupplier } from '../../actions/change_supplier';
 import { displaySupplier } from '../../actions/selected_supplier';
-import { requestSuppliers } from '../../actions/suppliers';
 import { withRouter } from 'react-router';
 
 const mapStateToProps = (state) => {
@@ -27,7 +26,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onRequestSuppliers: () => dispatch(requestSuppliers()),
     onSelectSupplier: () => dispatch(selectSupplier()),
     onDisplaySupplier: (event) => dispatch(displaySupplier(event.target.innerText)),
   }
@@ -56,10 +54,6 @@ class SupplierSelection extends React.Component {
     this.setState({
       dropdownOpen: !this.state.dropdownOpen,
     });
-  }
-
-  componentDidMount() {
-    this.props.onRequestSuppliers();
   }
 
   render() {
