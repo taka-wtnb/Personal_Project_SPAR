@@ -13,13 +13,15 @@ import ApexChart from 'react-apexcharts';
 //import s from './Charts.module.scss';
 import s from './DashboardOTDChart.module.scss';
 
-import Widget from '../Widget';
+import Widget from '../../Widget/Widget';
 
-import { selectSupplier } from '../../actions/change_supplier';
-import { displaySupplier } from '../../actions/selected_supplier';
+import { selectSupplier } from '../../../actions/change_supplier';
+import { displaySupplier } from '../../../actions/selected_supplier';
+import { selectMonths } from '../../../actions/dashboard_otd_chart_months';
 
-// import cloud from "../../images/cloud_icon.svg";
+//import cloud from "../../images/cloud.svg";
 // import download from "../../images/cloud.png";
+import chartOptions from './chartOptions';
 import config from './config';
 
 const colors = config.chartColors;
@@ -29,8 +31,9 @@ let columnColors = [colors.blue, colors.green, colors.orange, colors.red, colors
 
 const mapStateToProps = (state) => {
   return {
-    suppliers: state.suppliers.suppliers,
+//    suppliers: state.suppliers.suppliers,
     isPending: state.suppliers.isPending,
+    displayedMonths: state.dashboard_otd_chart_months.months,
     // isSupplierSelected: state.change_supplier.isSupplierSelected,
     // selectedSupplier: state.selected_supplier.selectedSupplier,
   }
@@ -40,6 +43,7 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onSelectSupplier: () => dispatch(selectSupplier()),
     onDisplaySupplier: (event) => dispatch(displaySupplier(event.target.innerText)),
+    onSelectMonths: (event) => dispatch(selectMonths(event.target.value)),
   }
 }
 
@@ -58,7 +62,7 @@ const chartData = {
               offsetX: 0,
               offsetY: 0,
               tools: {
-                download: '<img src="/static/media/cloud_icon.c69e7ae2.svg" height="30" width="30"/>',
+                download: '<img src="/static/media/cloud.809bd319.svg" height="30" width="30"/>' | true,
                 selection: false,
                 zoom: false,
                 zoomin: false,
@@ -158,7 +162,6 @@ class DashboardOTDChart extends React.Component {
     this.toggle = this.toggle.bind(this);
     this.select = this.select.bind(this);
     this.state = {
-        displayedMonths: "Past 3 Months",
         dropdownOpen: false,
     }
   }
@@ -171,16 +174,21 @@ class DashboardOTDChart extends React.Component {
 
   select(event) {
     // this.props.onSelectSupplier();
-    // this.props.onDisplaySupplier(event);
+    this.props.onSelectMonths(event);
     this.setState({
-        displayedMonths: event.target.value,
         dropdownOpen: !this.state.dropdownOpen,
     });
   }
 
+  drawChart(supplierName, months) {
+    if (supplierName !== '') {
+
+    }
+  }
+
   render() {
-    //console.log(cloud);
-    const { isPending, } = this.props;
+//    console.log(cloud);
+    const { isPending, selectedSupplier, displayedMonths } = this.props;
     //const { suppliers, isPending, isSupplierSelected, selectedSupplier } = this.props;
 
     // let initialSupplierName = isPending ? '' : suppliers[0].supplier_name;
@@ -191,35 +199,35 @@ class DashboardOTDChart extends React.Component {
     //   )
     // });
 
-    let periodList = months.map((month, i) => {
+    let monthList = months.map((month, i) => {
         return (
           <DropdownItem key={i} value={month} onClick={this.select}>{month}</DropdownItem>
         )
     });
 
     return isPending ? 
-      <h1>Loading...</h1> :
+      <div> </div> :
       (
-
         <Widget>
             <div className={s.root}>
                 <div style={{display: "flex", justifyContent: 'space-between', alignItems: "center"}}>
                     <h3 className="page-title"><span className="fw-semi-bold">On-Time Delivery (%)</span></h3>
                     <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} style={{marginLeft: "40px", alignItems: "stretch"}}>
                     <DropdownToggle caret className="fw-semi-bold text-inverse">
-                        {this.state.displayedMonths}
+                        {displayedMonths}
                     </DropdownToggle>
                     <DropdownMenu>
-                        {periodList}
+                        {monthList}
                     </DropdownMenu>
                     </Dropdown>
                 </div>
             </div>
+            {this.drawChart(selectedSupplier, displayedMonths)}
             <ApexChart 
                 className="sparkline-chart" 
                 height={350} 
                 series={chartData.apex.column.series}
-                options={chartData.apex.column.options}
+                options={chartOptions()}
                 type={"line"}
             />
         </Widget>
