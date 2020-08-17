@@ -26,7 +26,7 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
   return {
     onSelectSupplier: () => dispatch(selectSupplier()),
-    onDisplaySupplier: (event) => dispatch(displaySupplier(event.target.innerText)),
+    onDisplaySupplier: (event) => dispatch(displaySupplier(event.target.value)),
   }
 }
 
@@ -58,11 +58,11 @@ class SupplierSelection extends React.Component {
   render() {
     const { suppliers, isPending, isSupplierSelected, selectedSupplier } = this.props;
 
-    let initialSupplierName = isPending ? '' : suppliers[0].supplier_name;
+    let initialSupplier = isPending ? '' : suppliers[0];
 
     let supplierList = isPending ? [] : suppliers.map((supplier, i) => {
       return (
-        <DropdownItem key={i} onClick={this.select}>{supplier.supplier_name}</DropdownItem>
+        <DropdownItem key={i} value={i} onClick={this.select}>{supplier.supplier_name}</DropdownItem>
       )
     });
 
@@ -71,10 +71,10 @@ class SupplierSelection extends React.Component {
       (
       <div className={s.root}>
         <div style={{display: "flex", alignItems: "center"}}>
-          <h1 className="page-title"><span className="fw-semi-bold">{isSupplierSelected ? selectedSupplier : initialSupplierName}</span></h1>
+          <h1 className="page-title"><span className="fw-semi-bold">{isSupplierSelected ? suppliers[selectedSupplier].supplier_name : initialSupplier.supplier_name}</span></h1>
           <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} style={{marginLeft: "40px", alignItems: "stretch"}}>
             <DropdownToggle caret className="fw-semi-bold text-inverse">
-              {isSupplierSelected ? selectedSupplier : initialSupplierName}
+              {isSupplierSelected ? suppliers[selectedSupplier].supplier_name : initialSupplier.supplier_name}
             </DropdownToggle>
             <DropdownMenu>
               {supplierList}

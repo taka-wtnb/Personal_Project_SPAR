@@ -1,7 +1,7 @@
 import { DISPLAY_SUPPLIER } from '../actions/selected_supplier';
 
 const initialState = {
-    selectedSupplier: ''
+    selectedSupplier: 0
 }
 
 export default function changeSupplier(state=initialState, action={}) {

@@ -1,7 +1,7 @@
 import { DASHBOARD_OTD_CHART_MONTHS } from '../actions/dashboard_otd_chart_months';
 
 const initialState = {
-    months: 'Past 3 Months'
+    months: 'Past 12 Months'
 }
 
 export default function setMonths(state=initialState, action={}) {
