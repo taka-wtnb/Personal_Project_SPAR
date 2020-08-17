@@ -53,6 +53,7 @@ class DashboardOTDChart extends React.Component {
 
   _isMounted = true;
   _isFirstRender = true;
+  _curSupplier = 0;
 
   constructor(props) {
     super(props);
@@ -61,6 +62,9 @@ class DashboardOTDChart extends React.Component {
     this.state = {
         dropdownOpen: false,
         dataForChart: [],
+        // prevSupplier: 0,
+        // curSupplier: 0,
+        // isSupplierChanged: false,
     }
   }
 
@@ -95,9 +99,19 @@ class DashboardOTDChart extends React.Component {
     this._isFirstRender = false;
   }
 
-  getDataForChart(supplier, event) {
+  didSupplierChange(supplier) {
+    if (this._curSupplier !== supplier) {
+      this._curSupplier = supplier;
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
+  getDataForChart(supplier, eventOrMonth) {
     if (supplier.supplier_name !== '') {
-      let months = this._isFirstRender ? 'Past 12 Months' : event.target.value;
+      let months = this._isFirstRender ? 'Past 12 Months' : (eventOrMonth.target != null ? eventOrMonth.target.value : eventOrMonth);
       let startDate, endDate;
 
       let date = new Date();
@@ -128,8 +142,7 @@ class DashboardOTDChart extends React.Component {
           startDate= startDate.getFullYear() + "-" + (startDate.getMonth() + 1) + "-" + startDate.getDate();
           break;
       }
-console.log(startDate);
-console.log(endDate);
+
       let url = new URL("http://localhost:3002/otdchart");
       let params = {supplierId: supplier.id, start: startDate, end: endDate};
       Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
@@ -191,7 +204,7 @@ console.log(endDate);
                     </Dropdown>
                 </div>
             </div>
-            {this._isFirstRender ? this.getDataForChart(suppliers[selectedSupplier], displayedMonths) : null }
+            {(this._isFirstRender || this.didSupplierChange(selectedSupplier)) ? this.getDataForChart(suppliers[selectedSupplier], displayedMonths) : null }
             {this.detectFirstRender()}
             {this.drawChart(this.state.dataForChart)}
         </Widget>

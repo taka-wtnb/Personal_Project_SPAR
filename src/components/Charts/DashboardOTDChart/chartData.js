@@ -3,6 +3,6 @@ export default function chartData(data) {
 
     return [{
         name: "OTD %",
-        data:otdData
+        data: otdData
     }];
 }

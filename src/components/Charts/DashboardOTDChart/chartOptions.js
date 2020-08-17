@@ -13,10 +13,10 @@ export default function chartOptions(data) {
             type: 'line',
             toolbar: {
                 show: true,
-                offsetX: -640,
+                offsetX: 0,
                 offsetY: -10,
                 tools: {
-                    download: false,//'<img src="/static/media/cloud.809bd319.svg" height="30" width="30"/>',
+                    download: '<img src="/static/media/cloud.809bd319.svg" height="30" width="30"/>' | true,
                     selection: false,
                     zoom: false,
                     zoomin: false,
@@ -49,7 +49,8 @@ export default function chartOptions(data) {
                 }
             },
             title: {
-                text: 'Month'
+                text: 'Month',
+                offsetY: 10,
             },
             axisBorder: {
                 show: false
