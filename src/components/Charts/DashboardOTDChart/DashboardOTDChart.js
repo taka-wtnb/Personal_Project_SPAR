@@ -51,6 +51,8 @@ const months = [
 
 class DashboardOTDChart extends React.Component {
 
+  _isMounted = true;
+
   constructor(props) {
     super(props);
     this.toggle = this.toggle.bind(this);
@@ -61,25 +63,75 @@ class DashboardOTDChart extends React.Component {
     }
   }
 
+  componentDidMount() {
+    this._isMounted = true;
+  }
+
+  componentWillUnmount() {
+    this._isMounted = false;
+  }
+
   toggle = () => {
-    this.setState({
-      dropdownOpen: !this.state.dropdownOpen
-    });
+    if (this._isMounted) {
+      this.setState({
+        dropdownOpen: !this.state.dropdownOpen
+      });
+    }
   }
 
   select(event) {
     // this.props.onSelectSupplier();
-    this.props.onSelectMonths(event);
-    this.setState({
-        dropdownOpen: !this.state.dropdownOpen,
-    });
+    if (this._isMounted) {
+      this.props.onSelectMonths(event);
+      this.setState({
+          dropdownOpen: !this.state.dropdownOpen,
+      });
+    }
   }
 
   getDataForChart(supplierName, months) {
     if (supplierName !== '') {
-      fetch('http://localhost:3002/otdchart/?supplierId=4&start=2019-08-01&end=2020-07-31')
+
+      let startDate, endDate;
+
+      let date = new Date();
+      date.setDate(0);
+      endDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+
+      let today = new Date();
+
+      switch (months) {
+        case "Past 3 Months":
+          startDate = new Date(today.getFullYear() - (today.getMonth() - 3 > 0 ? 0 : 1), (today.getMonth() - 3 + 12) % 12, 1);
+          startDate= startDate.getFullYear() + "-" + (startDate.getMonth() + 1) + "-" + startDate.getDate();
+          break;
+        case "Past 6 Months":
+          startDate = new Date(today.getFullYear() - (today.getMonth() - 6 > 0 ? 0 : 1), (today.getMonth() - 6 + 12) % 12, 1);
+          startDate= startDate.getFullYear() + "-" + (startDate.getMonth() + 1) + "-" + startDate.getDate();
+          break;
+        case "Past 9 Months":
+          startDate = new Date(today.getFullYear() - (today.getMonth() - 9 > 0 ? 0 : 1), (today.getMonth() - 9 + 12) % 12, 1);
+          startDate= startDate.getFullYear() + "-" + (startDate.getMonth() + 1) + "-" + startDate.getDate();
+          break;
+        case "Past 12 Months":
+          startDate = new Date(today.getFullYear() - (today.getMonth() - 12 > 0 ? 0 : 1), (today.getMonth() - 12 + 12) % 12, 1);
+          startDate= startDate.getFullYear() + "-" + (startDate.getMonth() + 1) + "-" + startDate.getDate();
+          break;
+        default:
+          startDate = new Date(today.getFullYear() - (today.getMonth() - 3 > 0 ? 0 : 1), (today.getMonth() - 3 + 12) % 12, 1);
+          startDate= startDate.getFullYear() + "-" + (startDate.getMonth() + 1) + "-" + startDate.getDate();
+          break;
+      }
+//       console.log(startDate);
+// console.log(endDate);
+
+      let url = new URL("http://localhost:3002/otdchart");
+      let params = {supplierId: 5, start: startDate, end: endDate};
+      Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+      // fetch('http://localhost:3002/otdchart/?supplierId=4&start=2019-08-01&end=2020-07-31')
+      fetch(url)
       .then(response => response.json())
-      .then(data => this.setState({ dataForChart: data }))
+      .then(this._isMounted ? (data => this.setState({ dataForChart: data })) : console.log(''))
       .catch(err => console.log(err));
     }
   }
