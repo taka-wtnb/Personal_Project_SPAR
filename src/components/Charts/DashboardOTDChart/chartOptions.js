@@ -13,10 +13,10 @@ export default function chartOptions(data) {
             type: 'line',
             toolbar: {
                 show: true,
-                offsetX: 0,
-                offsetY: 0,
+                offsetX: -640,
+                offsetY: -10,
                 tools: {
-                    download: '<img src="/static/media/cloud.809bd319.svg" height="30" width="30"/>' | true,
+                    download: false,//'<img src="/static/media/cloud.809bd319.svg" height="30" width="30"/>',
                     selection: false,
                     zoom: false,
                     zoomin: false,

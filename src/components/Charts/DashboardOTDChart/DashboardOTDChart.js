@@ -52,6 +52,7 @@ const months = [
 class DashboardOTDChart extends React.Component {
 
   _isMounted = true;
+  _isFirstRender = true;
 
   constructor(props) {
     super(props);
@@ -65,6 +66,7 @@ class DashboardOTDChart extends React.Component {
 
   componentDidMount() {
     this._isMounted = true;
+    this._isFirstRender = true;
   }
 
   componentWillUnmount() {
@@ -89,9 +91,13 @@ class DashboardOTDChart extends React.Component {
     }
   }
 
-  getDataForChart(supplier, months) {
-    if (supplier.supplier_name !== '') {
+  detectFirstRender() {
+    this._isFirstRender = false;
+  }
 
+  getDataForChart(supplier, event) {
+    if (supplier.supplier_name !== '') {
+      let months = this._isFirstRender ? 'Past 12 Months' : event.target.value;
       let startDate, endDate;
 
       let date = new Date();
@@ -122,14 +128,15 @@ class DashboardOTDChart extends React.Component {
           startDate= startDate.getFullYear() + "-" + (startDate.getMonth() + 1) + "-" + startDate.getDate();
           break;
       }
-
+console.log(startDate);
+console.log(endDate);
       let url = new URL("http://localhost:3002/otdchart");
       let params = {supplierId: supplier.id, start: startDate, end: endDate};
       Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
       
       fetch(url)
       .then(response => response.json())
-      .then(this._isMounted ? (data => this.setState({ dataForChart: data })) : console.log(''))
+      .then(this._isMounted ? (data => this.setState({ dataForChart: data })) : null)
       .catch(err => console.log(err));
     }
   }
@@ -146,7 +153,6 @@ class DashboardOTDChart extends React.Component {
         />
       );
     }
-
   }
 
   render() {
@@ -164,7 +170,7 @@ class DashboardOTDChart extends React.Component {
 
     let monthList = months.map((month, i) => {
         return (
-          <DropdownItem key={i} value={month} onClick={this.select}>{month}</DropdownItem>
+          <DropdownItem key={i} value={month} onClick={(event) => {this.select(event); this.getDataForChart(suppliers[selectedSupplier], event);}}>{month}</DropdownItem>
         )
     });
 
@@ -185,7 +191,8 @@ class DashboardOTDChart extends React.Component {
                     </Dropdown>
                 </div>
             </div>
-            {this.getDataForChart(suppliers[selectedSupplier], displayedMonths)}
+            {this._isFirstRender ? this.getDataForChart(suppliers[selectedSupplier], displayedMonths) : null }
+            {this.detectFirstRender()}
             {this.drawChart(this.state.dataForChart)}
         </Widget>
     );
