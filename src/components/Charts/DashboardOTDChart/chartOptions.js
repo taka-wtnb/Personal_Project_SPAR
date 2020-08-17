@@ -4,11 +4,10 @@ const colors = config.chartColors;
 
 let columnColors = [colors.blue, colors.green, colors.orange, colors.red, colors.default, colors.gray, colors.teal, colors.pink];
 
-export default function chartOptions() {
+export default function chartOptions(data) {
+    let monthLabels = data.map((row, i) => row.monyy);
+
     return {
-        //       series: [{
-        //         data: [21, 22, 10, 28, 16, 21, 13, 30]
-        //       }],
         chart: {
             height: 350,
             type: 'line',
@@ -38,13 +37,19 @@ export default function chartOptions() {
         dataLabels: {
             enabled: false,
         },
+        markers: {
+            size: 5
+        },
         xaxis: {
-            categories: ['John', 'Joe', 'Jake', 'Amber', 'Peter', 'Mary', 'David', 'Lily'],
+            categories: monthLabels,
             labels: {
                 style: {
                     colors: columnColors,
                     fontSize: '14px'
                 }
+            },
+            title: {
+                text: 'Month'
             },
             axisBorder: {
                 show: false
@@ -57,8 +62,15 @@ export default function chartOptions() {
             labels: {
                 style: {
                     color: colors.textColor,
-                }
-            }
+                },
+            },
+            title: {
+                text: 'Achievement Rate (%)'
+            },
+            tickAmount: 5,
+            min: 0,
+            max: 100,
+            decimalsInFloat: 0,
         },
         tooltip: {
             theme: 'dark'
