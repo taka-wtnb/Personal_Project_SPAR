@@ -10,7 +10,6 @@ import {
 
 import ApexChart from 'react-apexcharts';
 
-//import s from './Charts.module.scss';
 import s from './DashboardOTDChart.module.scss';
 
 import Widget from '../../Widget/Widget';
@@ -19,8 +18,6 @@ import { selectSupplier } from '../../../actions/change_supplier';
 import { displaySupplier } from '../../../actions/selected_supplier';
 import { selectMonths } from '../../../actions/dashboard_otd_chart_months';
 
-//import cloud from "../../images/cloud.svg";
-// import download from "../../images/cloud.png";
 import chartData from './chartData';
 import chartOptions from './chartOptions';
 
@@ -29,7 +26,6 @@ const mapStateToProps = (state) => {
     suppliers: state.suppliers.suppliers,
     isPending: state.suppliers.isPending,
     displayedMonths: state.dashboard_otd_chart_months.months,
-    // isSupplierSelected: state.change_supplier.isSupplierSelected,
     selectedSupplier: state.selected_supplier.selectedSupplier,
   }
 }
@@ -51,7 +47,6 @@ const months = [
 
 class DashboardOTDChart extends React.Component {
 
-  _isMounted = true;
   _isFirstRender = true;
   _curSupplier = 0;
 
@@ -62,37 +57,24 @@ class DashboardOTDChart extends React.Component {
     this.state = {
         dropdownOpen: false,
         dataForChart: [],
-        // prevSupplier: 0,
-        // curSupplier: 0,
-        // isSupplierChanged: false,
     }
   }
 
   componentDidMount() {
-    this._isMounted = true;
     this._isFirstRender = true;
   }
 
-  componentWillUnmount() {
-    this._isMounted = false;
-  }
-
   toggle = () => {
-    if (this._isMounted) {
       this.setState({
         dropdownOpen: !this.state.dropdownOpen
       });
-    }
   }
 
   select(event) {
-    // this.props.onSelectSupplier();
-    if (this._isMounted) {
       this.props.onSelectMonths(event);
       this.setState({
           dropdownOpen: !this.state.dropdownOpen,
       });
-    }
   }
 
   detectFirstRender() {
@@ -149,7 +131,7 @@ class DashboardOTDChart extends React.Component {
       
       fetch(url)
       .then(response => response.json())
-      .then(this._isMounted ? (data => this.setState({ dataForChart: data })) : null)
+      .then(data => this.setState({ dataForChart: data }))
       .catch(err => console.log(err));
     }
   }
@@ -169,17 +151,7 @@ class DashboardOTDChart extends React.Component {
   }
 
   render() {
-//    console.log(cloud);
     const { suppliers, isPending, selectedSupplier, displayedMonths } = this.props;
-    //const { suppliers, isPending, isSupplierSelected, selectedSupplier } = this.props;
-
-    // let initialSupplierName = isPending ? '' : suppliers[0].supplier_name;
-
-    // let supplierList = isPending ? [] : suppliers.map((supplier, i) => {
-    //   return (
-    //     <DropdownItem key={i} onClick={this.select}>{supplier.supplier_name}</DropdownItem>
-    //   )
-    // });
 
     let monthList = months.map((month, i) => {
         return (
