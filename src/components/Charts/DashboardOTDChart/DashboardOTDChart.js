@@ -56,6 +56,7 @@ class DashboardOTDChart extends React.Component {
     this.select = this.select.bind(this);
     this.state = {
         dropdownOpen: false,
+        isStillFetching: true,
         dataForChart: [],
     }
   }
@@ -131,7 +132,7 @@ class DashboardOTDChart extends React.Component {
       
       fetch(url)
       .then(response => response.json())
-      .then(data => this.setState({ dataForChart: data }))
+      .then(data => this.setState({ dataForChart: data, isStillFetching: false }))
       .catch(err => console.log(err));
     }
   }
@@ -178,7 +179,7 @@ class DashboardOTDChart extends React.Component {
             </div>
             {(this._isFirstRender || this.didSupplierChange(selectedSupplier)) ? this.getDataForChart(suppliers[selectedSupplier], displayedMonths) : null }
             {this.detectFirstRender()}
-            {this.drawChart(this.state.dataForChart)}
+            {(this.state.dataForChart.length > 0) ? this.drawChart(this.state.dataForChart) : (this.state.isStillFetching ? <h1>Loading...</h1> : <h1>No Data</h1>)}
         </Widget>
     );
   }
