@@ -16,7 +16,7 @@ import Widget from '../../Widget/Widget';
 
 import { selectSupplier } from '../../../actions/change_supplier';
 import { displaySupplier } from '../../../actions/selected_supplier';
-import { selectMonths } from '../../../actions/dashboard_otd_chart_months';
+import { selectMonths } from '../../../actions/otd_line_chart_months';
 
 import chartData from './chartData';
 import chartOptions from './chartOptions';

@@ -10,13 +10,13 @@ import {
 
 import ApexChart from 'react-apexcharts';
 
-import s from './DashboardOTDChart.module.scss';
+import s from './OTDLineChart.module.scss';
 
 import Widget from '../../Widget/Widget';
 
 import { selectSupplier } from '../../../actions/change_supplier';
 import { displaySupplier } from '../../../actions/selected_supplier';
-import { selectMonths } from '../../../actions/dashboard_otd_chart_months';
+import { selectMonths } from '../../../actions/otd_line_chart_months';
 
 import chartData from './chartData';
 import chartOptions from './chartOptions';
@@ -25,7 +25,7 @@ const mapStateToProps = (state) => {
   return {
     suppliers: state.suppliers.suppliers,
     isPending: state.suppliers.isPending,
-    displayedMonths: state.dashboard_otd_chart_months.months,
+    displayedMonths: state.otd_line_chart_months.months,
     selectedSupplier: state.selected_supplier.selectedSupplier,
   }
 }
@@ -126,7 +126,7 @@ class DashboardOTDChart extends React.Component {
           break;
       }
 
-      let url = new URL("http://localhost:3002/otdchart");
+      let url = new URL("http://localhost:3002/otdlinechart");
       let params = {supplierId: supplier.id, start: startDate, end: endDate};
       Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
       

@@ -2,17 +2,22 @@ import config from './config';
 
 const colors = config.chartColors;
 
-let columnColors = [colors.blue, colors.green, colors.orange, colors.red,  colors.teal, colors.pink,colors.default, colors.gray,];
+let columnColors = [colors.blue, colors.teal, colors.green, colors.orange, colors.red, colors.pink,colors.default, colors.gray,];
 
 export default function chartOptions(data) {
-    let monthLabels = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];//data.map((row, i) => row.monyy);
+    let monthLabels = data.map((row, i) => row.reason);
 
     return {
         labels: monthLabels,
         dataLabels: {
             enabled: true,
             style: {
-                fontSize: '30px',
+                fontSize: '50px',
+                colors: [colors.blue, colors.teal, colors.green, colors.orange, colors.red, colors.pink,colors.default, colors.gray,],
+            },
+            dropShadow: {
+                enabled: true,
+                color: '#000',
             }
         },
         colors: columnColors,
@@ -21,36 +26,42 @@ export default function chartOptions(data) {
             showForSingleSeries: false,
             showForNullSeries: true,
             showForZeroSeries: true,
-            position: 'right',
+            position: 'bottom',
+            fontSize: '14px',
             labels: {
                 colors: '#FFFFFF',
             },
             onItemHover: {
-                highlightDataSeries: false,
+                highlightDataSeries: true,
             },
         },
         plotOptions: {
             pie: {
                 donut: {
+                    // offsetX: 40,
+                    // offsetY: 0,
+                    // customScale: 1,
                     labels: {
                         show: true,
                         name: {
                             show: true,
                             fontSize: '20px',
                             fontWeight: 600,
+                            color: '#FF0000',
                         },
                         value: {
                             show: true,
                             fontSize: '20px',
                             fontWeight: 400,
+                            color: '#FF0000',
                         },
                         total: {
                             show: true,
                             showAlways: true,
                             label: 'Total Cases',
-                            fontSize: '20px',
-                            fontWeight: 600,
-          color: '#FFFFFF',
+                            // fontSize: 30,
+                            // fontWeight: 30,
+                            color: '#FFFFFF',
                         }
                     }
                 }

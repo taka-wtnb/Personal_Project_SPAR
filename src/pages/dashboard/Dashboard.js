@@ -6,7 +6,7 @@ import {
 } from 'reactstrap';
 
 import SupplierSelection from '../../components/SupplierSelection/SupplierSelection';
-import DashboardOTDChart from '../../components/Charts/DashboardOTDChart/DashboardOTDChart';
+import DashboardOTDChart from '../../components/Charts/OTDLineChart/OTDLineChart';
 import Widget from '../../components/Widget';
 
 //import s from './Charts.module.scss';

@@ -6,7 +6,8 @@ import register from './register';
 import suppliers from './suppliers';
 import change_supplier from './change_supplier';
 import selected_supplier from './selected_supplier';
-import dashboard_otd_chart_months from './dashboard_otd_chart_months';
+import otd_line_chart_months from './otd_line_chart_months';
+import otd_pie_chart_months from './otd_pie_chart_months';
 
 export default combineReducers({
   alerts,
@@ -16,5 +17,6 @@ export default combineReducers({
   suppliers,
   change_supplier,
   selected_supplier,
-  dashboard_otd_chart_months,
+  otd_line_chart_months,
+  otd_pie_chart_months,
 });

@@ -16,7 +16,7 @@ import Widget from '../../Widget/Widget';
 
 import { selectSupplier } from '../../../actions/change_supplier';
 import { displaySupplier } from '../../../actions/selected_supplier';
-import { selectMonths } from '../../../actions/dashboard_otd_chart_months';
+import { selectMonths } from '../../../actions/otd_pie_chart_months';
 
 import chartData from './chartData';
 import chartOptions from './chartOptions';
@@ -25,7 +25,7 @@ const mapStateToProps = (state) => {
   return {
     suppliers: state.suppliers.suppliers,
     isPending: state.suppliers.isPending,
-    displayedMonths: state.dashboard_otd_chart_months.months,
+    displayedMonths: state.otd_pie_chart_months.months,
     selectedSupplier: state.selected_supplier.selectedSupplier,
   }
 }
@@ -126,7 +126,7 @@ class OTDPieChart extends React.Component {
           break;
       }
 
-      let url = new URL("http://localhost:3002/otdchart");
+      let url = new URL("http://localhost:3002/otdpiechart");
       let params = {supplierId: supplier.id, start: startDate, end: endDate};
       Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
       
@@ -166,7 +166,7 @@ class OTDPieChart extends React.Component {
         <Widget>
             <div className={s.root}>
                 <div style={{display: "flex", justifyContent: 'space-between', alignItems: "center"}}>
-                    <h3 className="page-title"><span className="fw-semi-bold">On-Time Delivery Performance</span></h3>
+                    <h3 className="page-title"><span className="fw-semi-bold">Delay Reasons</span></h3>
                     <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} style={{marginLeft: "40px", alignItems: "stretch"}}>
                     <DropdownToggle caret className="fw-semi-bold text-inverse">
                         {displayedMonths}
