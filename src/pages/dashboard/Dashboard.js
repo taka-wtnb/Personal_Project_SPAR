@@ -74,10 +74,10 @@ class Dashboard extends React.Component {
         <SupplierSelection />
         <div>
           <Row>
-            <Col lg={7} xs={12}>
+            <Col xl={7} xs={12}>
               <DashboardOTDChart />
             </Col>
-            <Col lg={5} xs={12}>
+            <Col xl={5} xs={12}>
               <Widget
                 title={<h5>Echarts <span className='fw-semi-bold'>Line Chart</span></h5>}
                 close collapse

@@ -84,32 +84,32 @@ class Sidebar extends React.Component {
                         link="/app/main"
                         index="main"
                     />
-                    <h5 className={[s.navTitle, s.groupTitle].join(' ')}>TEMPLATE</h5>
+                    <h5 className={[s.navTitle, s.groupTitle].join(' ')}>BY CATEGORY</h5>
                     <LinksGroup
                         onActiveSidebarItemChange={activeItem => this.props.dispatch(changeActiveSidebarItem(activeItem))}
                         activeItem={this.props.activeItem}
-                        header="Typography"
+                        header="On-Time Delivery"
                         isHeader
-                        iconName="flaticon-network"
-                        link="/app/typography"
+                        iconName="flaticon-hourglass-2"
+                        link="/app/on-time-delivery"
                         index="core"
                     />
                     <LinksGroup
                         onActiveSidebarItemChange={t => this.props.dispatch(changeActiveSidebarItem(t))}
                         activeItem={this.props.activeItem}
-                        header="Tables Basic"
+                        header="Cost Reduction"
                         isHeader
-                        iconName="flaticon-map-location"
-                        link="/app/tables"
+                        iconName="flaticon-price-tag"
+                        link="/app/cost-reduction"
                         index="tables"
                     />
                     <LinksGroup
                         onActiveSidebarItemChange={activeItem => this.props.dispatch(changeActiveSidebarItem(activeItem))}
                         activeItem={this.props.activeItem}
-                        header="Notifications"
+                        header="Quality Management"
                         isHeader
-                        iconName="flaticon-layers"
-                        link="/app/notifications"
+                        iconName="flaticon-checked-1"
+                        link="/app/quality-management"
                         index="ui"
                     />
                     <LinksGroup
