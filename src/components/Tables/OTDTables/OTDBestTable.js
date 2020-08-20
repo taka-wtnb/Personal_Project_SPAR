@@ -191,7 +191,6 @@ class OTDBestTable extends React.Component {
             </div>
             {(this._isFirstRender || this.didSupplierChange(selectedSupplier)) ? this.getDataForTable(suppliers[selectedSupplier], displayedMonths) : null }
             {this.detectFirstRender()}
-
             <div className={s.root}>
               <Widget>
                 <div className="table-responsive">

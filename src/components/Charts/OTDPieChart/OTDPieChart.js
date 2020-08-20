@@ -145,7 +145,7 @@ class OTDPieChart extends React.Component {
           height={350} 
           series={chartData(data)}
           options={chartOptions(data)}
-          type={"donut"}
+          type={"pie"}
         />
       );
     }
@@ -159,6 +159,16 @@ class OTDPieChart extends React.Component {
           <DropdownItem key={i} value={month} onClick={(event) => {this.select(event); this.getDataForChart(suppliers[selectedSupplier], event);}}>{month}</DropdownItem>
         )
     });
+
+    const getTotalCases = () => {
+      let totalCases = this.state.dataForChart.map((data) => {
+        return(
+          parseInt(data.cases)
+        );
+      });
+
+      return totalCases.reduce( (acc, cur) => (acc + cur));
+    }
 
     return isPending ? 
       <div> </div> :
@@ -177,6 +187,13 @@ class OTDPieChart extends React.Component {
                     </Dropdown>
                 </div>
             </div>
+            {this.state.isStillFetching ? <div></div> : 
+              <div className={s.root}>
+                  <div style={{display: "flex", justifyContent: 'center', alignItems: "center"}}>
+                      <h4 className="page-title"><span style={{color:'#FFFFFF', fontWeight:'bold'}}>Total: {getTotalCases()} Cases</span></h4>
+                  </div>
+              </div>
+            }
             {(this._isFirstRender || this.didSupplierChange(selectedSupplier)) ? this.getDataForChart(suppliers[selectedSupplier], displayedMonths) : null }
             {this.detectFirstRender()}
             {(this.state.dataForChart.length > 0) ? this.drawChart(this.state.dataForChart) : (this.state.isStillFetching ? <h1>Loading...</h1> : <h1>No Data</h1>)}
