@@ -2,25 +2,44 @@ import config from './config';
 
 const colors = config.chartColors;
 
-let columnColors = [colors.blue, colors.teal, colors.green, colors.orange, colors.red, colors.pink,colors.default, colors.gray,];
+let chartColors = [colors.blue, colors.teal, colors.green, colors.orange, colors.red, colors.pink,colors.default, colors.gray,];
 
 export default function chartOptions(data) {
     let monthLabels = data.map((row, i) => row.reason);
 
     return {
-        labels: monthLabels,
-        dataLabels: {
-            enabled: true,
-            style: {
-                fontSize: '50px',
-                colors: [colors.blue, colors.teal, colors.green, colors.orange, colors.red, colors.pink,colors.default, colors.gray,],
-            },
-            dropShadow: {
-                enabled: true,
-                color: '#000',
+        chart: {
+            height: 350,
+            type: 'line',
+            toolbar: {
+                show: true,
+                offsetX: 0,
+                offsetY: -10,
+                tools: {
+                    download: '<img src="/static/media/cloud.809bd319.svg" height="30" width="30"/>' | true,
+                    selection: false,
+                    zoom: false,
+                    zoomin: false,
+                    zoomout: false,
+                    pan: false,
+                    reset: false,
+                    customIcons: []
+                }
             }
         },
-        colors: columnColors,
+        labels: monthLabels,
+        // dataLabels: {
+        //     enabled: true,
+        //     style: {
+        //         fontSize: '50px',
+        //         colors: [colors.blue, colors.teal, colors.green, colors.orange, colors.red, colors.pink,colors.default, colors.gray,],
+        //     },
+        //     dropShadow: {
+        //         enabled: true,
+        //         color: '#000',
+        //     }
+        // },
+        colors: chartColors,
         legend: {
             show: true,
             showForSingleSeries: false,
@@ -59,7 +78,7 @@ export default function chartOptions(data) {
                             show: true,
                             showAlways: true,
                             label: 'Total Cases',
-                            // fontSize: 30,
+                            fontSize: '20px',
                             // fontWeight: 30,
                             color: '#FFFFFF',
                         }

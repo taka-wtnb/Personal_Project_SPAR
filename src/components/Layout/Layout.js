@@ -9,7 +9,7 @@ import UIIcons from '../../pages/components/icons';
 import UINotifications from '../../pages/notifications';
 import TablesStatic from '../../pages/tables/static';
 import MapsGoogle from '../../pages/components/maps/google';
-import OTD from '../../pages/otd/otd';
+import OTD from '../../pages/otd/OTD';
 import Charts from '../../pages/components/charts/Charts';
 import Dashboard from '../../pages/dashboard';
 

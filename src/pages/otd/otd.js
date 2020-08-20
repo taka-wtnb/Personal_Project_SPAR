@@ -6,10 +6,11 @@ import {
 } from 'reactstrap';
 
 import SupplierSelection from '../../components/SupplierSelection/SupplierSelection';
-import DashboardOTDChart from '../../components/Charts/OTDLineChart/OTDLineChart';
-import OTDPieChart from '../../components/Charts/OTDPieChart/OTDPieChart'
+import OTDLineChart from '../../components/Charts/OTDLineChart/OTDLineChart';
+import OTDPieChart from '../../components/Charts/OTDPieChart/OTDPieChart';
+import OTDBestTable from '../../components/Tables/OTDTables/OTDBestTable';
 
-import s from './otd.module.scss';
+import s from './OTD.module.scss';
 
 class OTD extends React.Component {
   render() {
@@ -19,12 +20,19 @@ class OTD extends React.Component {
         <div>
           <Row>
             <Col xl={7} xs={12}>
-              <DashboardOTDChart />
+              <OTDLineChart />
             </Col>
             <Col xl={5} xs={12}>
               <OTDPieChart />
             </Col>
-
+          </Row>
+          <Row>
+            <Col xl={6} xs={12}>
+              <OTDBestTable />
+            </Col>
+            <Col xl={6} xs={12}>
+              
+            </Col>
           </Row>
         </div>
       </div>

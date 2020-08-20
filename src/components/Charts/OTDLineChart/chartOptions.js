@@ -2,7 +2,7 @@ import config from './config';
 
 const colors = config.chartColors;
 
-let columnColors = [colors.blue, colors.green, colors.orange, colors.red, colors.default, colors.gray, colors.teal, colors.pink];
+let chartColors = [colors.blue, colors.green, colors.orange, colors.red, colors.default, colors.gray, colors.teal, colors.pink];
 
 export default function chartOptions(data) {
     let monthLabels = data.map((row, i) => row.monyy);
@@ -27,7 +27,7 @@ export default function chartOptions(data) {
                 }
             }
         },
-        colors: columnColors,
+        colors: chartColors,
         plotOptions: {
             bar: {
             columnWidth: '45%',
@@ -44,7 +44,7 @@ export default function chartOptions(data) {
             categories: monthLabels,
             labels: {
                 style: {
-                    colors: columnColors,
+                    colors: chartColors,
                     fontSize: '14px'
                 }
             },

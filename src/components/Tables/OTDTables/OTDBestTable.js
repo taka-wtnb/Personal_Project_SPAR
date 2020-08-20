@@ -2,30 +2,26 @@ import React from 'react';
 import { connect } from 'react-redux';
 
 import {
+  Table,
   Dropdown,
   DropdownToggle,
   DropdownItem,
   DropdownMenu,
 } from 'reactstrap';
 
-import ApexChart from 'react-apexcharts';
-
-import s from './OTDPieChart.module.scss';
+import s from './OTDTables.module.scss';
 
 import Widget from '../../Widget/Widget';
 
 import { selectSupplier } from '../../../actions/change_supplier';
 import { displaySupplier } from '../../../actions/selected_supplier';
-import { selectMonths } from '../../../actions/otd_pie_chart_months';
-
-import chartData from './chartData';
-import chartOptions from './chartOptions';
+import { selectMonths } from '../../../actions/otd_table_months';
 
 const mapStateToProps = (state) => {
   return {
     suppliers: state.suppliers.suppliers,
     isPending: state.suppliers.isPending,
-    displayedMonths: state.otd_pie_chart_months.months,
+    displayedMonths: state.otd_table_months.months,
     selectedSupplier: state.selected_supplier.selectedSupplier,
   }
 }
@@ -45,7 +41,7 @@ const months = [
     "Past 12 Months",
 ];
 
-class OTDPieChart extends React.Component {
+class OTDBestTable extends React.Component {
 
   _isFirstRender = true;
   _curSupplier = 0;
@@ -57,7 +53,7 @@ class OTDPieChart extends React.Component {
     this.state = {
         dropdownOpen: false,
         isStillFetching: true,
-        dataForChart: [],
+        dataForTable: [],
     }
   }
 
@@ -92,7 +88,7 @@ class OTDPieChart extends React.Component {
     }
   }
 
-  getDataForChart(supplier, eventOrMonth) {
+  getDataForTable(supplier, eventOrMonth) {
     if (supplier.supplier_name !== '') {
       let months = this._isFirstRender ? 'Past 12 Months' : (eventOrMonth.target != null ? eventOrMonth.target.value : eventOrMonth);
       let startDate, endDate;
@@ -126,28 +122,14 @@ class OTDPieChart extends React.Component {
           break;
       }
 
-      let url = new URL("http://localhost:3002/otdpiechart");
+      let url = new URL("http://localhost:3002/otdtable");
       let params = {supplierId: supplier.id, start: startDate, end: endDate};
       Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
       
       fetch(url)
       .then(response => response.json())
-      .then(data => this.setState({ dataForChart: data, isStillFetching: false }))
+      .then(data => this.setState({ dataForTable: data, isStillFetching: false }))
       .catch(err => console.log(err));
-    }
-  }
-
-  drawChart(data) {
-    if (data.length > 0) {
-      return(
-        <ApexChart 
-          className="sparkline-chart" 
-          height={350} 
-          series={chartData(data)}
-          options={chartOptions(data)}
-          type={"donut"}
-        />
-      );
     }
   }
 
@@ -156,9 +138,39 @@ class OTDPieChart extends React.Component {
 
     let monthList = months.map((month, i) => {
         return (
-          <DropdownItem key={i} value={month} onClick={(event) => {this.select(event); this.getDataForChart(suppliers[selectedSupplier], event);}}>{month}</DropdownItem>
+          <DropdownItem key={i} value={month} onClick={(event) => {this.select(event); this.getDataForTable(suppliers[selectedSupplier], event);}}>{month}</DropdownItem>
         )
     });
+
+    const createTableRows = () => {
+        let sortedItems = [];
+        let itemList = this.state.dataForTable.map((data, i) => {
+            let otds = parseInt(data.otds);
+            let total = parseInt(data.total);
+            let otdRate = ((otds / total) * 100).toFixed(2);
+            return({
+                itemNum: data.item_num,
+                itemName: data.item_name,
+                rate: otdRate,
+            });
+        });
+        
+        itemList = itemList.sort(function (a, b) {
+            return b.rate - a.rate;
+        });
+
+        for (let i=0; i<3; i++) {
+            sortedItems.push(
+                <tr key={i}>
+                    <td style={{ color:'#DDDDDD'}}>{i+1}</td>
+                    <td style={{ color:'#DDDDDD'}}>{itemList[i].itemNum}</td>
+                    <td style={{ color:'#DDDDDD'}}>{itemList[i].itemName}</td>
+                    <td style={{ color:'#DDDDDD', fontWeight:'bold', textAlign: 'center' }}>{itemList[i].rate}</td>
+                </tr>
+            );
+        }
+        return sortedItems;
+    }
 
     return isPending ? 
       <div> </div> :
@@ -166,7 +178,7 @@ class OTDPieChart extends React.Component {
         <Widget>
             <div className={s.root}>
                 <div style={{display: "flex", justifyContent: 'space-between', alignItems: "center"}}>
-                    <h3 className="page-title"><span className="fw-semi-bold">Delay Reasons</span></h3>
+                    <h3 className="page-title"><span className="fw-semi-bold">Top 3 OTD Performance Items</span></h3>
                     <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} style={{marginLeft: "40px", alignItems: "stretch"}}>
                     <DropdownToggle caret className="fw-semi-bold text-inverse">
                         {displayedMonths}
@@ -177,12 +189,31 @@ class OTDPieChart extends React.Component {
                     </Dropdown>
                 </div>
             </div>
-            {(this._isFirstRender || this.didSupplierChange(selectedSupplier)) ? this.getDataForChart(suppliers[selectedSupplier], displayedMonths) : null }
+            {(this._isFirstRender || this.didSupplierChange(selectedSupplier)) ? this.getDataForTable(suppliers[selectedSupplier], displayedMonths) : null }
             {this.detectFirstRender()}
-            {(this.state.dataForChart.length > 0) ? this.drawChart(this.state.dataForChart) : (this.state.isStillFetching ? <h1>Loading...</h1> : <h1>No Data</h1>)}
+
+            <div className={s.root}>
+              <Widget>
+                <div className="table-responsive">
+                  <Table>
+                    <thead>
+                      <tr>
+                        <th style={{ color:'#EEEEEE'}}>#</th>
+                        <th style={{ color:'#EEEEEE'}}>Item Number</th>
+                        <th style={{ color:'#EEEEEE'}}>Item Name</th>
+                        <th style={{ color:'#EEEEEE'}}>OTD Rate (%)</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                        {this.state.isStillFetching ? null : createTableRows()}
+                    </tbody>
+                  </Table>
+                </div>
+              </Widget>
+            </div>                                                                                                                                                                                                                                                                                                                            
         </Widget>
     );
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(OTDPieChart);
+export default connect(mapStateToProps, mapDispatchToProps)(OTDBestTable);
