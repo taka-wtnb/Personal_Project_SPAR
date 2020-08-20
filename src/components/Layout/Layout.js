@@ -7,7 +7,7 @@ import Hammer from 'rc-hammerjs';
 
 import UIIcons from '../../pages/components/icons';
 import UINotifications from '../../pages/notifications';
-import TablesStatic from '../../pages/tables/static';
+import CostReduction from '../../pages/costReduction/CostReduction';
 import MapsGoogle from '../../pages/components/maps/google';
 import OTD from '../../pages/otd/OTD';
 import Charts from '../../pages/components/charts/Charts';
@@ -82,7 +82,7 @@ class Layout extends React.Component {
                     <Route path="/app/icons" exact component={UIIcons} />
                     <Route path="/app/quality-management" exact component={UINotifications} />
                     <Route path="/app/charts" exact component={Charts} />
-                    <Route path="/app/cost-reduction" exact component={TablesStatic} />
+                    <Route path="/app/cost-reduction" exact component={CostReduction} />
                     <Route path="/app/maps" exact component={MapsGoogle} />
                     <Route path="/app/on-time-delivery" exact component={OTD} />
                   </Switch>
