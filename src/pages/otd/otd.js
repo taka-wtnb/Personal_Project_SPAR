@@ -9,6 +9,7 @@ import SupplierSelection from '../../components/SupplierSelection/SupplierSelect
 import OTDLineChart from '../../components/Charts/OTDLineChart/OTDLineChart';
 import OTDPieChart from '../../components/Charts/OTDPieChart/OTDPieChart';
 import OTDBestTable from '../../components/Tables/OTDTables/OTDBestTable';
+import OTDWorstTable from '../../components/Tables/OTDTables/OTDWorstTable';
 
 import s from './OTD.module.scss';
 
@@ -31,7 +32,7 @@ class OTD extends React.Component {
               <OTDBestTable />
             </Col>
             <Col xl={6} xs={12}>
-              
+              <OTDWorstTable />
             </Col>
           </Row>
         </div>

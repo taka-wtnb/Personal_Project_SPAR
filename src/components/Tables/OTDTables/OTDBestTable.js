@@ -15,13 +15,13 @@ import Widget from '../../Widget/Widget';
 
 import { selectSupplier } from '../../../actions/change_supplier';
 import { displaySupplier } from '../../../actions/selected_supplier';
-import { selectMonths } from '../../../actions/otd_table_months';
+import { selectMonths } from '../../../actions/otd_best_table_months';
 
 const mapStateToProps = (state) => {
   return {
     suppliers: state.suppliers.suppliers,
     isPending: state.suppliers.isPending,
-    displayedMonths: state.otd_table_months.months,
+    displayedMonths: state.otd_best_table_months.months,
     selectedSupplier: state.selected_supplier.selectedSupplier,
   }
 }
@@ -178,7 +178,7 @@ class OTDBestTable extends React.Component {
         <Widget>
             <div className={s.root}>
                 <div style={{display: "flex", justifyContent: 'space-between', alignItems: "center"}}>
-                    <h3 className="page-title"><span className="fw-semi-bold">Top 3 OTD Performance Items</span></h3>
+                    <h3 className="page-title"><span className="fw-semi-bold">Best OTD Performance Items <p style={{ fontWeight:'normal'}}>(Top 3)</p></span></h3>
                     <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} style={{marginLeft: "40px", alignItems: "stretch"}}>
                     <DropdownToggle caret className="fw-semi-bold text-inverse">
                         {displayedMonths}

@@ -8,7 +8,8 @@ import change_supplier from './change_supplier';
 import selected_supplier from './selected_supplier';
 import otd_line_chart_months from './otd_line_chart_months';
 import otd_pie_chart_months from './otd_pie_chart_months';
-import otd_table_months from './otd_table_months';
+import otd_best_table_months from './otd_best_table_months';
+import otd_worst_table_months from './otd_worst_table_months';
 
 export default combineReducers({
   alerts,
@@ -20,5 +21,6 @@ export default combineReducers({
   selected_supplier,
   otd_line_chart_months,
   otd_pie_chart_months,
-  otd_table_months,
+  otd_best_table_months,
+  otd_worst_table_months,
 });
