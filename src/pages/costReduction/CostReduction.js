@@ -14,8 +14,6 @@ import OTDWorstTable from '../../components/Tables/OTDTables/OTDWorstTable';
 
 import s from './CostReduction.module.scss';
 
-
-
 class CostReduction extends React.Component {
   render() {
     return( 

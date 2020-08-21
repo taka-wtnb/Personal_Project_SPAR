@@ -48,6 +48,7 @@ const months = [
 
 class CostReductionLineChart extends React.Component {
 
+  _isUnmounted = false;
   _isFirstRender = true;
   _curSupplier = 0;
 
@@ -66,17 +67,25 @@ class CostReductionLineChart extends React.Component {
     this._isFirstRender = true;
   }
 
+  componentWillUnmount() {
+    this._isUnmounted = true;
+  }
+
   toggle = () => {
+    if(!this._isUnmounted) {
       this.setState({
         dropdownOpen: !this.state.dropdownOpen
       });
+    }
   }
 
   select(event) {
-      this.props.onSelectMonths(event);
+    this.props.onSelectMonths(event);
+    if(!this._isUnmounted) {
       this.setState({
-          dropdownOpen: !this.state.dropdownOpen,
+        dropdownOpen: !this.state.dropdownOpen,
       });
+    }
   }
 
   detectFirstRender() {
@@ -133,7 +142,7 @@ class CostReductionLineChart extends React.Component {
       
       fetch(url)
       .then(response => response.json())
-      .then(data => this.setState({ dataForChart: data, isStillFetching: false }))
+      .then(data => !this._isUnmounted ? this.setState({ dataForChart: data, isStillFetching: false }) : null)
       .catch(err => console.log(err));
     }
   }
