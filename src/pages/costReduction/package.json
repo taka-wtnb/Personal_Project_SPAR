@@ -1,5 +1,5 @@
 {
-  "name": "costReduction",
+  "name": "cost_reduction",
   "version": "0.0.0",
   "private": true,
   "main": "./CostReduction.js"

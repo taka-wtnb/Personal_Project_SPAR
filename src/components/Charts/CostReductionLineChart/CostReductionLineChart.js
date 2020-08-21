@@ -10,13 +10,14 @@ import {
 
 import ApexChart from 'react-apexcharts';
 
-import s from './OTDLineChart.module.scss';
+import s from './CostReductionLineChart.module.scss';
 
 import Widget from '../../Widget/Widget';
 
 import { selectSupplier } from '../../../actions/change_supplier';
 import { displaySupplier } from '../../../actions/selected_supplier';
 import { selectMonths } from '../../../actions/otd_line_chart_months';
+import ItemSelection from '../../ItemSelection/ItemSelection';
 
 import chartData from './chartData';
 import chartOptions from './chartOptions';
@@ -45,7 +46,7 @@ const months = [
     "Past 12 Months",
 ];
 
-class OTDLineChart extends React.Component {
+class CostReductionLineChart extends React.Component {
 
   _isFirstRender = true;
   _curSupplier = 0;
@@ -177,6 +178,7 @@ class OTDLineChart extends React.Component {
                     </Dropdown>
                 </div>
             </div>
+            <ItemSelection />
             {(this._isFirstRender || this.didSupplierChange(selectedSupplier)) ? this.getDataForChart(suppliers[selectedSupplier], displayedMonths) : null }
             {this.detectFirstRender()}
             {(this.state.dataForChart.length > 0) ? this.drawChart(this.state.dataForChart) : (this.state.isStillFetching ? <h1>Loading...</h1> : <h1>No Data</h1>)}
@@ -185,4 +187,4 @@ class OTDLineChart extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(OTDLineChart);
+export default connect(mapStateToProps, mapDispatchToProps)(CostReductionLineChart);

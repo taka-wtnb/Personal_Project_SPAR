@@ -14,6 +14,7 @@ import Login from '../pages/login';
 import Register from '../pages/register';
 import { logoutUser } from '../actions/user';
 import { requestSuppliers } from '../actions/suppliers';
+import { requestItems } from '../actions/items';
 
 const PrivateRoute = ({dispatch, component, ...rest }) => {
     if (!Login.isAuthenticated(JSON.parse(localStorage.getItem('authenticated')))) {
@@ -32,6 +33,7 @@ class App extends React.PureComponent {
 
     componentDidMount() {
         this.props.onRequestSuppliers();
+        this.props.onRequestItems();
     }
 
     render() {
@@ -69,6 +71,7 @@ const mapStateToProps = state => ({
 const mapDispatchToProps = (dispatch) => {
     return {
         onRequestSuppliers: () => dispatch(requestSuppliers()),
+        onRequestItems: () => dispatch(requestItems()),
     }
 }
 
