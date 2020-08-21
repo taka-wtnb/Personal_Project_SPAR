@@ -17,7 +17,7 @@ import Widget from '../../Widget/Widget';
 import { selectSupplier } from '../../../actions/change_supplier';
 import { displaySupplier } from '../../../actions/selected_supplier';
 import { selectMonths } from '../../../actions/otd_line_chart_months';
-import ItemSelection from '../../ItemSelection/ItemSelection';
+import ItemSelection from './ItemSelectionForCostReductionLineChart';
 
 import chartData from './chartData';
 import chartOptions from './chartOptions';

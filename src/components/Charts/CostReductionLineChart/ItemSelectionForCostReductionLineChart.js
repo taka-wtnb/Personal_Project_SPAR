@@ -9,17 +9,17 @@ import {
 } from 'reactstrap';
 
 //import s from './Charts.module.scss';
-import s from './ItemSelection.module.scss';
+import s from '../../ItemSelection/ItemSelection.module.scss';
 
-import { selectItem } from '../../actions/change_cost_reduction_item';
-import { displayItem } from '../../actions/selected_cost_reduction_item';
+import { selectItem } from '../../../actions/change_item_for_cost_reduction_line_chart';
+import { displayItem } from '../../../actions/selected_cost_reduction_item';
 // import { requestData } from '../../actions/dashboard_otd_chart_data';
 
 const mapStateToProps = (state) => {
   return {
     items: state.items.items,
     isPending: state.items.isPending,
-    isItemSelected: state.change_cost_reduction_item.isItemSelected,
+    isItemSelected: state.change_item_for_cost_reduction_line_chart.isItemSelected,
     selectedItem: state.selected_cost_reduction_item.selectedItem,
   }
 }
@@ -61,24 +61,32 @@ class ItemSelection extends React.Component {
   render() {
     const { items, isPending, isItemSelected, selectedItem } = this.props;
 
-    const initialItem = 'ALL ITEMS';
+    let initialItem = isPending ? '' : items[0];
 
-    const getItemList = () => {
-      let tempList = items.map((item) => item.item_num);
-      tempList.unshift('ALL ITEMS');
-      return tempList;
-    };
+    let itemList = isPending ? [] : items.map((item, i) => {
+      return (
+        <DropdownItem key={i} value={i} onClick={this.select}>{item.item_num}</DropdownItem>
+      )
+    });
 
-    const itemNameList = getItemList();
+    // const initialItem = 'ALL ITEMS';
 
-    const getDropdownList = (itemNames) => {
-      let itemDropdownList = itemNames.map((itemName, i) => {
-        return (
-          <DropdownItem key={i} value={i} onClick={this.select}>{itemName}</DropdownItem>
-        )
-      });
-      return itemDropdownList;
-    }
+    // const getItemList = () => {
+    //   let tempList = items.map((item) => item.item_num);
+    //   tempList.unshift('ALL ITEMS');
+    //   return tempList;
+    // };
+
+    // const itemNameList = getItemList();
+
+    // const getDropdownList = (itemNames) => {
+    //   let itemDropdownList = itemNames.map((itemName, i) => {
+    //     return (
+    //       <DropdownItem key={i} value={i} onClick={this.select}>{itemName}</DropdownItem>
+    //     )
+    //   });
+    //   return itemDropdownList;
+    // }
 
     return isPending ? 
       <h1>Loading...</h1> :
@@ -88,10 +96,10 @@ class ItemSelection extends React.Component {
           <h6 className="page-title"><span style={{fontWeight: "bold"}}>Select an Item # :</span></h6>
           <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} style={{marginLeft: "10px", alignItems: "stretch"}}>
             <DropdownToggle caret className="fw-semi-bold text-inverse">
-              {isItemSelected ? itemNameList[selectedItem] : initialItem}
+              {isItemSelected ? items[selectedItem].item_num : initialItem.item_num}
             </DropdownToggle>
             <DropdownMenu>
-              {isPending ? [] : getDropdownList(itemNameList)}
+              {itemList}
             </DropdownMenu>
           </Dropdown>
         </div>
