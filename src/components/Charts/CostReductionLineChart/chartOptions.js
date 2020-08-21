@@ -5,7 +5,7 @@ const colors = config.chartColors;
 let chartColors = [colors.blue, colors.green, colors.orange, colors.red, colors.default, colors.gray, colors.teal, colors.pink];
 
 export default function chartOptions(data) {
-    let monthLabels = data.map((row, i) => row.monyy);
+    let monthLabels = data.map((row, i) => row.order_date);
 
     return {
         chart: {
@@ -41,6 +41,7 @@ export default function chartOptions(data) {
             size: 5
         },
         xaxis: {
+            type: 'datetime',
             categories: monthLabels,
             labels: {
                 style: {
@@ -50,7 +51,7 @@ export default function chartOptions(data) {
             },
             title: {
                 text: 'Month',
-                offsetY: 10,
+                offsetY: 15,
             },
             axisBorder: {
                 show: false
@@ -66,11 +67,11 @@ export default function chartOptions(data) {
                 },
             },
             title: {
-                text: 'Achievement Rate (%)'
+                text: 'Price per Unit ($)'
             },
-            tickAmount: 5,
-            min: 0,
-            max: 100,
+            // tickAmount: 5,
+            // min: 0,
+            // max: 100,
             decimalsInFloat: 0,
         },
         tooltip: {
