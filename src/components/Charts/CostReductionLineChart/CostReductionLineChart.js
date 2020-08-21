@@ -14,11 +14,7 @@ import s from './CostReductionLineChart.module.scss';
 
 import Widget from '../../Widget/Widget';
 
-// import { selectSupplier } from '../../../actions/change_supplier';
-// import { displaySupplier } from '../../../actions/selected_supplier';
-import { selectMonths } from '../../../actions/otd_line_chart_months';
-// import { selectItem } from '../../../actions/change_item_for_cost_reduction_line_chart';
-// import { displayItem } from '../../../actions/selected_cost_reduction_item';
+import { selectMonths } from '../../../actions/cost_reduction_line_chart_months';
 import ItemSelection from './ItemSelectionForCostReductionLineChart';
 
 import chartData from './chartData';
@@ -28,7 +24,7 @@ const mapStateToProps = (state) => {
   return {
     suppliers: state.suppliers.suppliers,
     isPending: state.suppliers.isPending,
-    displayedMonths: state.otd_line_chart_months.months,
+    displayedMonths: state.cost_reduction_line_chart_months.months,
     selectedSupplier: state.selected_supplier.selectedSupplier,
     items: state.items.items,
     isItemPending: state.items.isPending,

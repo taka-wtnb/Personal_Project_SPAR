@@ -13,6 +13,7 @@ import otd_line_chart_months from './otd_line_chart_months';
 import otd_pie_chart_months from './otd_pie_chart_months';
 import otd_best_table_months from './otd_best_table_months';
 import otd_worst_table_months from './otd_worst_table_months';
+import cost_reduction_line_chart_months from './cost_reduction_line_chart_months';
 
 export default combineReducers({
   alerts,
@@ -29,4 +30,5 @@ export default combineReducers({
   otd_pie_chart_months,
   otd_best_table_months,
   otd_worst_table_months,
+  cost_reduction_line_chart_months,
 });

@@ -1,4 +1,4 @@
-import { OTD_LINE_CHART_MONTHS } from '../actions/otd_line_chart_months';
+import { COST_REDUCTION_LINE_CHART_MONTHS } from '../actions/cost_reduction_line_chart_months';
 
 const initialState = {
     months: 'Past 12 Months'
@@ -6,7 +6,7 @@ const initialState = {
 
 export default function setMonths(state=initialState, action={}) {
     switch (action.type) {
-        case OTD_LINE_CHART_MONTHS:
+        case COST_REDUCTION_LINE_CHART_MONTHS:
             return Object.assign({}, state, {months: action.payload})
         default:
             return state
