@@ -161,10 +161,10 @@ class CostReductionPieChart extends React.Component {
         Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
       }   
       
-        fetch(url)
-        .then(response => response.json())
-        .then(data => !this._isUnmounted ? this.setState({ dataForChart: data, isStillFetching: false }) : null)
-        .catch(err => console.log(err));
+      fetch(url)
+      .then(response => response.json())
+      .then(data => !this._isUnmounted ? this.setState({ dataForChart: data, isStillFetching: false }) : null)
+      .catch(err => console.log(err));
       
     }
   }

@@ -8,9 +8,11 @@ import change_supplier from './change_supplier';
 import selected_supplier from './selected_supplier';
 import items from './items';
 import change_item_for_otd_line_chart from './change_item_for_otd_line_chart';
+import change_item_for_otd_pie_chart from './change_item_for_otd_pie_chart';
 import change_item_for_cost_reduction_line_chart from './change_item_for_cost_reduction_line_chart';
 import change_item_for_cost_reduction_pie_chart from './change_item_for_cost_reduction_pie_chart';
 import selected_otd_line_chart_item from './selected_otd_line_chart_item';
+import selected_otd_pie_chart_item from './selected_otd_pie_chart_item';
 import selected_cost_reduction_line_chart_item from './selected_cost_reduction_line_chart_item';
 import selected_cost_reduction_pie_chart_item from './selected_cost_reduction_pie_chart_item';
 import otd_line_chart_months from './otd_line_chart_months';
@@ -30,9 +32,11 @@ export default combineReducers({
   selected_supplier,
   items,
   change_item_for_otd_line_chart,
+  change_item_for_otd_pie_chart,
   change_item_for_cost_reduction_line_chart,
   change_item_for_cost_reduction_pie_chart,
   selected_otd_line_chart_item,
+  selected_otd_pie_chart_item,
   selected_cost_reduction_line_chart_item,
   selected_cost_reduction_pie_chart_item,
   otd_line_chart_months,

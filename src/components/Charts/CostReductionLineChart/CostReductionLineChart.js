@@ -187,7 +187,7 @@ class CostReductionLineChart extends React.Component {
         <Widget>
             <div className={s.root}>
                 <div style={{display: "flex", justifyContent: 'space-between', alignItems: "center"}}>
-                    <h3 className="page-title"><span className="fw-semi-bold">Unit Price Historical Chart by Item</span></h3>
+                    <h3 className="page-title"><span className="fw-semi-bold">Unit Price Trend by Item</span></h3>
                     <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} style={{marginLeft: "40px", alignItems: "stretch"}}>
                     <DropdownToggle caret className="fw-semi-bold text-inverse">
                         {displayedMonths}
