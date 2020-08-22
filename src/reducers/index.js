@@ -9,13 +9,16 @@ import selected_supplier from './selected_supplier';
 import items from './items';
 import change_item_for_otd_line_chart from './change_item_for_otd_line_chart';
 import change_item_for_cost_reduction_line_chart from './change_item_for_cost_reduction_line_chart';
-import selected_otd_item from './selected_otd_item';
-import selected_cost_reduction_item from './selected_cost_reduction_item';
+import change_item_for_cost_reduction_pie_chart from './change_item_for_cost_reduction_pie_chart';
+import selected_otd_line_chart_item from './selected_otd_line_chart_item';
+import selected_cost_reduction_line_chart_item from './selected_cost_reduction_line_chart_item';
+import selected_cost_reduction_pie_chart_item from './selected_cost_reduction_pie_chart_item';
 import otd_line_chart_months from './otd_line_chart_months';
 import otd_pie_chart_months from './otd_pie_chart_months';
 import otd_best_table_months from './otd_best_table_months';
 import otd_worst_table_months from './otd_worst_table_months';
 import cost_reduction_line_chart_months from './cost_reduction_line_chart_months';
+import cost_reduction_pie_chart_months from './cost_reduction_pie_chart_months';
 
 export default combineReducers({
   alerts,
@@ -28,11 +31,14 @@ export default combineReducers({
   items,
   change_item_for_otd_line_chart,
   change_item_for_cost_reduction_line_chart,
-  selected_otd_item,
-  selected_cost_reduction_item,
+  change_item_for_cost_reduction_pie_chart,
+  selected_otd_line_chart_item,
+  selected_cost_reduction_line_chart_item,
+  selected_cost_reduction_pie_chart_item,
   otd_line_chart_months,
   otd_pie_chart_months,
   otd_best_table_months,
   otd_worst_table_months,
   cost_reduction_line_chart_months,
+  cost_reduction_pie_chart_months,
 });

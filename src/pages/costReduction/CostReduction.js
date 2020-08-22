@@ -8,7 +8,7 @@ import {
 import SupplierSelection from '../../components/SupplierSelection/SupplierSelection';
 
 import CostReductionLineChart from '../../components/Charts/CostReductionLineChart/CostReductionLineChart';
-import OTDPieChart from '../../components/Charts/OTDPieChart/OTDPieChart';
+import CostReductionPieChart from '../../components/Charts/CostReductionPieChart/CostReductionPieChart';
 import OTDBestTable from '../../components/Tables/OTDTables/OTDBestTable';
 import OTDWorstTable from '../../components/Tables/OTDTables/OTDWorstTable';
 
@@ -19,14 +19,13 @@ class CostReduction extends React.Component {
     return( 
       <div className={s.root}>
         <SupplierSelection />
-        {/* <ItemSelection /> */}
         <div>
           <Row>
             <Col xl={7} xs={12}>
               <CostReductionLineChart />
             </Col>
             <Col xl={5} xs={12}>
-              <OTDPieChart />
+              <CostReductionPieChart />
             </Col>
           </Row>
           <Row>

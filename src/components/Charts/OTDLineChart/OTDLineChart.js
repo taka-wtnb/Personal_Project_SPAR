@@ -31,7 +31,7 @@ const mapStateToProps = (state) => {
     selectedSupplier: state.selected_supplier.selectedSupplier,
     items: state.items.items,
     isItemPending: state.items.isPending,
-    selectedItem: state.selected_otd_item.selectedItem,
+    selectedItem: state.selected_otd_line_chart_item.selectedItem,
   }
 }
 

@@ -12,7 +12,7 @@ import {
 import s from '../../ItemSelection/ItemSelection.module.scss';
 
 import { selectItem } from '../../../actions/change_item_for_otd_line_chart';
-import { displayItem } from '../../../actions/selected_otd_item';
+import { displayItem } from '../../../actions/selected_otd_line_chart_item';
 // import { requestData } from '../../actions/dashboard_otd_chart_data';
 
 const mapStateToProps = (state) => {
@@ -20,7 +20,7 @@ const mapStateToProps = (state) => {
     items: state.items.items,
     isPending: state.items.isPending,
     isItemSelected: state.change_item_for_otd_line_chart.isItemSelected,
-    selectedItem: state.selected_otd_item.selectedItem,
+    selectedItem: state.selected_otd_line_chart_item.selectedItem,
   }
 }
 

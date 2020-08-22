@@ -10,13 +10,15 @@ import {
 
 import ApexChart from 'react-apexcharts';
 
-import s from './CostReductionLineChart.module.scss';
+import s from './CostReductionPieChart.module.scss';
 
 import Widget from '../../Widget/Widget';
 
-import { selectMonths } from '../../../actions/cost_reduction_line_chart_months';
+import { selectSupplier } from '../../../actions/change_supplier';
+import { displaySupplier } from '../../../actions/selected_supplier';
+import { selectMonths } from '../../../actions/cost_reduction_pie_chart_months';
 
-import ItemSelection from './ItemSelectionForCostReductionLineChart';
+import ItemSelection from './ItemSelectionForCostReductionPieChart';
 
 import chartData from './chartData';
 import chartOptions from './chartOptions';
@@ -25,16 +27,15 @@ const mapStateToProps = (state) => {
   return {
     suppliers: state.suppliers.suppliers,
     isPending: state.suppliers.isPending,
-    displayedMonths: state.cost_reduction_line_chart_months.months,
+    displayedMonths: state.cost_reduction_pie_chart_months.months,
     selectedSupplier: state.selected_supplier.selectedSupplier,
-    items: state.items.items,
-    isItemPending: state.items.isPending,
-    selectedItem: state.selected_cost_reduction_line_chart_item.selectedItem,
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
+    onSelectSupplier: () => dispatch(selectSupplier()),
+    onDisplaySupplier: (event) => dispatch(displaySupplier(event.target.innerText)),
     onSelectMonths: (event) => dispatch(selectMonths(event.target.value)),
   }
 }
@@ -46,12 +47,11 @@ const months = [
     "Past 12 Months",
 ];
 
-class CostReductionLineChart extends React.Component {
+class CostReductionPieChart extends React.Component {
 
   _isUnmounted = false;
   _isFirstRender = true;
   _curSupplier = 0;
-  _curItem = 0;
 
   constructor(props) {
     super(props);
@@ -103,18 +103,8 @@ class CostReductionLineChart extends React.Component {
     }
   }
 
-  didItemChange(item) {
-    if (this._curItem !== item) {
-      this._curItem = item;
-      return true;
-    }
-    else {
-      return false;
-    }
-  }
-
-  getDataForChart(supplier, item, eventOrMonth) {
-    if ((supplier.supplier_name !== '') && (item.item_num !== '')) {
+  getDataForChart(supplier, eventOrMonth) {
+    if (supplier.supplier_name !== '') {
       let months = this._isFirstRender ? 'Past 12 Months' : (eventOrMonth.target != null ? eventOrMonth.target.value : eventOrMonth);
       let startDate, endDate;
 
@@ -147,14 +137,16 @@ class CostReductionLineChart extends React.Component {
           break;
       }
 
-      let url = new URL("http://localhost:3002/costreductionlinechart");
-      let params = {supplierId: supplier.id, itemId: item.id, start: startDate, end: endDate};
+      let url = new URL("http://localhost:3002/otdpiechart");
+      let params = {supplierId: supplier.id, start: startDate, end: endDate};
       Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
- 
-      fetch(url)
-      .then(response => response.json())
-      .then(data => !this._isUnmounted ? this.setState({ dataForChart: data, isStillFetching: false }) : null)
-      .catch(err => console.log(err));
+      
+      
+        fetch(url)
+        .then(response => response.json())
+        .then(data => !this._isUnmounted ? this.setState({ dataForChart: data, isStillFetching: false }) : null)
+        .catch(err => console.log(err));
+      
     }
   }
 
@@ -166,28 +158,38 @@ class CostReductionLineChart extends React.Component {
           height={350} 
           series={chartData(data)}
           options={chartOptions(data)}
-          type={"line"}
+          type={"pie"}
         />
       );
     }
   }
 
   render() {
-    const { suppliers, isPending, selectedSupplier, displayedMonths, items, isItemPending, selectedItem } = this.props;
+    const { suppliers, isPending, selectedSupplier, displayedMonths } = this.props;
 
     let monthList = months.map((month, i) => {
         return (
-          <DropdownItem key={i} value={month} onClick={(event) => {this.select(event); this.getDataForChart(suppliers[selectedSupplier], items[selectedItem], event);}}>{month}</DropdownItem>
+          <DropdownItem key={i} value={month} onClick={(event) => {this.select(event); this.getDataForChart(suppliers[selectedSupplier], event);}}>{month}</DropdownItem>
         )
     });
 
-    return (isPending || isItemPending) ? 
+    const getTotalCases = () => {
+      let totalCases = this.state.dataForChart.map((data) => {
+        return(
+          parseInt(data.cases)
+        );
+      });
+
+      return totalCases.reduce( (acc, cur) => (acc + cur));
+    }
+
+    return isPending ? 
       <div> </div> :
       (
         <Widget>
             <div className={s.root}>
                 <div style={{display: "flex", justifyContent: 'space-between', alignItems: "center"}}>
-                    <h3 className="page-title"><span className="fw-semi-bold">Unit Price Historical Chart by Item</span></h3>
+                    <h3 className="page-title"><span className="fw-semi-bold">Price Increase Reasons</span></h3>
                     <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} style={{marginLeft: "40px", alignItems: "stretch"}}>
                     <DropdownToggle caret className="fw-semi-bold text-inverse">
                         {displayedMonths}
@@ -199,7 +201,14 @@ class CostReductionLineChart extends React.Component {
                 </div>
             </div>
             <ItemSelection />
-            {(this._isFirstRender || this.didSupplierChange(selectedSupplier) || this.didItemChange(selectedItem)) ? this.getDataForChart(suppliers[selectedSupplier], items[selectedItem], displayedMonths) : null }
+            {this.state.isStillFetching ? <div></div> : 
+              <div className={s.root}>
+                  <div style={{display: "flex", justifyContent: 'center', alignItems: "center"}}>
+                      <h4 className="page-title"><span style={{color:'#FFFFFF', fontWeight:'bold'}}>Total: {getTotalCases()} Cases</span></h4>
+                  </div>
+              </div>
+            }
+            {(this._isFirstRender || this.didSupplierChange(selectedSupplier)) ? this.getDataForChart(suppliers[selectedSupplier], displayedMonths) : null }
             {this.detectFirstRender()}
             {(this.state.dataForChart.length > 0) ? this.drawChart(this.state.dataForChart) : (this.state.isStillFetching ? <h1>Loading...</h1> : <h1>No Data</h1>)}
         </Widget>
@@ -207,4 +216,4 @@ class CostReductionLineChart extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CostReductionLineChart);
+export default connect(mapStateToProps, mapDispatchToProps)(CostReductionPieChart);
