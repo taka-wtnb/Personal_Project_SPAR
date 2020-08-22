@@ -14,8 +14,6 @@ import s from './CostReductionPieChart.module.scss';
 
 import Widget from '../../Widget/Widget';
 
-import { selectSupplier } from '../../../actions/change_supplier';
-import { displaySupplier } from '../../../actions/selected_supplier';
 import { selectMonths } from '../../../actions/cost_reduction_pie_chart_months';
 
 import ItemSelection from './ItemSelectionForCostReductionPieChart';
@@ -29,13 +27,14 @@ const mapStateToProps = (state) => {
     isPending: state.suppliers.isPending,
     displayedMonths: state.cost_reduction_pie_chart_months.months,
     selectedSupplier: state.selected_supplier.selectedSupplier,
+    items: state.items.items,
+    isItemPending: state.items.isPending,
+    selectedItem: state.selected_cost_reduction_pie_chart_item.selectedItem,
   }
 }
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    onSelectSupplier: () => dispatch(selectSupplier()),
-    onDisplaySupplier: (event) => dispatch(displaySupplier(event.target.innerText)),
     onSelectMonths: (event) => dispatch(selectMonths(event.target.value)),
   }
 }
@@ -52,6 +51,7 @@ class CostReductionPieChart extends React.Component {
   _isUnmounted = false;
   _isFirstRender = true;
   _curSupplier = 0;
+  _curItem = 0;
 
   constructor(props) {
     super(props);
@@ -103,8 +103,18 @@ class CostReductionPieChart extends React.Component {
     }
   }
 
-  getDataForChart(supplier, eventOrMonth) {
-    if (supplier.supplier_name !== '') {
+  didItemChange(item) {
+    if (this._curItem !== item) {
+      this._curItem = item;
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
+  getDataForChart(supplier, itemList, itemIndex, eventOrMonth) {
+    if ((supplier.supplier_name !== '') && (itemList.length > 0)) {
       let months = this._isFirstRender ? 'Past 12 Months' : (eventOrMonth.target != null ? eventOrMonth.target.value : eventOrMonth);
       let startDate, endDate;
 
@@ -137,10 +147,19 @@ class CostReductionPieChart extends React.Component {
           break;
       }
 
-      let url = new URL("http://localhost:3002/otdpiechart");
-      let params = {supplierId: supplier.id, start: startDate, end: endDate};
-      Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
-      
+      let url;
+      let params;
+
+      if (parseInt(itemIndex) === 0) {
+        url = new URL("http://localhost:3002/costreductionpiechart");
+        let params = {supplierId: supplier.id, start: startDate, end: endDate};
+        Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+      }
+      else {
+        url = new URL("http://localhost:3002/costreductionpiechartbyitem");
+        params = {supplierId: supplier.id, itemId: itemList[itemIndex-1].id, start: startDate, end: endDate};
+        Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
+      }   
       
         fetch(url)
         .then(response => response.json())
@@ -165,25 +184,25 @@ class CostReductionPieChart extends React.Component {
   }
 
   render() {
-    const { suppliers, isPending, selectedSupplier, displayedMonths } = this.props;
+    const { suppliers, isPending, selectedSupplier, displayedMonths, items, isItemPending, selectedItem } = this.props;
 
     let monthList = months.map((month, i) => {
         return (
-          <DropdownItem key={i} value={month} onClick={(event) => {this.select(event); this.getDataForChart(suppliers[selectedSupplier], event);}}>{month}</DropdownItem>
+          <DropdownItem key={i} value={month} onClick={(event) => {this.select(event); this.getDataForChart(suppliers[selectedSupplier], items, selectedItem, event);}}>{month}</DropdownItem>
         )
     });
 
     const getTotalCases = () => {
       let totalCases = this.state.dataForChart.map((data) => {
         return(
-          parseInt(data.cases)
+          parseInt(data.total)
         );
       });
 
       return totalCases.reduce( (acc, cur) => (acc + cur));
     }
 
-    return isPending ? 
+    return (isPending || isItemPending) ? 
       <div> </div> :
       (
         <Widget>
@@ -208,7 +227,7 @@ class CostReductionPieChart extends React.Component {
                   </div>
               </div>
             }
-            {(this._isFirstRender || this.didSupplierChange(selectedSupplier)) ? this.getDataForChart(suppliers[selectedSupplier], displayedMonths) : null }
+            {(this._isFirstRender || this.didSupplierChange(selectedSupplier) || this.didItemChange(selectedItem)) ? this.getDataForChart(suppliers[selectedSupplier], items, selectedItem, displayedMonths) : null }
             {this.detectFirstRender()}
             {(this.state.dataForChart.length > 0) ? this.drawChart(this.state.dataForChart) : (this.state.isStillFetching ? <h1>Loading...</h1> : <h1>No Data</h1>)}
         </Widget>

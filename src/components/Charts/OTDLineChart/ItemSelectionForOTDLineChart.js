@@ -8,12 +8,10 @@ import {
   DropdownMenu,
 } from 'reactstrap';
 
-//import s from './Charts.module.scss';
 import s from '../../ItemSelection/ItemSelection.module.scss';
 
 import { selectItem } from '../../../actions/change_item_for_otd_line_chart';
 import { displayItem } from '../../../actions/selected_otd_line_chart_item';
-// import { requestData } from '../../actions/dashboard_otd_chart_data';
 
 const mapStateToProps = (state) => {
   return {
@@ -28,7 +26,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onSelectItem: () => dispatch(selectItem()),
     onDisplayItem: (event) => dispatch(displayItem(event.target.value)),
-    // onRequestData: (event) => dispatch(requestData(event.target.value)),
   }
 }
 
@@ -52,7 +49,6 @@ class ItemSelection extends React.Component {
   select(event) {
     this.props.onSelectItem();
     this.props.onDisplayItem(event);
-    // this.props.onRequestData(event);
     this.setState({
       dropdownOpen: !this.state.dropdownOpen,
     });

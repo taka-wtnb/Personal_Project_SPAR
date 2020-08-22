@@ -26,7 +26,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onSelectItem: () => dispatch(selectItem()),
     onDisplayItem: (event) => dispatch(displayItem(event.target.value)),
-    // onRequestData: (event) => dispatch(requestData(event.target.value)),
   }
 }
 
@@ -50,7 +49,6 @@ class ItemSelection extends React.Component {
   select(event) {
     this.props.onSelectItem();
     this.props.onDisplayItem(event);
-    // this.props.onRequestData(event);
     this.setState({
       dropdownOpen: !this.state.dropdownOpen,
     });

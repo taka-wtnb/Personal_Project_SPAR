@@ -14,8 +14,6 @@ import s from './OTDLineChart.module.scss';
 
 import Widget from '../../Widget/Widget';
 
-// import { selectSupplier } from '../../../actions/change_supplier';
-// import { displaySupplier } from '../../../actions/selected_supplier';
 import { selectMonths } from '../../../actions/otd_line_chart_months';
 
 import ItemSelection from './ItemSelectionForOTDLineChart';
@@ -37,8 +35,6 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    // onSelectSupplier: () => dispatch(selectSupplier()),
-    // onDisplaySupplier: (event) => dispatch(displaySupplier(event.target.innerText)),
     onSelectMonths: (event) => dispatch(selectMonths(event.target.value)),
   }
 }
