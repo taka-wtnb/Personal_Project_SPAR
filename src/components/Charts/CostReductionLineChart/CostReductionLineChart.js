@@ -15,6 +15,7 @@ import s from './CostReductionLineChart.module.scss';
 import Widget from '../../Widget/Widget';
 
 import { selectMonths } from '../../../actions/cost_reduction_line_chart_months';
+
 import ItemSelection from './ItemSelectionForCostReductionLineChart';
 
 import chartData from './chartData';

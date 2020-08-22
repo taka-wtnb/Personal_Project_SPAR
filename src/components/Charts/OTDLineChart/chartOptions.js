@@ -14,7 +14,7 @@ export default function chartOptions(data) {
             toolbar: {
                 show: true,
                 offsetX: 0,
-                offsetY: -10,
+                offsetY: -5,
                 tools: {
                     download: '<img src="/static/media/cloud.809bd319.svg" height="30" width="30"/>' | true,
                     selection: false,

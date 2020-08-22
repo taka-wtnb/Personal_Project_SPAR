@@ -7,7 +7,9 @@ import suppliers from './suppliers';
 import change_supplier from './change_supplier';
 import selected_supplier from './selected_supplier';
 import items from './items';
+import change_item_for_otd_line_chart from './change_item_for_otd_line_chart';
 import change_item_for_cost_reduction_line_chart from './change_item_for_cost_reduction_line_chart';
+import selected_otd_item from './selected_otd_item';
 import selected_cost_reduction_item from './selected_cost_reduction_item';
 import otd_line_chart_months from './otd_line_chart_months';
 import otd_pie_chart_months from './otd_pie_chart_months';
@@ -24,7 +26,9 @@ export default combineReducers({
   change_supplier,
   selected_supplier,
   items,
+  change_item_for_otd_line_chart,
   change_item_for_cost_reduction_line_chart,
+  selected_otd_item,
   selected_cost_reduction_item,
   otd_line_chart_months,
   otd_pie_chart_months,

@@ -11,16 +11,16 @@ import {
 //import s from './Charts.module.scss';
 import s from '../../ItemSelection/ItemSelection.module.scss';
 
-import { selectItem } from '../../../actions/change_item_for_cost_reduction_line_chart';
-import { displayItem } from '../../../actions/selected_cost_reduction_item';
+import { selectItem } from '../../../actions/change_item_for_otd_line_chart';
+import { displayItem } from '../../../actions/selected_otd_item';
 // import { requestData } from '../../actions/dashboard_otd_chart_data';
 
 const mapStateToProps = (state) => {
   return {
     items: state.items.items,
     isPending: state.items.isPending,
-    isItemSelected: state.change_cost_reduction_item.isItemSelected,
-    selectedItem: state.selected_cost_reduction_item.selectedItem,
+    isItemSelected: state.change_item_for_otd_line_chart.isItemSelected,
+    selectedItem: state.selected_otd_item.selectedItem,
   }
 }
 
