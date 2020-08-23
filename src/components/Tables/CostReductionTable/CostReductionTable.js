@@ -3,10 +3,6 @@ import { connect } from 'react-redux';
 
 import {
   Table,
-  // Dropdown,
-  // DropdownToggle,
-  // DropdownItem,
-  // DropdownMenu,
 } from 'reactstrap';
 
 import s from './CostReductionTable.module.scss';
@@ -15,39 +11,23 @@ import Widget from '../../Widget/Widget';
 
 import ItemSelection from './ItemSelectionForCostReductionTable';
 
-// import { selectSupplier } from '../../../actions/change_supplier';
-// import { displaySupplier } from '../../../actions/selected_supplier';
-// import { selectMonths } from '../../../actions/otd_best_table_months';
-
 const mapStateToProps = (state) => {
   return {
     suppliers: state.suppliers.suppliers,
     isPending: state.suppliers.isPending,
-    // displayedMonths: state.otd_best_table_months.months,
     selectedSupplier: state.selected_supplier.selectedSupplier,
+    items: state.items.items,
+    isItemPending: state.items.isPending,
+    selectedItem: state.selected_cost_reduction_table_item.selectedItem,
   }
 }
-
-const mapDispatchToProps = (dispatch) => {
-  return {
-    // onSelectSupplier: () => dispatch(selectSupplier()),
-    // onDisplaySupplier: (event) => dispatch(displaySupplier(event.target.innerText)),
-    // onSelectMonths: (event) => dispatch(selectMonths(event.target.value)),
-  }
-}
-
-// const months = [
-//     "Past 3 Months",
-//     "Past 6 Months",
-//     "Past 9 Months",
-//     "Past 12 Months",
-// ];
 
 class CostReductionTable extends React.Component {
 
   _isUnmounted = false;
   _isFirstRender = true;
   _curSupplier = 0;
+  _curItem = 0;
 
   constructor(props) {
     super(props);
@@ -99,9 +79,18 @@ class CostReductionTable extends React.Component {
     }
   }
 
-  getDataForTable(supplier, eventOrMonth) {
-    if (supplier.supplier_name !== '') {
-      let months = this._isFirstRender ? 'Past 12 Months' : (eventOrMonth.target != null ? eventOrMonth.target.value : eventOrMonth);
+  didItemChange(item) {
+    if (this._curItem !== item) {
+      this._curItem = item;
+      return true;
+    }
+    else {
+      return false;
+    }
+  }
+
+  getDataForTable(supplier, item) {
+    if ((supplier.supplier_name !== '') && (item.item_num !== '')) {
       let startDate, endDate;
 
       let date = new Date();
@@ -109,101 +98,182 @@ class CostReductionTable extends React.Component {
       endDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
 
       let today = new Date();
+      startDate = new Date(today.getFullYear() - (today.getMonth() - 12 > 0 ? 0 : 1), (today.getMonth() - 12 + 12) % 12, 1);
+      startDate= startDate.getFullYear() + "-" + (startDate.getMonth() + 1) + "-" + startDate.getDate();
 
-      switch (months) {
-        case "Past 3 Months":
-          startDate = new Date(today.getFullYear() - (today.getMonth() - 3 > 0 ? 0 : 1), (today.getMonth() - 3 + 12) % 12, 1);
-          startDate= startDate.getFullYear() + "-" + (startDate.getMonth() + 1) + "-" + startDate.getDate();
-          break;
-        case "Past 6 Months":
-          startDate = new Date(today.getFullYear() - (today.getMonth() - 6 > 0 ? 0 : 1), (today.getMonth() - 6 + 12) % 12, 1);
-          startDate= startDate.getFullYear() + "-" + (startDate.getMonth() + 1) + "-" + startDate.getDate();
-          break;
-        case "Past 9 Months":
-          startDate = new Date(today.getFullYear() - (today.getMonth() - 9 > 0 ? 0 : 1), (today.getMonth() - 9 + 12) % 12, 1);
-          startDate= startDate.getFullYear() + "-" + (startDate.getMonth() + 1) + "-" + startDate.getDate();
-          break;
-        case "Past 12 Months":
-          startDate = new Date(today.getFullYear() - (today.getMonth() - 12 > 0 ? 0 : 1), (today.getMonth() - 12 + 12) % 12, 1);
-          startDate= startDate.getFullYear() + "-" + (startDate.getMonth() + 1) + "-" + startDate.getDate();
-          break;
-        default:
-          startDate = new Date(today.getFullYear() - (today.getMonth() - 12 > 0 ? 0 : 1), (today.getMonth() - 12 + 12) % 12, 1);
-          startDate= startDate.getFullYear() + "-" + (startDate.getMonth() + 1) + "-" + startDate.getDate();
-          break;
-      }
-
-      let url = new URL("http://localhost:3002/otdtable");
-      let params = {supplierId: supplier.id, start: startDate, end: endDate};
+      let url = new URL("http://localhost:3002/costreductiontable");
+      let params = {supplierId: supplier.id, itemId: item.id, start: startDate, end: endDate};
       Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
       
       fetch(url)
-      .then(response => response.json())
-      .then(data => !this._isUnmounted ? this.setState({ dataForTable: data, isStillFetching: false }) : null)
-      .catch(err => console.log(err));
+        .then(response => response.json())
+        .then(data => !this._isUnmounted ? this.setState({ dataForTable: data, isStillFetching: false }) : null)
+        .catch(err => console.log(err));
     }
   }
 
   render() {
-    const { suppliers, isPending, selectedSupplier } = this.props;
+    const { suppliers, isPending, selectedSupplier, items, isItemPending, selectedItem } = this.props;
 
-    const displayedMonths = 'Past 12 Months';
+    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+    let curDate = new Date();
 
-    // let monthList = months.map((month, i) => {
-    //     return (
-    //       <DropdownItem key={i} value={month} onClick={(event) => {this.select(event); this.getDataForTable(suppliers[selectedSupplier], event);}}>{month}</DropdownItem>
-    //     )
-    // });
+    let termOneStartMonth = monthNames[(curDate.getMonth() - 12 + 12) % 12];
+    let termOneStartYear = (curDate.getFullYear() - (curDate.getMonth() - 12 > 0 ? 0 : 1)).toString().substr(-2);
+    let termOneStart =  termOneStartMonth  + " '" + termOneStartYear; 
 
-    // const createTableRows = () => {
-    //     let sortedItems = [];
-    //     let itemList = this.state.dataForTable.map((data, i) => {
-    //         let otds = parseInt(data.otds);
-    //         let total = parseInt(data.total);
-    //         let otdRate = ((otds / total) * 100).toFixed(2);
-    //         return({
-    //             itemNum: data.item_num,
-    //             itemName: data.item_name,
-    //             rate: otdRate,
-    //         });
-    //     });
-        
-    //     itemList = itemList.sort(function (a, b) {
-    //         return b.rate - a.rate;
-    //     });
+    let termOneEndMonth = monthNames[(curDate.getMonth() - 10 + 12) % 12];
+    let termOneEndYear = (curDate.getFullYear() - (curDate.getMonth() - 10 > 0 ? 0 : 1)).toString().substr(-2);
+    let termOneEnd =  termOneEndMonth  + " '" + termOneEndYear; 
 
-    //     for (let i=0; i<3; i++) {
-    //         sortedItems.push(
-    //             <tr key={i}>
-    //                 <td style={{ color:'#DDDDDD'}}>{i+1}</td>
-    //                 <td style={{ color:'#DDDDDD'}}>{itemList[i].itemNum}</td>
-    //                 <td style={{ color:'#DDDDDD'}}>{itemList[i].itemName}</td>
-    //                 <td style={{ color:'#DDDDDD', fontWeight:'bold', textAlign: 'center' }}>{itemList[i].rate}</td>
-    //             </tr>
-    //         );
-    //     }
-    //     return sortedItems;
-    // }
+    let termTwoStartMonth = monthNames[(curDate.getMonth() - 9 + 12) % 12];
+    let termTwoStartYear = (curDate.getFullYear() - (curDate.getMonth() - 9 > 0 ? 0 : 1)).toString().substr(-2);
+    let termTwoStart =  termTwoStartMonth  + " '" + termTwoStartYear; 
 
-    return isPending ? 
+    let termTwoEndMonth = monthNames[(curDate.getMonth() - 7 + 12) % 12];
+    let termTwoEndYear = (curDate.getFullYear() - (curDate.getMonth() - 7 > 0 ? 0 : 1)).toString().substr(-2);
+    let termTwoEnd =  termTwoEndMonth  + " '" + termTwoEndYear; 
+
+    let termThreeStartMonth = monthNames[(curDate.getMonth() - 6 + 12) % 12];
+    let termThreeStartYear = (curDate.getFullYear() - (curDate.getMonth() - 6 > 0 ? 0 : 1)).toString().substr(-2);
+    let termThreeStart =  termThreeStartMonth  + " '" + termThreeStartYear; 
+
+    let termThreeEndMonth = monthNames[(curDate.getMonth() - 4 + 12) % 12];
+    let termThreeEndYear = (curDate.getFullYear() - (curDate.getMonth() - 4 > 0 ? 0 : 1)).toString().substr(-2);
+    let termThreeEnd =  termThreeEndMonth  + " '" + termThreeEndYear; 
+
+    let termFourStartMonth = monthNames[(curDate.getMonth() - 3 + 12) % 12];
+    let termFourStartYear = (curDate.getFullYear() - (curDate.getMonth() - 3 > 0 ? 0 : 1)).toString().substr(-2);
+    let termFourStart =  termFourStartMonth  + " '" + termFourStartYear; 
+
+    let termFourEndMonth = monthNames[(curDate.getMonth() - 1 + 12) % 12];
+    let termFourEndYear = (curDate.getFullYear() - (curDate.getMonth() - 1 > 0 ? 0 : 1)).toString().substr(-2);
+    let termFourEnd =  termFourEndMonth  + " '" + termFourEndYear; 
+
+    const createTableRows = () => {
+      
+      const itemNum = items[selectedItem].item_num;
+      const itemName = items[selectedItem].item_name;
+
+      let tableRow = [];
+      let firstTermVWAP = 'No Orders'; 
+      let secondTermVWAP = 'No Orders';
+      let thirdTermVWAP = 'No Orders';
+      let fourthTermVWAP = 'No Orders';
+
+      if (this.state.dataForTable.length > 0) {
+        let date = new Date();
+        date.setDate(0);
+        let endDate = date.getFullYear() + "-" + (date.getMonth() + 1) + "-" + date.getDate();
+        endDate = Date.parse(endDate);
+  
+        const today = new Date();  
+        let firstTermStartDate = new Date(today.getFullYear() - (today.getMonth() - 12 > 0 ? 0 : 1), (today.getMonth() - 12 + 12) % 12, 1);
+        firstTermStartDate = firstTermStartDate.getFullYear() + "-" + (firstTermStartDate.getMonth() + 1) + "-" + firstTermStartDate.getDate();
+        firstTermStartDate = Date.parse(firstTermStartDate);
+        let secondTermStartDate = new Date(today.getFullYear() - (today.getMonth() - 9 > 0 ? 0 : 1), (today.getMonth() - 9 + 12) % 12, 1);
+        secondTermStartDate = secondTermStartDate.getFullYear() + "-" + (secondTermStartDate.getMonth() + 1) + "-" + secondTermStartDate.getDate();
+        secondTermStartDate = Date.parse(secondTermStartDate);
+        let thirdTermStartDate = new Date(today.getFullYear() - (today.getMonth() - 6 > 0 ? 0 : 1), (today.getMonth() - 6 + 12) % 12, 1);
+        thirdTermStartDate = thirdTermStartDate.getFullYear() + "-" + (thirdTermStartDate.getMonth() + 1) + "-" + thirdTermStartDate.getDate();
+        thirdTermStartDate = Date.parse(thirdTermStartDate);
+        let fourthTermStartDate = new Date(today.getFullYear() - (today.getMonth() - 3 > 0 ? 0 : 1), (today.getMonth() - 3 + 12) % 12, 1);
+        fourthTermStartDate = fourthTermStartDate.getFullYear() + "-" + (fourthTermStartDate.getMonth() + 1) + "-" + fourthTermStartDate.getDate();
+        fourthTermStartDate = Date.parse(fourthTermStartDate);
+  
+        let firstTermOrders = [];
+        let secondTermOrders = [];
+        let thirdTermOrders = [];
+        let fourthTermOrders = [];
+  
+        this.state.dataForTable.forEach((element) => {
+          const orderDate = Date.parse(element.order_date);
+          if (firstTermStartDate <= orderDate && orderDate < secondTermStartDate) {
+            firstTermOrders.push(element);
+          } else if (secondTermStartDate <= orderDate && orderDate < thirdTermStartDate) {
+            secondTermOrders.push(element);
+          } else if (thirdTermStartDate <= orderDate && orderDate < fourthTermStartDate) {
+            thirdTermOrders.push(element);
+          } else if (fourthTermStartDate <= orderDate && orderDate <= endDate) {
+            fourthTermOrders.push(element);
+          }
+        });
+  
+        if (firstTermOrders.length > 0) {
+          let firstTermOrderTotal = firstTermOrders.reduce((acc, cur) => {
+            return acc + (parseInt(cur.unit_price) * parseInt(cur.qty));
+          }, 0);
+    
+          let firstTermQtyTotal = firstTermOrders.reduce((acc, cur) => {
+            return acc + parseInt(cur.qty);
+          }, 0);
+    
+          firstTermVWAP = (firstTermOrderTotal / firstTermQtyTotal).toFixed(2);
+        }
+  
+        if (secondTermOrders.length > 0) {
+          let secondTermOrderTotal = secondTermOrders.reduce((acc, cur) => {
+            return acc + (parseInt(cur.unit_price) * parseInt(cur.qty));
+          }, 0);
+    
+          let secondTermQtyTotal = secondTermOrders.reduce((acc, cur) => {
+            return acc + parseInt(cur.qty);
+          }, 0);
+    
+          secondTermVWAP = (secondTermOrderTotal / secondTermQtyTotal).toFixed(2);
+        }
+  
+        if (thirdTermOrders.length > 0) {
+          let thirdTermOrderTotal = thirdTermOrders.reduce((acc, cur) => {
+            return acc + (parseInt(cur.unit_price) * parseInt(cur.qty));
+          }, 0);
+    
+          let thirdTermQtyTotal = thirdTermOrders.reduce((acc, cur) => {
+            return acc + parseInt(cur.qty);
+          }, 0);
+    
+          thirdTermVWAP = (thirdTermOrderTotal / thirdTermQtyTotal).toFixed(2);
+        }
+  
+        if (fourthTermOrders.length > 0) {
+          let fourthTermOrderTotal = fourthTermOrders.reduce((acc, cur) => {
+            return acc + (parseInt(cur.unit_price) * parseInt(cur.qty));
+          }, 0);
+    
+          let fourthTermQtyTotal = fourthTermOrders.reduce((acc, cur) => {
+            return acc + parseInt(cur.qty);
+          }, 0);
+    
+          fourthTermVWAP = (fourthTermOrderTotal / fourthTermQtyTotal).toFixed(2);
+        }
+      }
+
+      tableRow.push(
+        <tr key={0}>
+          <td style={{ color:'#DDDDDD', fontWeight:'bold' }}>{itemNum}</td>
+          <td style={{ color:'#DDDDDD', fontWeight:'bold' }}>{itemName}</td>
+          <td style={{ color:'#DDDDDD', fontWeight:'bold', textAlign: 'center' }}>{firstTermVWAP}</td>
+          <td style={{ color:'#DDDDDD', fontWeight:'bold', textAlign: 'center' }}>{secondTermVWAP}</td>
+          <td style={{ color:'#DDDDDD', fontWeight:'bold', textAlign: 'center' }}>{thirdTermVWAP}</td>
+          <td style={{ color:'#DDDDDD', fontWeight:'bold', textAlign: 'center' }}>{fourthTermVWAP}</td>
+        </tr>
+      );
+
+      return tableRow;
+
+    }
+
+    return  (isPending || isItemPending) ?
       <div> </div> :
       (
         <Widget>
             <div className={s.root}>
                 <div style={{display: "flex", justifyContent: 'space-between', alignItems: "center"}}>
                     <h3 className="page-title"><span className="fw-semi-bold">3-month Volume-Weighted Average Price (VWAP) Trend for Last 12 Months (by Item) </span></h3>
-                    {/* <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} style={{marginLeft: "40px", alignItems: "stretch"}}>
-                    <DropdownToggle caret className="fw-semi-bold text-inverse">
-                        {displayedMonths}
-                    </DropdownToggle>
-                    <DropdownMenu>
-                        {monthList}
-                    </DropdownMenu>
-                    </Dropdown> */}
                 </div>
             </div>
             <ItemSelection />
-            {(this._isFirstRender || this.didSupplierChange(selectedSupplier)) ? this.getDataForTable(suppliers[selectedSupplier], displayedMonths) : null }
+            {(this._isFirstRender || this.didSupplierChange(selectedSupplier) || this.didItemChange(selectedItem)) ? this.getDataForTable(suppliers[selectedSupplier], items[selectedItem]) : null }
             {this.detectFirstRender()}
             <div className={s.root}>
               <Widget>
@@ -211,17 +281,17 @@ class CostReductionTable extends React.Component {
                   <Table>
                     <thead>
                       <tr>
-                        <th style={{ color:'#EEEEEE'}}>#</th>
+                        {/* <th style={{ color:'#EEEEEE'}}>#</th> */}
                         <th style={{ color:'#EEEEEE'}}>Item Number</th>
                         <th style={{ color:'#EEEEEE'}}>Item Name</th>
-                        <th style={{ color:'#EEEEEE'}}>Term 1 VWAP ($)</th>
-                        <th style={{ color:'#EEEEEE'}}>Term 2 VWAP ($)</th>
-                        <th style={{ color:'#EEEEEE'}}>Term 3 VWAP ($)</th>
-                        <th style={{ color:'#EEEEEE'}}>Term 4 VWAP ($)</th>
+                        <th style={{ textAlign: 'center', color:'#EEEEEE'}}>{termOneStart} - {termOneEnd} <br /> VWAP ($)</th>
+                        <th style={{ textAlign: 'center', color:'#EEEEEE'}}>{termTwoStart} - {termTwoEnd} <br /> VWAP ($)</th>
+                        <th style={{ textAlign: 'center', color:'#EEEEEE'}}>{termThreeStart} - {termThreeEnd} <br /> VWAP ($)</th>
+                        <th style={{ textAlign: 'center', color:'#EEEEEE'}}>{termFourStart} - {termFourEnd} <br /> VWAP ($)</th>
                       </tr>
                     </thead>
                     <tbody>
-                        {/* {this.state.isStillFetching ? null : createTableRows()} */}
+                        {this.state.isStillFetching ? null : createTableRows()}
                     </tbody>
                   </Table>
                 </div>
@@ -232,4 +302,4 @@ class CostReductionTable extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(CostReductionTable);
+export default connect(mapStateToProps)(CostReductionTable);
