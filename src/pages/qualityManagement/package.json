@@ -1,0 +1,6 @@
+{
+  "name": "quality_management",
+  "version": "0.0.0",
+  "private": true,
+  "main": "QualityManagement.js"
+}

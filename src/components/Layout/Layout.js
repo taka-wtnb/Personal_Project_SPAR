@@ -6,18 +6,22 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import Hammer from 'rc-hammerjs';
 
 import UIIcons from '../../pages/components/icons';
-import UINotifications from '../../pages/notifications';
-import CostReduction from '../../pages/costReduction/CostReduction';
+// import QualityManagement from '../../pages/qualityManagement/QualityManagement';
 import MapsGoogle from '../../pages/components/maps/google';
-import OTD from '../../pages/otd/OTD';
 import Charts from '../../pages/components/charts/Charts';
+
 import Dashboard from '../../pages/dashboard';
+import OTD from '../../pages/otd/OTD';
+import CostReduction from '../../pages/costReduction/CostReduction';
+import QualityManagement from '../../pages/qualityManagement/QualityManagement';
 
 import Header from '../Header';
 import Sidebar from '../Sidebar';
 import BreadcrumbHistory from '../BreadcrumbHistory';
 import { openSidebar, closeSidebar } from '../../actions/navigation';
+
 import s from './Layout.module.scss';
+
 
 class Layout extends React.Component {
   static propTypes = {
@@ -80,7 +84,7 @@ class Layout extends React.Component {
                     <Route path="/app/main" exact render={() => <Redirect to="/app/main/dashboard" />} />
                     <Route path="/app/main/dashboard" exact component={Dashboard} />
                     <Route path="/app/icons" exact component={UIIcons} />
-                    <Route path="/app/quality-management" exact component={UINotifications} />
+                    <Route path="/app/quality-management" exact component={QualityManagement} />
                     <Route path="/app/charts" exact component={Charts} />
                     <Route path="/app/cost-reduction" exact component={CostReduction} />
                     <Route path="/app/maps" exact component={MapsGoogle} />
