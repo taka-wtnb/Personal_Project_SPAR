@@ -11,10 +11,12 @@ import change_item_for_otd_line_chart from './change_item_for_otd_line_chart';
 import change_item_for_otd_pie_chart from './change_item_for_otd_pie_chart';
 import change_item_for_cost_reduction_line_chart from './change_item_for_cost_reduction_line_chart';
 import change_item_for_cost_reduction_pie_chart from './change_item_for_cost_reduction_pie_chart';
+import change_item_for_cost_reduction_table from './change_item_for_cost_reduction_table';
 import selected_otd_line_chart_item from './selected_otd_line_chart_item';
 import selected_otd_pie_chart_item from './selected_otd_pie_chart_item';
 import selected_cost_reduction_line_chart_item from './selected_cost_reduction_line_chart_item';
 import selected_cost_reduction_pie_chart_item from './selected_cost_reduction_pie_chart_item';
+import selected_cost_reduction_table_item from './selected_cost_reduction_table_item';
 import otd_line_chart_months from './otd_line_chart_months';
 import otd_pie_chart_months from './otd_pie_chart_months';
 import otd_best_table_months from './otd_best_table_months';
@@ -35,10 +37,12 @@ export default combineReducers({
   change_item_for_otd_pie_chart,
   change_item_for_cost_reduction_line_chart,
   change_item_for_cost_reduction_pie_chart,
+  change_item_for_cost_reduction_table,
   selected_otd_line_chart_item,
   selected_otd_pie_chart_item,
   selected_cost_reduction_line_chart_item,
   selected_cost_reduction_pie_chart_item,
+  selected_cost_reduction_table_item,
   otd_line_chart_months,
   otd_pie_chart_months,
   otd_best_table_months,

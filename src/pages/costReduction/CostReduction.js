@@ -9,8 +9,7 @@ import SupplierSelection from '../../components/SupplierSelection/SupplierSelect
 
 import CostReductionLineChart from '../../components/Charts/CostReductionLineChart/CostReductionLineChart';
 import CostReductionPieChart from '../../components/Charts/CostReductionPieChart/CostReductionPieChart';
-import OTDBestTable from '../../components/Tables/OTDTables/OTDBestTable';
-import OTDWorstTable from '../../components/Tables/OTDTables/OTDWorstTable';
+import CostReductionTable from '../../components/Tables/CostReductionTable/CostReductionTable';
 
 import s from './CostReduction.module.scss';
 
@@ -29,11 +28,8 @@ class CostReduction extends React.Component {
             </Col>
           </Row>
           <Row>
-            <Col xl={6} xs={12}>
-              <OTDBestTable />
-            </Col>
-            <Col xl={6} xs={12}>
-              <OTDWorstTable />
+            <Col xs={12}>
+              <CostReductionTable />
             </Col>
           </Row>
         </div>

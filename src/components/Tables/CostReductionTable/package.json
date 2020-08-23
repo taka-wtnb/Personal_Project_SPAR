@@ -1,0 +1,6 @@
+{
+  "name": "cost_reduction_table",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./CostReductionTable.js"
+}
