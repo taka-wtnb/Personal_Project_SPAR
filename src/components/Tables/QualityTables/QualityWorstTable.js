@@ -113,26 +113,23 @@ class QualityWorstTable extends React.Component {
 
       switch (months) {
         case "Past 3 Months":
-          startDate = new Date(today.getFullYear() - (today.getMonth() - 3 > 0 ? 0 : 1), (today.getMonth() - 3 + 12) % 12, 1);
-          startDate= startDate.getFullYear() + "-" + (startDate.getMonth() + 1) + "-" + startDate.getDate();
+          startDate = new Date(today.getFullYear() - (today.getMonth() - 2 > 0 ? 0 : 1), (today.getMonth() - 3 + 12) % 12, 1);
           break;
         case "Past 6 Months":
-          startDate = new Date(today.getFullYear() - (today.getMonth() - 6 > 0 ? 0 : 1), (today.getMonth() - 6 + 12) % 12, 1);
-          startDate= startDate.getFullYear() + "-" + (startDate.getMonth() + 1) + "-" + startDate.getDate();
+          startDate = new Date(today.getFullYear() - (today.getMonth() - 5 > 0 ? 0 : 1), (today.getMonth() - 6 + 12) % 12, 1);
           break;
         case "Past 9 Months":
-          startDate = new Date(today.getFullYear() - (today.getMonth() - 9 > 0 ? 0 : 1), (today.getMonth() - 9 + 12) % 12, 1);
-          startDate= startDate.getFullYear() + "-" + (startDate.getMonth() + 1) + "-" + startDate.getDate();
+          startDate = new Date(today.getFullYear() - (today.getMonth() - 8 > 0 ? 0 : 1), (today.getMonth() - 9 + 12) % 12, 1);
           break;
         case "Past 12 Months":
-          startDate = new Date(today.getFullYear() - (today.getMonth() - 12 > 0 ? 0 : 1), (today.getMonth() - 12 + 12) % 12, 1);
-          startDate= startDate.getFullYear() + "-" + (startDate.getMonth() + 1) + "-" + startDate.getDate();
+          startDate = new Date(today.getFullYear() - (today.getMonth() - 11 > 0 ? 0 : 1), (today.getMonth() - 12 + 12) % 12, 1);
           break;
         default:
-          startDate = new Date(today.getFullYear() - (today.getMonth() - 12 > 0 ? 0 : 1), (today.getMonth() - 12 + 12) % 12, 1);
-          startDate= startDate.getFullYear() + "-" + (startDate.getMonth() + 1) + "-" + startDate.getDate();
+          startDate = new Date(today.getFullYear() - (today.getMonth() - 11 > 0 ? 0 : 1), (today.getMonth() - 12 + 12) % 12, 1);
           break;
       }
+
+      startDate= startDate.getFullYear() + "-" + (startDate.getMonth() + 1) + "-" + startDate.getDate();
 
       let url = new URL("http://localhost:3002/qualitytable");
       let params = {supplierId: supplier.id, start: startDate, end: endDate};
