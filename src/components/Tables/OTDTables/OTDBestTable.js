@@ -46,6 +46,9 @@ class OTDBestTable extends React.Component {
   _isUnmounted = false;
   _isFirstRender = true;
   _curSupplier = 0;
+  _multipleTies = false;
+  _singleTie = false;
+  _otdNum = -1;
 
   constructor(props) {
     super(props);
@@ -152,8 +155,13 @@ class OTDBestTable extends React.Component {
     });
 
     const createTableRows = () => {
+      this._multipleTies = false;
+      this._singleTie = false;
+
         let sortedItems = [];
-        let itemList = this.state.dataForTable.map((data, i) => {
+        let itemList = [];
+        if (this.state.dataForTable.length > 0) {
+          itemList = this.state.dataForTable.map((data, i) => {
             let otds = parseInt(data.otds);
             let total = parseInt(data.total);
             let otdRate = ((otds / total) * 100).toFixed(2);
@@ -162,22 +170,32 @@ class OTDBestTable extends React.Component {
                 itemName: data.item_name,
                 rate: otdRate,
             });
-        });
-        
-        itemList = itemList.sort(function (a, b) {
-            return b.rate - a.rate;
-        });
+          });
+          
+          itemList = itemList.sort(function (a, b) {
+              return b.rate - a.rate;
+          });
+        }
 
         for (let i=0; i<3; i++) {
-            sortedItems.push(
-                <tr key={i}>
-                    <td style={{ color:'#DDDDDD'}}>{i+1}</td>
-                    <td style={{ color:'#DDDDDD'}}>{itemList[i].itemNum}</td>
-                    <td style={{ color:'#DDDDDD'}}>{itemList[i].itemName}</td>
-                    <td style={{ color:'#DDDDDD', fontWeight:'bold', textAlign: 'center' }}>{itemList[i].rate}</td>
-                </tr>
+          sortedItems.push(
+            <tr key={i}>
+              <td style={{ color:'#DDDDDD'}}>{(i > 0 && itemList.length > i+1 && itemList[i].rate === itemList[i-1].rate) ? (i === 2  && itemList[2].rate === itemList[0].rate? 1 : i) : i+1}</td>
+              <td style={{ color:'#DDDDDD'}}>{(itemList.length > i+1) ? itemList[i].itemNum : 'N/A'}</td>
+              <td style={{ color:'#DDDDDD'}}>{(itemList.length > i+1) ? itemList[i].itemName : 'N/A'}</td>
+              <td style={{ color:'#DDDDDD', fontWeight:'bold', textAlign: 'center' }}>{(itemList.length > i+1) ? itemList[i].rate : 'N/A'}</td>
+            </tr>
             );
         }
+
+        if (itemList.length >= 5 && itemList[4].rate === itemList[2].rate) {
+          this._multipleTies = true;
+          this._otdNum = itemList[4].rate;
+        } else if  (itemList.length >= 4 && itemList[3].rate === itemList[2].rate) {
+          this._singleTie = true;
+          this._otdNum = itemList[3].rate;
+        }
+
         return sortedItems;
     }
 
@@ -216,6 +234,9 @@ class OTDBestTable extends React.Component {
                         {this.state.isStillFetching ? null : createTableRows()}
                     </tbody>
                   </Table>
+                  { this._singleTie ? <div>Note: There is another item with the OTD Rate of {this._otdNum} % not displayed here.</div> : 
+                    (this._multipleTies ? <div>Note: There are more items with the OTD Rate of {this._otdNum} % not displayed here.</div> : <div></div>) 
+                  }  
                 </div>
               </Widget>
             </div>                                                                                                                                                                                                                                                                                                                            
