@@ -29,6 +29,8 @@ import cost_reduction_line_chart_months from './cost_reduction_line_chart_months
 import cost_reduction_pie_chart_months from './cost_reduction_pie_chart_months';
 import quality_management_line_chart_months from './quality_management_line_chart_months';
 import quality_management_pie_chart_months from './quality_management_pie_chart_months';
+import quality_best_table_months from './quality_best_table_months';
+import quality_worst_table_months from './quality_worst_table_months';
 
 export default combineReducers({
   alerts,
@@ -61,4 +63,6 @@ export default combineReducers({
   cost_reduction_pie_chart_months,
   quality_management_line_chart_months,
   quality_management_pie_chart_months,
+  quality_best_table_months,
+  quality_worst_table_months,
 });

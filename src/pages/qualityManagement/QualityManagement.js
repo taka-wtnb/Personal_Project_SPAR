@@ -8,8 +8,8 @@ import {
 import SupplierSelection from '../../components/SupplierSelection/SupplierSelection';
 import QualityManagementLineChart from '../../components/Charts/QualityManagementLineChart/QualityManagementLineChart';
 import QualityManagementPieChart from '../../components/Charts/QualityManagementPieChart/QualityManagementPieChart';
-import OTDBestTable from '../../components/Tables/OTDTables/OTDBestTable';
-import OTDWorstTable from '../../components/Tables/OTDTables/OTDWorstTable';
+import QualityBestTable from '../../components/Tables/QualityTables/QualityBestTable';
+import QualityWorstTable from '../../components/Tables/QualityTables/QualityWorstTable';
 
 import s from './QualityManagement.module.scss';
 
@@ -28,11 +28,11 @@ class QualityManagement extends React.Component {
             </Col>
           </Row>
           <Row>
-            <Col xl={6} xs={12}>
-              <OTDBestTable />
+            <Col xl={6} xs={12}>     
+              <QualityWorstTable />
             </Col>
             <Col xl={6} xs={12}>
-              <OTDWorstTable />
+              <QualityBestTable />
             </Col>
           </Row>
         </div>
