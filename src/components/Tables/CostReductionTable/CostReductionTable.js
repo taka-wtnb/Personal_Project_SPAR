@@ -5,7 +5,7 @@ import {
   Table,
 } from 'reactstrap';
 
-import s from './CostReductionTable.module.scss';
+import s from './CostReductionTables.module.scss';
 
 import Widget from '../../Widget/Widget';
 
@@ -119,35 +119,35 @@ class CostReductionTable extends React.Component {
     let curDate = new Date();
 
     let termOneStartMonth = monthNames[(curDate.getMonth() - 12 + 12) % 12];
-    let termOneStartYear = (curDate.getFullYear() - (curDate.getMonth() - 12 > 0 ? 0 : 1)).toString().substr(-2);
+    let termOneStartYear = (curDate.getFullYear() - (curDate.getMonth() - 11 > 0 ? 0 : 1)).toString().substr(-2);
     let termOneStart =  termOneStartMonth  + " '" + termOneStartYear; 
 
     let termOneEndMonth = monthNames[(curDate.getMonth() - 10 + 12) % 12];
-    let termOneEndYear = (curDate.getFullYear() - (curDate.getMonth() - 10 > 0 ? 0 : 1)).toString().substr(-2);
+    let termOneEndYear = (curDate.getFullYear() - (curDate.getMonth() - 9 > 0 ? 0 : 1)).toString().substr(-2);
     let termOneEnd =  termOneEndMonth  + " '" + termOneEndYear; 
 
     let termTwoStartMonth = monthNames[(curDate.getMonth() - 9 + 12) % 12];
-    let termTwoStartYear = (curDate.getFullYear() - (curDate.getMonth() - 9 > 0 ? 0 : 1)).toString().substr(-2);
+    let termTwoStartYear = (curDate.getFullYear() - (curDate.getMonth() - 8 > 0 ? 0 : 1)).toString().substr(-2);
     let termTwoStart =  termTwoStartMonth  + " '" + termTwoStartYear; 
 
     let termTwoEndMonth = monthNames[(curDate.getMonth() - 7 + 12) % 12];
-    let termTwoEndYear = (curDate.getFullYear() - (curDate.getMonth() - 7 > 0 ? 0 : 1)).toString().substr(-2);
+    let termTwoEndYear = (curDate.getFullYear() - (curDate.getMonth() - 6 > 0 ? 0 : 1)).toString().substr(-2);
     let termTwoEnd =  termTwoEndMonth  + " '" + termTwoEndYear; 
 
     let termThreeStartMonth = monthNames[(curDate.getMonth() - 6 + 12) % 12];
-    let termThreeStartYear = (curDate.getFullYear() - (curDate.getMonth() - 6 > 0 ? 0 : 1)).toString().substr(-2);
+    let termThreeStartYear = (curDate.getFullYear() - (curDate.getMonth() - 5 > 0 ? 0 : 1)).toString().substr(-2);
     let termThreeStart =  termThreeStartMonth  + " '" + termThreeStartYear; 
 
     let termThreeEndMonth = monthNames[(curDate.getMonth() - 4 + 12) % 12];
-    let termThreeEndYear = (curDate.getFullYear() - (curDate.getMonth() - 4 > 0 ? 0 : 1)).toString().substr(-2);
+    let termThreeEndYear = (curDate.getFullYear() - (curDate.getMonth() - 3 > 0 ? 0 : 1)).toString().substr(-2);
     let termThreeEnd =  termThreeEndMonth  + " '" + termThreeEndYear; 
 
     let termFourStartMonth = monthNames[(curDate.getMonth() - 3 + 12) % 12];
-    let termFourStartYear = (curDate.getFullYear() - (curDate.getMonth() - 3 > 0 ? 0 : 1)).toString().substr(-2);
+    let termFourStartYear = (curDate.getFullYear() - (curDate.getMonth() - 2 > 0 ? 0 : 1)).toString().substr(-2);
     let termFourStart =  termFourStartMonth  + " '" + termFourStartYear; 
 
     let termFourEndMonth = monthNames[(curDate.getMonth() - 1 + 12) % 12];
-    let termFourEndYear = (curDate.getFullYear() - (curDate.getMonth() - 1 > 0 ? 0 : 1)).toString().substr(-2);
+    let termFourEndYear = (curDate.getFullYear() - (curDate.getMonth() - 0 > 0 ? 0 : 1)).toString().substr(-2);
     let termFourEnd =  termFourEndMonth  + " '" + termFourEndYear; 
 
     const createTableRows = () => {
