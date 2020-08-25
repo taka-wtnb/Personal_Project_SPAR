@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 
 import {
   Table,
+  Badge,
 } from 'reactstrap';
 
 import s from './CostReductionTables.module.scss';
@@ -250,11 +251,14 @@ class CostReductionTable extends React.Component {
 
       tableRow.push(
         <tr key={0}>
-          <td style={{ color:'#DDDDDD', fontWeight:'bold' }}>{itemNum}</td>
-          <td style={{ color:'#DDDDDD', fontWeight:'bold' }}>{itemName}</td>
+          <td style={{ color:'#DDDDDD', fontWeight:'normal' }}>{itemNum}</td>
+          <td style={{ color:'#DDDDDD', fontWeight:'normal' }}>{itemName}</td>
           <td style={{ color:'#DDDDDD', fontWeight:'bold', textAlign: 'center' }}>{firstTermVWAP}</td>
+          <td> {secondTermVWAP - firstTermVWAP > 0 ? <Badge color="danger" pill>Up</Badge> : (secondTermVWAP - firstTermVWAP === 0 ? <Badge color="gray" className="text-secondary" pill>No Change</Badge> : <Badge color="success" pill>Down</Badge>)}</td>
           <td style={{ color:'#DDDDDD', fontWeight:'bold', textAlign: 'center' }}>{secondTermVWAP}</td>
+          <td> {thirdTermVWAP - secondTermVWAP > 0 ? <Badge color="danger" pill>Up</Badge> : (secondTermVWAP - firstTermVWAP === 0 ? <Badge color="gray" className="text-secondary" pill>No Change</Badge> : <Badge color="success" pill>Down</Badge>)}</td>
           <td style={{ color:'#DDDDDD', fontWeight:'bold', textAlign: 'center' }}>{thirdTermVWAP}</td>
+          <td> {fourthTermVWAP - thirdTermVWAP > 0 ? <Badge color="danger" pill>Up</Badge> : (secondTermVWAP - firstTermVWAP === 0 ? <Badge color="gray" className="text-secondary" pill>No Change</Badge> : <Badge color="success" pill>Down</Badge>)}</td>
           <td style={{ color:'#DDDDDD', fontWeight:'bold', textAlign: 'center' }}>{fourthTermVWAP}</td>
         </tr>
       );
@@ -284,10 +288,13 @@ class CostReductionTable extends React.Component {
                         {/* <th style={{ color:'#EEEEEE'}}>#</th> */}
                         <th style={{ color:'#EEEEEE'}}>Item Number</th>
                         <th style={{ color:'#EEEEEE'}}>Item Name</th>
-                        <th style={{ textAlign: 'center', color:'#EEEEEE'}}>{termOneStart} - {termOneEnd} <br /> VWAP ($)</th>
-                        <th style={{ textAlign: 'center', color:'#EEEEEE'}}>{termTwoStart} - {termTwoEnd} <br /> VWAP ($)</th>
-                        <th style={{ textAlign: 'center', color:'#EEEEEE'}}>{termThreeStart} - {termThreeEnd} <br /> VWAP ($)</th>
-                        <th style={{ textAlign: 'center', color:'#EEEEEE'}}>{termFourStart} - {termFourEnd} <br /> VWAP ($)</th>
+                        <th style={{ textAlign: 'center', color:'#1870DC'}}>{termOneStart} - {termOneEnd} <br /> VWAP ($)</th>
+                        <th></th>
+                        <th style={{ textAlign: 'center', color:'#14d3d3'}}>{termTwoStart} - {termTwoEnd} <br /> VWAP ($)</th>
+                        <th></th>
+                        <th style={{ textAlign: 'center', color:'#e671b8'}}>{termThreeStart} - {termThreeEnd} <br /> VWAP ($)</th>
+                        <th></th>
+                        <th style={{ textAlign: 'center', color:'#f0af03'}}>{termFourStart} - {termFourEnd} <br /> VWAP ($)</th>
                       </tr>
                     </thead>
                     <tbody>

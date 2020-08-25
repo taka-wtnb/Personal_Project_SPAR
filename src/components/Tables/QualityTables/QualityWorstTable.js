@@ -200,7 +200,7 @@ class QualityWorstTable extends React.Component {
         <Widget>
             <div className={s.root}>
                 <div style={{display: "flex", justifyContent: 'space-between', alignItems: "center"}}>
-                    <h3 className="page-title"><span className="fw-semi-bold">Items with Most Quality Issues <p style={{ fontWeight:'normal'}}>(Top 3)</p></span></h3>
+                    <h3 className="page-title"><span className="fw-semi-bold">Items with <span style={{ color:'#F45722' }}>Most</span> Quality Issues </span></h3>
                     <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} style={{marginLeft: "40px", alignItems: "stretch"}}>
                     <DropdownToggle caret className="fw-semi-bold text-inverse">
                         {displayedMonths}
@@ -223,7 +223,7 @@ class QualityWorstTable extends React.Component {
                         <th style={{ color:'#EEEEEE'}}>#</th>
                         <th style={{ color:'#EEEEEE'}}>Item Number</th>
                         <th style={{ color:'#EEEEEE'}}>Item Name</th>
-                        <th style={{ color:'#EEEEEE'}}>Quality Issue Cases</th>
+                        <th style={{ color:'#F45722'}}>Quality Issue Cases</th>
                       </tr>
                     </thead>
                     <tbody>

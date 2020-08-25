@@ -202,7 +202,7 @@ class OTDWorstTable extends React.Component {
         <Widget>
             <div className={s.root}>
                 <div style={{display: "flex", justifyContent: 'space-between', alignItems: "center"}}>
-                    <h3 className="page-title"><span className="fw-semi-bold">Worst OTD Performance Items <p style={{ fontWeight:'normal'}}>(Top 3)</p></span></h3>
+                    <h3 className="page-title"><span className="fw-semi-bold"><span style={{ color:'#F45722' }}>Worst</span> OTD Performance Items </span></h3>
                     <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} style={{marginLeft: "40px", alignItems: "stretch"}}>
                     <DropdownToggle caret className="fw-semi-bold text-inverse">
                         {displayedMonths}
@@ -225,7 +225,7 @@ class OTDWorstTable extends React.Component {
                         <th style={{ color:'#EEEEEE'}}>#</th>
                         <th style={{ color:'#EEEEEE'}}>Item Number</th>
                         <th style={{ color:'#EEEEEE'}}>Item Name</th>
-                        <th style={{ color:'#EEEEEE'}}>OTD Rate (%)</th>
+                        <th style={{ color:'#F45722'}}>OTD Rate (%)</th>
                       </tr>
                     </thead>
                     <tbody>
