@@ -112,21 +112,36 @@ class DashboardOpenOrderTable extends React.Component {
             promiseDate: formattedPromiseDate,
           });
         });
-      }
 
-      for (let i=0; i<5; i++) {
+        for (let i=0; i<itemList.length; i++) {
+          tableRows.push(
+            <tr key={i}>
+              <td style={{ color:'#DDDDDD', fontWeight: 'bold' }}>{i+1}</td>
+              <td style={{ color:'#DDDDDD'}}>{itemList[i].orderNum}</td>
+              <td style={{ color:'#DDDDDD'}}>{itemList[i].itemNum}</td>
+              <td style={{ color:'#DDDDDD'}}>{itemList[i].itemName}</td>
+              <td style={{ color:'#DDDDDD', textAlign: 'center' }}>{itemList[i].itemPrice}</td>
+              <td style={{ color:'#DDDDDD'}}>{itemList[i].itemQty}</td>
+              <td style={{ color:'#DDDDDD'}}>{itemList[i].itemUnit}</td>
+              <td style={{ color:'#DDDDDD'}}>{itemList[i].orderDate}</td>
+              <td style={{ color:'#DDDDDD'}}>{itemList[i].promiseDate}</td>
+              <td>{(Date.parse(itemList[i].promiseDate) < today) ? <span style={{ color:'#F45722', fontWeight: 'bold' }}>Past Due!</span> : ((Date.parse(itemList[i].promiseDate) === today) ? <span style={{ color:'#f0af03', fontWeight: 'bold' }}>Due Today</span> : '')}</td>
+            </tr>
+          );
+        }
+      } else {
         tableRows.push(
-          <tr key={i}>
-            <td style={{ color:'#DDDDDD', fontWeight: 'bold' }}>{i+1}</td>
-            <td style={{ color:'#DDDDDD'}}>{(itemList.length > i) ? itemList[i].orderNum : 'N/A'}</td>
-            <td style={{ color:'#DDDDDD'}}>{(itemList.length > i) ? itemList[i].itemNum : 'N/A'}</td>
-            <td style={{ color:'#DDDDDD'}}>{(itemList.length > i) ? itemList[i].itemName : 'N/A'}</td>
-            <td style={{ color:'#DDDDDD', textAlign: 'center' }}>{(itemList.length > i) ? itemList[i].itemPrice : 'N/A'}</td>
-            <td style={{ color:'#DDDDDD'}}>{(itemList.length > i) ? itemList[i].itemQty : 'N/A'}</td>
-            <td style={{ color:'#DDDDDD'}}>{(itemList.length > i) ? itemList[i].itemUnit : 'N/A'}</td>
-            <td style={{ color:'#DDDDDD'}}>{(itemList.length > i) ? itemList[i].orderDate : 'N/A'}</td>
-            <td style={{ color:'#DDDDDD'}}>{(itemList.length > i) ? itemList[i].promiseDate : 'N/A'}</td>
-            <td>{(itemList.length > i) && (Date.parse(itemList[i].promiseDate) < today) ? <span style={{ color:'#F45722', fontWeight: 'bold' }}>Past Due!</span> : ((Date.parse(itemList[i].promiseDate) === today) ? <span style={{ color:'#f0af03', fontWeight: 'bold' }}>Due Today</span> : '')}</td>
+          <tr key={0}>
+            <td></td>
+            <td></td>
+            <td></td> 
+            <td style={{ fontSize:'1.25em', fontWeight:'bold' }}>No Open Orders</td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
+            <td></td>
           </tr>
         );
       }
@@ -148,7 +163,7 @@ class DashboardOpenOrderTable extends React.Component {
           {this.detectFirstRender()}
           <div className={s.root}>
             <Widget>
-              <div className="table-responsive">
+              <div className="table-responsive">           
                 <Table>
                   <thead>
                     <tr>
