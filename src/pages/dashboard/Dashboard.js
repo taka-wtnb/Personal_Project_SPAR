@@ -7,6 +7,7 @@ import {
 
 import SupplierSelection from '../../components/SupplierSelection/SupplierSelection';
 import DashboardOpenOrderTable from '../../components/Tables/DashboardOpenOrderTable/DashboardOpenOrderTable';
+import DashboardPendingQualityIssueTable from '../../components/Tables/DashboardPendingQualityIssueTable/DashboardPendingQualityIssueTable';
 
 import s from './Dashboard.module.scss';
 
@@ -19,8 +20,13 @@ class Dashboard extends React.Component {
         <SupplierSelection />
         <div>
           <Row>
-            <Col xl={12} xs={12}>
+            <Col xs={12}>
               <DashboardOpenOrderTable />
+            </Col>
+          </Row>
+          <Row>
+            <Col xs={12}>
+              <DashboardPendingQualityIssueTable />
             </Col>
           </Row>
         </div>

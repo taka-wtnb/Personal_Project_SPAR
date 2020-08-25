@@ -1,0 +1,6 @@
+{
+  "name": "dashboard_open_order_table",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./DashboardOpenOrderTable.js"
+}

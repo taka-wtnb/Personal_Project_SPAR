@@ -5,7 +5,7 @@ import {
   Table,
 } from 'reactstrap';
 
-import s from './DashboardOpenOrderTable.module.scss';
+import s from './DashboardPendingQualityIssueTable.module.scss';
 
 import Widget from '../../Widget/Widget';
 
@@ -28,7 +28,7 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 
-class DashboardOpenOrderTable extends React.Component {
+class DashboardPendingQualityIssueTable extends React.Component {
 
   _isUnmounted = false;
   _isFirstRender = true;
@@ -67,7 +67,7 @@ class DashboardOpenOrderTable extends React.Component {
   getDataForTable(supplier) {
     if (supplier.supplier_name !== '') {
 
-      let url = new URL("http://localhost:3002/dashboardopenordertable");
+      let url = new URL("http://localhost:3002/dashboardpendingqualityissuetable");
       let params = {supplierId: supplier.id};
       Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
       
@@ -83,29 +83,23 @@ class DashboardOpenOrderTable extends React.Component {
 
     const createTableRows = () => {
       const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+      // let curDate = new Date();
 
       let tableRows = [];
       let itemList = [];
-      let today = new Date();
 
       if (this.state.dataForTable.length > 0) {
         itemList = this.state.dataForTable.map((data, i) => {
 
-          let parsedOrderDate = new Date(data.order_date);
-          let parsedPromiseDate = new Date(data.promise_date);
-
-          let formattedOrderDate =  monthNames[parsedOrderDate.getMonth()] + " " + parsedOrderDate.getDate() + ", " + parsedOrderDate.getFullYear(); 
-          let formattedPromiseDate =  monthNames[parsedPromiseDate.getMonth()] + " " + parsedPromiseDate.getDate() + ", " + parsedPromiseDate.getFullYear(); 
-
+          let parsedReportedDate = new Date(data.date_detected);
+          let formattedReportedDate =  monthNames[parsedReportedDate.getMonth()] + " " + parsedReportedDate.getDate() + ", " + parsedReportedDate.getFullYear(); 
+          
           return({
             orderNum: data.order_id,
             itemNum: data.item_num,
             itemName: data.item_name,
-            itemPrice : data.unit_price,
-            itemQty: data.qty,
-            itemUnit: data.unit,
-            orderDate: formattedOrderDate,
-            promiseDate: formattedPromiseDate,
+            issueType: data.category,
+            reportDate: formattedReportedDate,
           });
         });
 
@@ -116,12 +110,8 @@ class DashboardOpenOrderTable extends React.Component {
               <td style={{ color:'#DDDDDD'}}>{itemList[i].orderNum}</td>
               <td style={{ color:'#DDDDDD'}}>{itemList[i].itemNum}</td>
               <td style={{ color:'#DDDDDD'}}>{itemList[i].itemName}</td>
-              <td style={{ color:'#DDDDDD', textAlign: 'center' }}>{itemList[i].itemPrice}</td>
-              <td style={{ color:'#DDDDDD'}}>{itemList[i].itemQty}</td>
-              <td style={{ color:'#DDDDDD'}}>{itemList[i].itemUnit}</td>
-              <td style={{ color:'#DDDDDD'}}>{itemList[i].orderDate}</td>
-              <td style={{ color:'#58D777', fontWeight:'bold' }}>{itemList[i].promiseDate}</td>
-              <td>{(Date.parse(itemList[i].promiseDate) < today) ? <span style={{ color:'#F45722', fontWeight: 'bold' }}>Past Due!</span> : ((Date.parse(itemList[i].promiseDate) === today) ? <span style={{ color:'#f0af03', fontWeight: 'bold' }}>Due Today</span> : '')}</td>
+              <td style={{ color:'#F45722', fontWeight:'bold' }}>{itemList[i].issueType}</td>
+              <td style={{ color:'#f0af03', fontWeight:'bold' }}>{itemList[i].reportDate}</td>
             </tr>
           );
         }
@@ -131,11 +121,7 @@ class DashboardOpenOrderTable extends React.Component {
             <td></td>
             <td></td>
             <td></td> 
-            <td style={{ fontSize:'1.25em', fontWeight:'bold' }}>No Open Orders</td>
-            <td></td>
-            <td></td>
-            <td></td>
-            <td></td>
+            <td style={{ fontSize:'1.25em', fontWeight:'bold' }}>No Pending Cases</td>
             <td></td>
             <td></td>
           </tr>
@@ -151,10 +137,10 @@ class DashboardOpenOrderTable extends React.Component {
         <Widget>
           <div className={s.root}>
               <div style={{display: "flex", justifyContent: 'space-between', alignItems: "center"}}>
-                  <h3 className="page-title"><span className="fw-semi-bold">Open Order Status</span></h3>
+                  <h3 className="page-title"><span className="fw-semi-bold">Pending Quality Issue Cases</span></h3>
               </div>
           </div>
-          <h5 style={{fontWeight: 'bold'}}>(Up to 5 Orders with the Earliest Promise Date)</h5>
+          <h5 style={{fontWeight: 'bold'}}>(Up to 5 Cases with the Oldest Reported Date)</h5>
           {(this._isFirstRender || this.didSupplierChange(selectedSupplier)) ? this.getDataForTable(suppliers[selectedSupplier]) : null }
           {this.detectFirstRender()}
           <div className={s.root}>
@@ -167,12 +153,8 @@ class DashboardOpenOrderTable extends React.Component {
                       <th style={{ color:'#EEEEEE'}}>Order #</th>
                       <th style={{ color:'#EEEEEE'}}>Item #</th>
                       <th style={{ color:'#EEEEEE'}}>Item Name</th>
-                      <th style={{ color:'#EEEEEE'}}>Unit Price ($)</th>
-                      <th style={{ color:'#EEEEEE'}}>QTY</th>
-                      <th style={{ color:'#EEEEEE'}}>Unit</th>
-                      <th style={{ color:'#EEEEEE'}}>Order Date</th>
-                      <th style={{ color:'#EEEEEE'}}>Promise Date</th>     
-                      <th></th>                   
+                      <th style={{ color:'#EEEEEE'}}>Issue Type</th>
+                      <th style={{ color:'#EEEEEE'}}>Reported Date</th>                       
                     </tr>
                   </thead>
                   <tbody>
@@ -187,4 +169,4 @@ class DashboardOpenOrderTable extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(DashboardOpenOrderTable);
+export default connect(mapStateToProps, mapDispatchToProps)(DashboardPendingQualityIssueTable);
