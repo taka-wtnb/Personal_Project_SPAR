@@ -6,6 +6,7 @@ import {
 } from 'reactstrap';
 
 import SupplierSelection from '../../components/SupplierSelection/SupplierSelection';
+import DashboardSpendingChart from '../../components/Charts/DashboardSpendingChart/DashboardSpendingChart';
 import DashboardOpenOrderTable from '../../components/Tables/DashboardOpenOrderTable/DashboardOpenOrderTable';
 import DashboardPendingQualityIssueTable from '../../components/Tables/DashboardPendingQualityIssueTable/DashboardPendingQualityIssueTable';
 
@@ -19,6 +20,11 @@ class Dashboard extends React.Component {
       <div className={s.root}>
         <SupplierSelection />
         <div>
+        <Row>
+          <Col xs={12}>
+            <DashboardSpendingChart />
+          </Col>
+          </Row>
           <Row>
             <Col xs={12}>
               <DashboardOpenOrderTable />

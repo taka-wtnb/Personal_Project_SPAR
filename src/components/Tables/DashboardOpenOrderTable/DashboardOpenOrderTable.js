@@ -151,7 +151,7 @@ class DashboardOpenOrderTable extends React.Component {
         <Widget>
           <div className={s.root}>
               <div style={{display: "flex", justifyContent: 'space-between', alignItems: "center"}}>
-                  <h3 className="page-title"><span className="fw-semi-bold">Open Order Status</span></h3>
+                <h3 className="page-title"><span className="fw-semi-bold">Open Order Status</span></h3>
               </div>
           </div>
           <h5 style={{fontWeight: 'bold'}}>(Up to 5 Orders with the Earliest Promise Date)</h5>

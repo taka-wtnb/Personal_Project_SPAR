@@ -1,0 +1,7 @@
+export const CHANGE_ITEM_FOR_DASHBOARD_SPENDING_CHART = 'CHANGE_ITEM_FOR_DASHBOARD_SPENDING_CHART';
+
+export function selectItem() {
+  return {
+    type: CHANGE_ITEM_FOR_DASHBOARD_SPENDING_CHART,
+  };
+}

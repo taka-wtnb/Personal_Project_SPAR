@@ -10,7 +10,7 @@ import {
 
 import ApexChart from 'react-apexcharts';
 
-import s from './QualityManagementLineChart.module.scss';
+import s from './QualityManagementBarChart.module.scss';
 
 import Widget from '../../Widget/Widget';
 
@@ -47,7 +47,7 @@ const months = [
 ];
 
 
-class QualityManagementLineChart extends React.Component {
+class QualityManagementBarChart extends React.Component {
 
   _isUnmounted = false;
   _isFirstRender = true;
@@ -215,4 +215,4 @@ class QualityManagementLineChart extends React.Component {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(QualityManagementLineChart);
+export default connect(mapStateToProps, mapDispatchToProps)(QualityManagementBarChart);

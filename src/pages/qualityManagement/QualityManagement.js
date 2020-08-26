@@ -6,7 +6,7 @@ import {
 } from 'reactstrap';
 
 import SupplierSelection from '../../components/SupplierSelection/SupplierSelection';
-import QualityManagementLineChart from '../../components/Charts/QualityManagementLineChart/QualityManagementLineChart';
+import QualityManagementBarChart from '../../components/Charts/QualityManagementBarChart/QualityManagementBarChart';
 import QualityManagementPieChart from '../../components/Charts/QualityManagementPieChart/QualityManagementPieChart';
 import QualityBestTable from '../../components/Tables/QualityTables/QualityBestTable';
 import QualityWorstTable from '../../components/Tables/QualityTables/QualityWorstTable';
@@ -21,7 +21,7 @@ class QualityManagement extends React.Component {
         <div>
           <Row>
             <Col xl={7} xs={12}>
-              <QualityManagementLineChart />
+              <QualityManagementBarChart />
             </Col>
             <Col xl={5} xs={12}>
               <QualityManagementPieChart />
