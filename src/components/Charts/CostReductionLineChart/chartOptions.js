@@ -34,6 +34,10 @@ export default function chartOptions(data) {
             distributed: true
             }
         },
+        stroke: {
+            width: 7,
+            curve: 'smooth'
+        },
         dataLabels: {
             enabled: false,
         },
