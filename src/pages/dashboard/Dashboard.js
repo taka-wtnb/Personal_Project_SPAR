@@ -7,6 +7,7 @@ import {
 
 import SupplierSelection from '../../components/SupplierSelection/SupplierSelection';
 import DashboardSpendingChart from '../../components/Charts/DashboardSpendingChart/DashboardSpendingChart';
+import DashboardSpendingTable from '../../components/Tables/DashboardSpendingTable/DashboardSpendingTable';
 import DashboardOpenOrderTable from '../../components/Tables/DashboardOpenOrderTable/DashboardOpenOrderTable';
 import DashboardPendingQualityIssueTable from '../../components/Tables/DashboardPendingQualityIssueTable/DashboardPendingQualityIssueTable';
 
@@ -21,8 +22,11 @@ class Dashboard extends React.Component {
         <SupplierSelection />
         <div>
         <Row>
-          <Col xs={12}>
+          <Col xl={7} xs={12}>
             <DashboardSpendingChart />
+          </Col>
+          <Col xl={5} xs={12}>
+            <DashboardSpendingTable />
           </Col>
           </Row>
           <Row>

@@ -29,7 +29,7 @@ export default function chartOptions(data) {
         },
         plotOptions: {
             bar: {
-            columnWidth: '30%',
+            columnWidth: '45%',
             }
         },
         dataLabels: {

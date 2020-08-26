@@ -1,0 +1,6 @@
+{
+  "name": "dashboard_spending_table",
+  "version": "0.0.0",
+  "private": true,
+  "main": "./DashboardSpendingTable.js"
+}

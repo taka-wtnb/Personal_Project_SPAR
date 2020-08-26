@@ -24,6 +24,7 @@ import selected_cost_reduction_table_item from './selected_cost_reduction_table_
 import selected_quality_management_line_chart_item from './selected_quality_management_line_chart_item';
 import selected_quality_management_pie_chart_item from './selected_quality_management_pie_chart_item';
 import dashboard_spending_chart_months from './dashboard_spending_chart_months';
+import dashboard_spending_table_months from './dashboard_spending_table_months';
 import otd_line_chart_months from './otd_line_chart_months';
 import otd_pie_chart_months from './otd_pie_chart_months';
 import otd_best_table_months from './otd_best_table_months';
@@ -61,6 +62,7 @@ export default combineReducers({
   selected_quality_management_line_chart_item,
   selected_quality_management_pie_chart_item,
   dashboard_spending_chart_months,
+  dashboard_spending_table_months,
   otd_line_chart_months,
   otd_pie_chart_months,
   otd_best_table_months,

@@ -1,6 +1,6 @@
 {
-  "name": "static",
+  "name": "quality_tables",
   "version": "0.0.0",
   "private": true,
-  "main": "./Static.js"
+  "main": "./QualityTables.js"
 }
