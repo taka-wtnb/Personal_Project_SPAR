@@ -124,9 +124,9 @@ class Login extends React.Component {
                         </form>
                     </Widget>
                 </Container>
-                <footer className="auth-footer">
+                {/* <footer className="auth-footer">
                     2020 &copy; Light Blue Template - React Admin Dashboard Template.
-                </footer>
+                </footer> */}
             </div>
         );
     }

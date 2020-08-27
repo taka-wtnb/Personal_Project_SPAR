@@ -8,12 +8,10 @@ import {
   DropdownMenu,
 } from 'reactstrap';
 
-//import s from './Charts.module.scss';
 import s from './SupplierSelection.module.scss';
 
 import { selectSupplier } from '../../actions/change_supplier';
 import { displaySupplier } from '../../actions/selected_supplier';
-// import { requestData } from '../../actions/dashboard_otd_chart_data';
 
 const mapStateToProps = (state) => {
   return {
@@ -28,7 +26,6 @@ const mapDispatchToProps = (dispatch) => {
   return {
     onSelectSupplier: () => dispatch(selectSupplier()),
     onDisplaySupplier: (event) => dispatch(displaySupplier(event.target.value)),
-    // onRequestData: (event) => dispatch(requestData(event.target.value)),
   }
 }
 
@@ -52,7 +49,6 @@ class SupplierSelection extends React.Component {
   select(event) {
     this.props.onSelectSupplier();
     this.props.onDisplaySupplier(event);
-    // this.props.onRequestData(event);
     this.setState({
       dropdownOpen: !this.state.dropdownOpen,
     });

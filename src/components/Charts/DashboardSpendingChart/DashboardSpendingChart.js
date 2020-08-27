@@ -193,23 +193,23 @@ class DashboardSpendingChart extends React.Component {
       <div> </div> :
       (
         <Widget>
-            <div className={s.root}>
-                <div style={{display: "flex", justifyContent: 'space-between', alignItems: "center"}}>
-                    <h3 className="page-title"><span className="fw-semi-bold">Spending Trend <span style={{fontSize:'0.80em', color:'#999999' }}>Month-to-Month Comparison</span></span></h3>
-                    <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} style={{marginLeft: "40px", alignItems: "stretch"}}>
-                    <DropdownToggle caret className="fw-semi-bold text-inverse">
-                        {displayedMonths}
-                    </DropdownToggle>
-                    <DropdownMenu>
-                        {monthList}
-                    </DropdownMenu>
-                    </Dropdown>
-                </div>
+          <div className={s.root}>
+            <div style={{display: "flex", justifyContent: 'space-between', alignItems: "center"}}>
+              <h3 className="page-title"><span className="fw-semi-bold">Spending Trend <span style={{fontSize:'0.80em', color:'#999999' }}>Month-to-Month Comparison</span></span></h3>
+              <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} style={{marginLeft: "40px", alignItems: "stretch"}}>
+              <DropdownToggle caret className="fw-semi-bold text-inverse">
+                {displayedMonths}
+              </DropdownToggle>
+              <DropdownMenu>
+                {monthList}
+              </DropdownMenu>
+              </Dropdown>
             </div>
-            <ItemSelection />
-            {(this._isFirstRender || this.didSupplierChange(selectedSupplier) || this.didItemChange(selectedItem)) ? this.getDataForChart(suppliers[selectedSupplier], items, selectedItem, displayedMonths) : null }
-            {this.detectFirstRender()}
-            {(this.state.dataForChart.length > 0) ? this.drawChart(this.state.dataForChart) : (this.state.isStillFetching ? <h1>Loading...</h1> : <h1>No Data</h1>)}
+          </div>
+          <ItemSelection />
+          {(this._isFirstRender || this.didSupplierChange(selectedSupplier) || this.didItemChange(selectedItem)) ? this.getDataForChart(suppliers[selectedSupplier], items, selectedItem, displayedMonths) : null }
+          {this.detectFirstRender()}
+          {(this.state.dataForChart.length > 0) ? this.drawChart(this.state.dataForChart) : (this.state.isStillFetching ? <h1>Loading...</h1> : <h1>No Data</h1>)}
         </Widget>
     );
   }

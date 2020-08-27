@@ -12,13 +12,13 @@ import '../styles/theme.scss';
 import LayoutComponent from '../components/Layout';
 import Login from '../pages/login';
 import Register from '../pages/register';
-import { logoutUser } from '../actions/user';
+//import { logoutUser } from '../actions/user';
 import { requestSuppliers } from '../actions/suppliers';
 import { requestItems } from '../actions/items';
 
 const PrivateRoute = ({dispatch, component, ...rest }) => {
     if (!Login.isAuthenticated(JSON.parse(localStorage.getItem('authenticated')))) {
-        dispatch(logoutUser());
+        //dispatch(logoutUser());
         return (<Redirect to="/login"/>)
     } else {
         return ( // eslint-disable-line

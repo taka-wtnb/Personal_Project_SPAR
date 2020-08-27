@@ -126,12 +126,14 @@ class Header extends React.Component {
 
   render() {
     return (
-      <Navbar className={`d-print-none ${s.root}`}>
-        <UncontrolledAlert className={`${s.alert} mr-3 d-lg-down-none animate__animated animate__bounceIn animate__delay-1s`}>
+      <div style={{display: "flex", justifyContent: 'space-between', alignItems: "center"}}>
+        <h1>SPAR -Supplier Performance Analysis Repository-</h1>
+        <Navbar className={`d-print-none ${s.root}`}>
+        {/* <UncontrolledAlert className={`${s.alert} mr-3 d-lg-down-none animate__animated animate__bounceIn animate__delay-1s`}>
           <i className="fa fa-info-circle mr-1" /> Check out Light Blue <button className="btn-link" onClick={() => this.setState({ settingsOpen: true })}>settings</button> on
           the right!
-        </UncontrolledAlert>
-        <Collapse className={`${s.searchCollapse} ml-lg-0 mr-md-3`} isOpen={this.state.searchOpen}>
+        </UncontrolledAlert> */}
+        {/* <Collapse className={`${s.searchCollapse} ml-lg-0 mr-md-3`} isOpen={this.state.searchOpen}>
           <InputGroup className={`${s.navbarForm} ${this.state.searchFocused ? s.navbarFormFocused : ''}`}>
             <InputGroupAddon addonType="prepend" className={s.inputAddon}><InputGroupText><i className="fa fa-search" /></InputGroupText></InputGroupAddon>
             <Input
@@ -140,8 +142,8 @@ class Header extends React.Component {
               onBlur={() => this.setState({ searchFocused: false })}
             />
           </InputGroup>
-        </Collapse>
-        <Form className="d-md-down-none mr-3 ml-3" inline>
+        </Collapse> */}
+        {/* <Form className="d-md-down-none mr-3 ml-3" inline>
           <FormGroup>
             <InputGroup className="input-group-no-border">
               <InputGroupAddon addonType="prepend">
@@ -150,7 +152,7 @@ class Header extends React.Component {
               <Input id="search-input" className="input-transparent" placeholder="Search" />
             </InputGroup>
           </FormGroup>
-        </Form>
+        </Form> */}
 
         <Nav className="ml-md-0 d-flex nav-responsive">
           <Dropdown nav isOpen={this.state.notificationsOpen} toggle={this.toggleNotifications} id="basic-nav-dropdown" className={`${s.notificationsMenu}`} style={{marginRight: 'auto'}}>
@@ -284,7 +286,9 @@ class Header extends React.Component {
           </NavItem>
         </Nav>
       </Navbar>
-    );
+ 
+      </div>
+   );
   }
 }
 
