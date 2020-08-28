@@ -5,11 +5,6 @@ import { Switch, Route, withRouter, Redirect } from 'react-router';
 import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import Hammer from 'rc-hammerjs';
 
-import UIIcons from '../../pages/components/icons';
-// import QualityManagement from '../../pages/qualityManagement/QualityManagement';
-import MapsGoogle from '../../pages/components/maps/google';
-import Charts from '../../pages/components/charts/Charts';
-
 import Dashboard from '../../pages/dashboard';
 import OTD from '../../pages/otd/OTD';
 import CostReduction from '../../pages/costReduction/CostReduction';
@@ -83,18 +78,12 @@ class Layout extends React.Component {
                   <Switch>
                     <Route path="/app/main" exact render={() => <Redirect to="/app/main/dashboard" />} />
                     <Route path="/app/main/dashboard" exact component={Dashboard} />
-                    <Route path="/app/icons" exact component={UIIcons} />
                     <Route path="/app/quality-management" exact component={QualityManagement} />
-                    <Route path="/app/charts" exact component={Charts} />
                     <Route path="/app/cost-reduction" exact component={CostReduction} />
-                    <Route path="/app/maps" exact component={MapsGoogle} />
                     <Route path="/app/on-time-delivery" exact component={OTD} />
                   </Switch>
                 </CSSTransition>
               </TransitionGroup>
-              {/* <footer className={s.contentFooter}>
-                Light Blue React Template - React admin template made by <a href="https://flatlogic.com" >Flatlogic</a>
-              </footer> */}
             </main>
           </Hammer>
         </div>

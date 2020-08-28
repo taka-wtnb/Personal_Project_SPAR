@@ -1,10 +1,10 @@
 {
-  "short_name": "Light Blue Template 1.0.0 - Isomorphic React Dashboard",
-  "name": "Create React App Sample",
+  "short_name": "SPAR 1.0.0 - Supplier Performance Analysis Repository",
+  "name": "SRM (Supplier Relationship Management) System with Create React App",
   "icons": [
     {
-      "src": "/favicon.png",
-      "sizes": "64x64 32x32 24x24 16x16",
+      "src": "/graph-31.png",
+      "sizes": "1024x1024",
       "type": "image/x-icon"
     }
   ],
