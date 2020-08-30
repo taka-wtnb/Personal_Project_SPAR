@@ -3,6 +3,9 @@ A cross-industry B2B web app to help businesses review and analyze their supply 
 For the front-end, I used [Light Blue React Template](https://flatlogic.github.io/light-blue-react-template/) made by [Flatlogic](https://flatlogic.com/) and customized it to develop the SRM system UI. 
 I developed the back-end from scratch by using node.js/express.js and PostgreSQL.
 
+This is the ver 1.0.0. 
+I am going to add more features, such as the user authentication, supplier profile page, order entry & update, and more!
+
 [View the App](https://flatlogic.github.io/light-blue-react-template/)
 
 [![image](https://user-images.githubusercontent.com/43149862/78150582-270b4380-7440-11ea-826a-64e99b77d06d.png)](https://flatlogic.github.io/light-blue-react-template/)
@@ -24,6 +27,7 @@ I have implemented the following pages corresponding to different criteria of th
 * Quality Management – showing how many quality issues we have had with the supplier (or a selected item) in recent months as well as its breakdown information for in-depth analysis.
 
 
+
 ## Tools & Technologies
 Front-End:
 * React
@@ -38,6 +42,3 @@ Server:
 
 Database:
 * PostgreSQL
-
-This is ver 1.0.0. 
-I am going to add more features, such as the user authentication, supplier profile page, order entry & update, and more!
