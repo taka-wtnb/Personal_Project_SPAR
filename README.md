@@ -1,3 +1,5 @@
+# SPAR -Supplier Performance Analysis Repository-
+
 A cross-industry B2B web app to help businesses review and analyze their supply chain management. With this supplier relationship management (SRM) system, we can view our suppliers’ historical performance in terms of on-time delivery (OTD), cost reduction, and quality management. 
 
 For the front-end, I used [Light Blue React Template](https://flatlogic.github.io/light-blue-react-template/) made by [Flatlogic](https://flatlogic.com/) and customized it to develop the SRM system UI. 
@@ -42,3 +44,6 @@ Server:
 
 Database:
 * PostgreSQL
+
+Deployment:
+* Heroku
