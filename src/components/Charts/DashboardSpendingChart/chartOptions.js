@@ -27,7 +27,7 @@ export default function chartOptions(data) {
                 }
             }
         },
-        colors: chartColors,
+        colors: ['#f0af03'],
         plotOptions: {
             bar: {
             columnWidth: '45%',

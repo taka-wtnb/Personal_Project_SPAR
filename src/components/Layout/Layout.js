@@ -83,7 +83,7 @@ class Layout extends React.Component {
                     <Route path="/app/on-time-delivery" exact component={OTD} />
                   </Switch>
                 </CSSTransition>
-              </TransitionGroup>
+              </TransitionGroup>  
             </main>
           </Hammer>
         </div>
