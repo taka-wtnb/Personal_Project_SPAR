@@ -206,9 +206,6 @@ class Register extends React.Component {
                         {/*<Link className="d-block text-center" to="login">Enter the account</Link>*/}
                     {/*</Widget>*/}
                 </Container>
-                <footer className="auth-footer">
-                    2020 &copy; Sing App - React Admin Dashboard Template.
-                </footer>
             </div>
         );
     }
