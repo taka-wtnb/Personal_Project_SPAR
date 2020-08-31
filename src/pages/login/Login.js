@@ -20,8 +20,8 @@ class Login extends React.Component {
         super(props);
 
         this.state = {
-            email: 'admin@flatlogic.com',
-            password: 'password',
+            email: 'account@email.com',
+            password: 'spar',
         };
 
         this.doLogin = this.doLogin.bind(this);
