@@ -1,4 +1,4 @@
-import { DISPLAY_QUALITY_MANAGEMENT_LINE_CHART_ITEM } from '../actions/selected_quality_management_line_chart_item';
+import { DISPLAY_QUALITY_MANAGEMENT_BAR_CHART_ITEM } from '../actions/selected_quality_management_bar_chart_item';
 
 const initialState = {
     selectedItem: 0
@@ -6,7 +6,7 @@ const initialState = {
 
 export default function changeItem(state=initialState, action={}) {
     switch (action.type) {
-        case DISPLAY_QUALITY_MANAGEMENT_LINE_CHART_ITEM:
+        case DISPLAY_QUALITY_MANAGEMENT_BAR_CHART_ITEM:
             return Object.assign({}, state, {selectedItem: action.payload})
         default:
             return state

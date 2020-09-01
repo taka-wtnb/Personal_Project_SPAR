@@ -14,9 +14,9 @@ import s from './QualityManagementBarChart.module.scss';
 
 import Widget from '../../Widget/Widget';
 
-import { selectMonths } from '../../../actions/quality_management_line_chart_months';
+import { selectMonths } from '../../../actions/quality_management_bar_chart_months';
 
-import ItemSelection from './ItemSelectionForQualityManagementLineChart';
+import ItemSelection from './ItemSelectionForQualityManagementBarChart';
 
 import chartData from './chartData';
 import chartOptions from './chartOptions';
@@ -25,11 +25,11 @@ const mapStateToProps = (state) => {
   return {
     suppliers: state.suppliers.suppliers,
     isPending: state.suppliers.isPending,
-    displayedMonths: state.quality_management_line_chart_months.months,
+    displayedMonths: state.quality_management_bar_chart_months.months,
     selectedSupplier: state.selected_supplier.selectedSupplier,
     items: state.items.items,
     isItemPending: state.items.isPending,
-    selectedItem: state.selected_quality_management_line_chart_item.selectedItem,
+    selectedItem: state.selected_quality_management_bar_chart_item.selectedItem,
   }
 }
 
@@ -149,12 +149,12 @@ class QualityManagementBarChart extends React.Component {
       let params;
 
       if (parseInt(itemIndex) === 0) {
-        url = new URL("http://localhost:3002/qualitymanagementlinechart");
+        url = new URL("http://localhost:3002/qualitymanagementbarchart");
         let params = {supplierId: supplier.id, start: startDate, end: endDate};
         Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
       }
       else {
-        url = new URL("http://localhost:3002/qualitymanagementlinechartbyitem");
+        url = new URL("http://localhost:3002/qualitymanagementbarchartbyitem");
         params = {supplierId: supplier.id, itemId: itemList[itemIndex-1].id, start: startDate, end: endDate};
         Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
       }

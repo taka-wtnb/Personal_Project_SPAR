@@ -196,7 +196,7 @@ class CostReductionPieChart extends React.Component {
         );
       });
 
-      return totalCases.reduce( (acc, cur) => (acc + cur));
+      return totalCases.length > 0 ? totalCases.reduce( (acc, cur) => (acc + cur)) : 0;
     }
 
     return (isPending || isItemPending) ? 

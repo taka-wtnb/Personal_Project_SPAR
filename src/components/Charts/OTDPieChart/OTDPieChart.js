@@ -197,7 +197,7 @@ class OTDPieChart extends React.Component {
           );
         });
   
-        return totalCases.reduce( (acc, cur) => (acc + cur));
+        return totalCases.length > 0 ? totalCases.reduce( (acc, cur) => (acc + cur)) : 0;
       }
       else {
         return 0;

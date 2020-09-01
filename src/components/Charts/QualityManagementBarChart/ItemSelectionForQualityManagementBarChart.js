@@ -10,15 +10,15 @@ import {
 
 import s from '../../ItemSelection/ItemSelection.module.scss';
 
-import { selectItem } from '../../../actions/change_item_for_quality_management_line_chart';
-import { displayItem } from '../../../actions/selected_quality_management_line_chart_item';
+import { selectItem } from '../../../actions/change_item_for_quality_management_bar_chart';
+import { displayItem } from '../../../actions/selected_quality_management_bar_chart_item';
 
 const mapStateToProps = (state) => {
   return {
     items: state.items.items,
     isPending: state.items.isPending,
-    isItemSelected: state.change_item_for_quality_management_line_chart.isItemSelected,
-    selectedItem: state.selected_quality_management_line_chart_item.selectedItem,
+    isItemSelected: state.change_item_for_quality_management_bar_chart.isItemSelected,
+    selectedItem: state.selected_quality_management_bar_chart_item.selectedItem,
   }
 }
 
