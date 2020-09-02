@@ -67,7 +67,7 @@ class DashboardPendingQualityIssueTable extends React.Component {
   getDataForTable(supplier) {
     if (supplier.supplier_name !== '') {
 
-      let url = new URL("http://localhost:3002/dashboardpendingqualityissuetable");
+      let url = new URL("https://protected-fortress-25524.herokuapp.com/dashboardpendingqualityissuetable");
       let params = {supplierId: supplier.id};
       Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
       

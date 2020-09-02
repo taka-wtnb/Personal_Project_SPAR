@@ -148,12 +148,12 @@ class CostReductionPieChart extends React.Component {
       let params;
 
       if (parseInt(itemIndex) === 0) {
-        url = new URL("http://localhost:3002/costreductionpiechart");
+        url = new URL("https://protected-fortress-25524.herokuapp.com/costreductionpiechart");
         let params = {supplierId: supplier.id, start: startDate, end: endDate};
         Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
       }
       else {
-        url = new URL("http://localhost:3002/costreductionpiechartbyitem");
+        url = new URL("https://protected-fortress-25524.herokuapp.com/costreductionpiechartbyitem");
         params = {supplierId: supplier.id, itemId: itemList[itemIndex-1].id, start: startDate, end: endDate};
         Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
       }   

@@ -102,7 +102,7 @@ class CostReductionTable extends React.Component {
       startDate = new Date(today.getFullYear() - (today.getMonth() - 12 > 0 ? 0 : 1), (today.getMonth() - 12 + 12) % 12, 1);
       startDate= startDate.getFullYear() + "-" + (startDate.getMonth() + 1) + "-" + startDate.getDate();
 
-      let url = new URL("http://localhost:3002/costreductiontable");
+      let url = new URL("https://protected-fortress-25524.herokuapp.com/costreductiontable");
       let params = {supplierId: supplier.id, itemId: item.id, start: startDate, end: endDate};
       Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
       

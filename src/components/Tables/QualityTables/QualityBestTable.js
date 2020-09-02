@@ -131,7 +131,7 @@ class QualityBestTable extends React.Component {
 
       startDate= startDate.getFullYear() + "-" + (startDate.getMonth() + 1) + "-" + startDate.getDate();
 
-      let url = new URL("http://localhost:3002/qualitytable");
+      let url = new URL("https://protected-fortress-25524.herokuapp.com/qualitytable");
       let params = {supplierId: supplier.id, start: startDate, end: endDate};
       Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
       

@@ -144,7 +144,7 @@ class CostReductionLineChart extends React.Component {
 
       startDate= startDate.getFullYear() + "-" + (startDate.getMonth() + 1) + "-" + startDate.getDate();
 
-      let url = new URL("http://localhost:3002/costreductionlinechart");
+      let url = new URL("https://protected-fortress-25524.herokuapp.com/costreductionlinechart");
       let params = {supplierId: supplier.id, itemId: item.id, start: startDate, end: endDate};
       Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
  

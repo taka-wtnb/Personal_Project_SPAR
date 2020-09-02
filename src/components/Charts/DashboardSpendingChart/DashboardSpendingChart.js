@@ -149,12 +149,12 @@ class DashboardSpendingChart extends React.Component {
       let params;
 
       if (parseInt(itemIndex) === 0) {
-        url = new URL("http://localhost:3002/dashboardspendingchart");
+        url = new URL("https://protected-fortress-25524.herokuapp.com/dashboardspendingchart");
         let params = {supplierId: supplier.id, start: startDate, end: endDate};
         Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
       }
       else {
-        url = new URL("http://localhost:3002/dashboardspendingchartbyitem");
+        url = new URL("https://protected-fortress-25524.herokuapp.com/dashboardspendingchartbyitem");
         params = {supplierId: supplier.id, itemId: itemList[itemIndex-1].id, start: startDate, end: endDate};
         Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
       }

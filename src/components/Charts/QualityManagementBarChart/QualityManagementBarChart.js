@@ -149,12 +149,12 @@ class QualityManagementBarChart extends React.Component {
       let params;
 
       if (parseInt(itemIndex) === 0) {
-        url = new URL("http://localhost:3002/qualitymanagementbarchart");
+        url = new URL("https://protected-fortress-25524.herokuapp.com/qualitymanagementbarchart");
         let params = {supplierId: supplier.id, start: startDate, end: endDate};
         Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
       }
       else {
-        url = new URL("http://localhost:3002/qualitymanagementbarchartbyitem");
+        url = new URL("https://protected-fortress-25524.herokuapp.com/qualitymanagementbarchartbyitem");
         params = {supplierId: supplier.id, itemId: itemList[itemIndex-1].id, start: startDate, end: endDate};
         Object.keys(params).forEach(key => url.searchParams.append(key, params[key]));
       }
