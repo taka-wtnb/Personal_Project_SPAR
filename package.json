@@ -1,9 +1,9 @@
 {
   "name": "light-blue-react-template",
   "version": "1.0.0",
-  "private": true,
+  "private": false,
   "scripts": {
-    "build": "cross-env PUBLIC_URL='./' node scripts/build.js",
+    "build": "PUBLIC_URL='./' node scripts/build.js",
     "start": "node scripts/start.js",
     "test": "node scripts/test.js"
   },
