@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "private": false,
   "scripts": {
-    "build": "PUBLIC_URL='./' node scripts/build.js",
     "start": "node scripts/start.js",
     "test": "node scripts/test.js"
   },
