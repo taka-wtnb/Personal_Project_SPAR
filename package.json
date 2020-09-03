@@ -1,5 +1,6 @@
 {
-  "name": "light-blue-react-template",
+  "name": "spar~supplier_performance_analysis_repository~",
+  "author": "Taka Watanabe",
   "version": "1.0.0",
   "engines": {
     "node": "12.18.1",
@@ -65,21 +66,14 @@
     "websocket-extensions": "^0.1.4"
   },
   "dependencies": {
-    "@amcharts/amcharts4": "^4.9.28",
-    "@amcharts/amcharts4-geodata": "^4.1.16",
     "animate.css": "4.1.0",
     "apexcharts": "^3.20.0",
     "awesome-bootstrap-checkbox": "1.0.1",
     "bootstrap": "4.5.0",
-    "bootstrap_calendar": "https://github.com/xero/bootstrap_calendar.git#1.0.1",
     "classnames": "^2.2.6",
     "cross-env": "^7.0.2",
-    "echarts": "^4.8.0",
-    "echarts-for-react": "^2.0.16",
     "font-awesome": "4.7.0",
     "glyphicons-halflings": "^1.9.1",
-    "highcharts": "^8.1.2",
-    "highcharts-react-official": "^3.0.0",
     "line-awesome": "^1.3.0",
     "moment": "^2.27.0",
     "rc-hammerjs": "^0.6.10",
