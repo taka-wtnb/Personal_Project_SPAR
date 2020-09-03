@@ -6,9 +6,9 @@ import { TransitionGroup, CSSTransition } from 'react-transition-group';
 import Hammer from 'rc-hammerjs';
 
 import Dashboard from '../../pages/dashboard';
-import OTD from '../../pages/otd/OTD';
-import CostReduction from '../../pages/costReduction/CostReduction';
-import QualityManagement from '../../pages/qualityManagement/QualityManagement';
+import OTD from '../../pages/otd';
+import CostReduction from '../../pages/costReduction';
+import QualityManagement from '../../pages/qualityManagement';
 
 import Header from '../Header';
 import Sidebar from '../Sidebar';
