@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "private": false,
   "scripts": {
-    "start": "node scripts/start.js",
+    "start": "serve -s build",
     "test": "node scripts/test.js"
   },
   "browserslist": [
@@ -95,6 +95,7 @@
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
     "rickshaw": "1.7.1",
+    "serve": "^11.3.2",
     "tabler-icons": "^1.10.0"
   },
   "devDependencies": {
