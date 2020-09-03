@@ -1,6 +1,9 @@
 {
   "name": "light-blue-react-template",
   "version": "1.0.0",
+  "engines": {
+    "yarn": "1.22.4"
+  },
   "private": false,
   "scripts": {
     "build": "cross-env PUBLIC_URL='./' node scripts/build.js",
