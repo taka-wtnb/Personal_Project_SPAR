@@ -196,7 +196,7 @@ class DashboardSpendingChart extends React.Component {
           <div className={s.root}>
             <div style={{display: "flex", justifyContent: 'space-between', alignItems: "center"}}>
               <h3 className="page-title"><span className="fw-semi-bold">Spending Trend <span style={{fontSize:'0.80em', color:'#999999' }}>Month-to-Month Comparison</span></span></h3>
-              <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} style={{marginLeft: "40px", alignItems: "stretch"}}>
+              <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} style={{marginLeft: "10px", alignItems: "stretch"}}>
               <DropdownToggle caret className="fw-semi-bold text-inverse">
                 {displayedMonths}
               </DropdownToggle>
