@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import { Container, Alert, Button, FormGroup, Label, InputGroup, InputGroupAddon, Input, InputGroupText } from 'reactstrap';
 import Widget from '../../components/Widget';
 import { loginUser } from '../../actions/user';
-import microsoft from '../../images/microsoft.png';
+// import microsoft from '../../images/microsoft.png';
 
 class Login extends React.Component {
     static propTypes = {
@@ -109,7 +109,7 @@ class Login extends React.Component {
                                     Don't have an account? Sign up now!
                                 </p>
                                 <Link className="d-block text-center mb-4" to="register">Create an Account</Link>
-                                <div className="social-buttons">
+                                {/* <div className="social-buttons">
                                     <Button color="primary" className="social-button">
                                         <i className="social-icon social-google"/>
                                         <p className="social-text">GOOGLE</p>
@@ -119,7 +119,7 @@ class Login extends React.Component {
                                            style={{backgroundImage: `url(${microsoft})`}}/>
                                         <p className="social-text" style={{color: '#fff'}}>MICROSOFT</p>
                                     </Button>
-                                </div>
+                                </div> */}
                             </div>
                         </form>
                     </Widget>
