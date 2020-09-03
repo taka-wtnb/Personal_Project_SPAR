@@ -9,7 +9,7 @@ I am going to add more features, such as user authentication, supplier profile p
 
 [View the App](https://spar-web-app.herokuapp.com/) (When you are on the Login page, simply click the 'Login' button to login.)
 
-[![image](https://user-images.githubusercontent.com/62856945/92071369-64635c80-ed63-11ea-8b8e-bce180c6b94e.png)](https://spar-web-app.herokuapp.com/)
+[![image](https://user-images.githubusercontent.com/62856945/92150802-db850900-edd4-11ea-8eb7-8767ece35c02.png)](https://spar-web-app.herokuapp.com/)
 
 
 This app includes following features and pages:
