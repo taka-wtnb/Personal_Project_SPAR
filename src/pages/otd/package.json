@@ -1,6 +1,6 @@
 {
   "name": "otd",
   "version": "1.0.0",
-  "main": "otd.js",
+  "main": "./OTD.js",
   "license": "MIT"
 }
