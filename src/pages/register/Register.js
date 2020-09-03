@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import { Container, Alert, Button, FormGroup, InputGroup, InputGroupAddon, InputGroupText, Input, Label } from 'reactstrap';
 import Widget from '../../components/Widget';
 import { registerUser, registerError } from '../../actions/register';
-// import microsoft from '../../images/microsoft.png';
 import Login from '../login';
 
 class Register extends React.Component {
@@ -145,17 +144,6 @@ class Register extends React.Component {
                                     Already have the account? Login now!
                                 </p>
                                 <Link className="d-block text-center mb-4" to="login">Enter the account</Link>
-                                {/* <div className="social-buttons">
-                                    <Button color="primary" className="social-button">
-                                        <i className="social-icon social-google"/>
-                                        <p className="social-text">GOOGLE</p>
-                                    </Button>
-                                    <Button color="success" className="social-button">
-                                        <i className="social-icon social-microsoft"
-                                           style={{backgroundImage: `url(${microsoft})`}}/>
-                                        <p className="social-text" style={{color: '#fff'}}>MICROSOFT</p>
-                                    </Button>
-                                </div> */}
                             </div>
                         </form>
                     </Widget>
