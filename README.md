@@ -7,7 +7,7 @@ I developed the back-end from scratch by using node.js/express.js and PostgreSQL
 
 I am going to add more features, such as user authentication, supplier profile page, order entry & update, and more!
 
-[View the App](https://spar-web-app.herokuapp.com/) (When you are on the **Login** page, simply click the **'Login'** button to login.)  
+[View the App](https://spar-web-app.herokuapp.com/) (When you are on the **Login** page, simply click the '**Login**' button to login.)  
 <sub>***(Note: It may take 10 – 20 secs to load the initial page due to the platform (Heroku)'s account setting.)***  </sub>  
 
 [![image](https://user-images.githubusercontent.com/62856945/92150802-db850900-edd4-11ea-8eb7-8767ece35c02.png)](https://spar-web-app.herokuapp.com/)
