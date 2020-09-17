@@ -97,7 +97,8 @@ class DashboardOpenOrderTable extends React.Component {
 
           let formattedOrderDate =  monthNames[parsedOrderDate.getMonth()] + " " + parsedOrderDate.getDate() + ", " + parsedOrderDate.getFullYear(); 
           let formattedPromiseDate =  monthNames[parsedPromiseDate.getMonth()] + " " + parsedPromiseDate.getDate() + ", " + parsedPromiseDate.getFullYear(); 
-          
+console.log(formattedToday);
+console.log(formattedPromiseDate);          
           return({
             orderNum: data.order_id,
             itemNum: data.item_num,
