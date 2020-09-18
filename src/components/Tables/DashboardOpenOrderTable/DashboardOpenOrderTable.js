@@ -97,8 +97,7 @@ class DashboardOpenOrderTable extends React.Component {
 
           let formattedOrderDate =  monthNames[parsedOrderDate.getMonth()] + " " + parsedOrderDate.getDate() + ", " + parsedOrderDate.getFullYear(); 
           let formattedPromiseDate =  monthNames[parsedPromiseDate.getMonth()] + " " + parsedPromiseDate.getDate() + ", " + parsedPromiseDate.getFullYear(); 
-console.log(formattedToday);
-console.log(formattedPromiseDate);          
+          
           return({
             orderNum: data.order_id,
             itemNum: data.item_num,
@@ -108,6 +107,7 @@ console.log(formattedPromiseDate);
             itemUnit: data.unit,
             orderDate: formattedOrderDate,
             promiseDate: formattedPromiseDate,
+            unformattedPromiseDate: parsedPromiseDate,
           });
         });
 
@@ -123,7 +123,10 @@ console.log(formattedPromiseDate);
               <td style={{ color:'#DDDDDD'}}>{itemList[i].itemUnit}</td>
               <td style={{ color:'#DDDDDD'}}>{itemList[i].orderDate}</td>
               <td style={{ color:'#58D777', fontWeight:'bold' }}>{itemList[i].promiseDate}</td>
-              <td>{(itemList[i].promiseDate < formattedToday) ? <span style={{ color:'#F45722', fontWeight: 'bold' }}>Past Due!</span> : ((itemList[i].promiseDate === formattedToday) ? <span style={{ color:'#f0af03', fontWeight: 'bold' }}>Due Today</span> : '')}</td>
+              <td>{(itemList[i].promiseDate === formattedToday) ? 
+                <span style={{ color:'#f0af03', fontWeight: 'bold' }}>Due Today</span> : 
+                ((itemList[i].unformattedPromiseDate < today) ? <span style={{ color:'#F45722', fontWeight: 'bold' }}>Past Due!</span> : '')}
+              </td>
             </tr>
           );
         }
