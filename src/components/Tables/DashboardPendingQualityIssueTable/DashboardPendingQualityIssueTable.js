@@ -90,7 +90,9 @@ class DashboardPendingQualityIssueTable extends React.Component {
       if (this.state.dataForTable.length > 0) {
         itemList = this.state.dataForTable.map((data, i) => {
 
-          let parsedReportedDate = new Date(data.date_detected.replace(/-/g, '/'));
+          let parsedReportedDate = new Date(data.date_detected);
+          parsedReportedDate = new Date( parsedReportedDate.getTime() - parsedReportedDate.getTimezoneOffset() * -60000 );
+          
           let formattedReportedDate =  monthNames[parsedReportedDate.getMonth()] + " " + parsedReportedDate.getDate() + ", " + parsedReportedDate.getFullYear(); 
           
           return({
