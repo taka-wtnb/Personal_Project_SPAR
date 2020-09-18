@@ -83,7 +83,6 @@ class DashboardPendingQualityIssueTable extends React.Component {
 
     const createTableRows = () => {
       const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-      // let curDate = new Date();
 
       let tableRows = [];
       let itemList = [];
@@ -91,7 +90,7 @@ class DashboardPendingQualityIssueTable extends React.Component {
       if (this.state.dataForTable.length > 0) {
         itemList = this.state.dataForTable.map((data, i) => {
 
-          let parsedReportedDate = new Date(data.date_detected);
+          let parsedReportedDate = new Date(data.date_detected.replace(/-/g, '/'));
           let formattedReportedDate =  monthNames[parsedReportedDate.getMonth()] + " " + parsedReportedDate.getDate() + ", " + parsedReportedDate.getFullYear(); 
           
           return({
