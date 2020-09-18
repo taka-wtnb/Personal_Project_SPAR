@@ -92,8 +92,8 @@ class DashboardOpenOrderTable extends React.Component {
       if (this.state.dataForTable.length > 0) {
         itemList = this.state.dataForTable.map((data, i) => {
 
-          let parsedOrderDate = new Date(data.order_datereplace(/-/g, '/'));
-          let parsedPromiseDate = new Date(data.promise_datereplace(/-/g, '/'));
+          let parsedOrderDate = new Date(data.order_date.replace(/-/g, '/'));
+          let parsedPromiseDate = new Date(data.promise_date.replace(/-/g, '/'));
 
           let formattedOrderDate =  monthNames[parsedOrderDate.getMonth()] + " " + parsedOrderDate.getDate() + ", " + parsedOrderDate.getFullYear(); 
           let formattedPromiseDate =  monthNames[parsedPromiseDate.getMonth()] + " " + parsedPromiseDate.getDate() + ", " + parsedPromiseDate.getFullYear(); 
