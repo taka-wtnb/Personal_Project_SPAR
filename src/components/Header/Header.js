@@ -113,13 +113,13 @@ class Header extends React.Component {
   render() {
     return (
       <div>
-        <header className={s.logo}><span style={{fontSize: "3em", fontWeight: "bold"}}><span style={{color: "orange" }}>S</span><span style={{color: "#1870DC" }}>P</span><span style={{color: "#1870DC" }}>A</span><span style={{color: "#1870DC" }}>R</span></span> <span style={{fontSize: "1.5em" }}>-<span style={{color: "#1870DC", fontWeight: "bold"}}>S</span>upplier <span style={{color: "#1870DC", fontWeight: "bold"}}>P</span>erformance <span style={{color: "#1870DC", fontWeight: "bold"}}>A</span>nalysis <span style={{color: "#1870DC", fontWeight: "bold"}}>R</span>epository-</span></header>
+        <header className={s.logo}><span style={{fontSize: "3em", fontWeight: "bold"}}><span style={{color: "#40E0D0" }}>S</span><span style={{color: "#40E0D0" }}>P</span><span style={{color: "#40E0D0" }}>A</span><span style={{color: "#40E0D0" }}>R</span></span> <span style={{fontSize: "1.5em" }}>-<span style={{color: "#40E0D0", fontWeight: "bold"}}>S</span>upplier <span style={{color: "#40E0D0", fontWeight: "bold"}}>P</span>erformance <span style={{color: "#40E0D0", fontWeight: "bold"}}>A</span>nalysis <span style={{color: "#40E0D0", fontWeight: "bold"}}>R</span>epository-</span></header>
         <div style={{display: "flex", justifyContent: "flex-end", alignItems: "right"}}>
 
           <Navbar className={`d-print-none ${s.root}`}>
             <span className={`${s.avatar} rounded-circle thumb-sm float-left mr-2`}>
               <img src={avatar} alt="..."/>
-            </span>
+            </span>40E0D0
             <span className={`small ${s.accountCheck}`}>Taka Watanabe</span>
             <Nav className="ml-md-0 d-flex nav-responsive">
               <NavItem className={`${s.divider} text-white`} />
