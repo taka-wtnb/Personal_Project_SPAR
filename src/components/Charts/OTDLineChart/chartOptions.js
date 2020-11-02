@@ -30,7 +30,7 @@ export default function chartOptions(data) {
         stroke: {
             width: 7,
         },
-        colors: colors.default,
+        colors: ['#C0C0C0'],
         plotOptions: {
             bar: {
             columnWidth: '45%',
