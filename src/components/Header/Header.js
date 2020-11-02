@@ -113,7 +113,7 @@ class Header extends React.Component {
   render() {
     return (
       <div>
-        <header className={s.logo}><span style={{fontSize: "3em", fontWeight: "bold"}}><span style={{color: "#40E0D0" }}>S</span><span style={{color: "#40E0D0" }}>P</span><span style={{color: "#40E0D0" }}>A</span><span style={{color: "#40E0D0" }}>R</span></span> <span style={{fontSize: "1.5em" }}>-<span style={{color: "#40E0D0", fontWeight: "bold"}}>S</span>upplier <span style={{color: "#40E0D0", fontWeight: "bold"}}>P</span>erformance <span style={{color: "#40E0D0", fontWeight: "bold"}}>A</span>nalysis <span style={{color: "#40E0D0", fontWeight: "bold"}}>R</span>epository-</span></header>
+        <header className={s.logo}><span style={{fontSize: "3em", fontWeight: "bold"}}><span style={{color: "#48D1CC" }}>S</span><span style={{color: "#48D1CC" }}>P</span><span style={{color: "#48D1CC" }}>A</span><span style={{color: "#48D1CC" }}>R</span></span> <span style={{fontSize: "1.5em" }}>-<span style={{color: "#48D1CC", fontWeight: "bold"}}>S</span>upplier <span style={{color: "#48D1CC", fontWeight: "bold"}}>P</span>erformance <span style={{color: "#48D1CC", fontWeight: "bold"}}>A</span>nalysis <span style={{color: "#48D1CC", fontWeight: "bold"}}>R</span>epository-</span></header>
         <div style={{display: "flex", justifyContent: "flex-end", alignItems: "right"}}>
 
           <Navbar className={`d-print-none ${s.root}`}>
