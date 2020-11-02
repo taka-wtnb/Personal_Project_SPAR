@@ -200,7 +200,7 @@ class DashboardSpendingTable extends React.Component {
         <Widget>
           <div className={s.root}>
               <div style={{display: "flex", justifyContent: 'space-between', alignItems: "center"}}>
-                  <h3 className="page-title"><span className="fw-semi-bold"><span style={{ color:'#1870DC' }}>Most</span> Ordered Items (Top 3)</span></h3>
+                  <h3 className="page-title"><span className="fw-semi-bold">Most Ordered Items (Top 3)</span></h3>
                   <Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle} style={{marginLeft: "40px", alignItems: "stretch"}}>
                   <DropdownToggle caret className="fw-semi-bold text-inverse">
                       {displayedMonths}
@@ -223,7 +223,7 @@ class DashboardSpendingTable extends React.Component {
                       <th style={{ color:'#EEEEEE'}}>#</th>
                       <th style={{ color:'#EEEEEE'}}>Item Number</th>
                       <th style={{ color:'#EEEEEE'}}>Item Name</th>
-                      <th style={{ color:'#1870DC',textAlign: 'center'}}>Amount <br /> ($)</th>
+                      <th style={{ color:'#EEEEEE',textAlign: 'center'}}>Amount <br /> ($)</th>
                     </tr>
                   </thead>
                   <tbody>

@@ -119,7 +119,7 @@ class Header extends React.Component {
           <Navbar className={`d-print-none ${s.root}`}>
             <span className={`${s.avatar} rounded-circle thumb-sm float-left mr-2`}>
               <img src={avatar} alt="..."/>
-            </span>40E0D0
+            </span>
             <span className={`small ${s.accountCheck}`}>Taka Watanabe</span>
             <Nav className="ml-md-0 d-flex nav-responsive">
               <NavItem className={`${s.divider} text-white`} />
