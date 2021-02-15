@@ -83,6 +83,12 @@
   }
 }
 
+#dividerToggle {
+  @media (max-width: breakpoint-max(md)) {
+    display: none;
+  }
+}
+
 .searchCollapse {
   display: block;
 

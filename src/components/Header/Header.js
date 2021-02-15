@@ -133,9 +133,9 @@ class Header extends React.Component {
             <span className={`${s.avatar} rounded-circle thumb-sm float-left mr-2`}>
               <img src={avatar} alt="..."/>
             </span>
-            <span className={`small ${s.accountCheck}`}>Taka Watanabe</span>
+            <span className={`small ${s.accountCheck}`} style={{fontSize: "1em" }}>Taka Watanabe</span>
             <Nav className="ml-md-0 d-flex nav-responsive">
-              <NavItem className={`${s.divider} text-white`} />
+              <NavItem className={`${s.divider} text-white`} id={s.dividerToggle}/>
               <Dropdown nav isOpen={this.state.settingsOpen} toggle={this.toggleSettingsDropdown}>
                 <DropdownToggle nav className={`${s.navItem} text-white`}>
                   <i className="glyphicon glyphicon-cog" />
