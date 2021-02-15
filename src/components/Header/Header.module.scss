@@ -84,7 +84,7 @@
 }
 
 #dividerToggle {
-  @media (max-width: breakpoint-max(md)) {
+  @media (max-width: breakpoint-max(sm)) {
     display: none;
   }
 }

@@ -134,7 +134,7 @@ class Header extends React.Component {
               <img src={avatar} alt="..."/>
             </span>
             <span className={`small ${s.accountCheck}`} style={{fontSize: "1em" }}>Taka Watanabe</span>
-            <Nav className="ml-md-0 d-flex nav-responsive">
+            <Nav className="ml-md-0 d-flex nav-responsive justify-content-end">
               <NavItem className={`${s.divider} text-white`} id={s.dividerToggle}/>
               <Dropdown nav isOpen={this.state.settingsOpen} toggle={this.toggleSettingsDropdown}>
                 <DropdownToggle nav className={`${s.navItem} text-white`}>
