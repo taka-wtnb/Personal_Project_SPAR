@@ -120,7 +120,7 @@ class Header extends React.Component {
             <span style={{color: "#00CED1" }}>A</span>
             <span style={{color: "#00CED1" }}>R</span>
           </span> 
-          <span id="appFullName" style={{fontSize: "1.5em" }}>-
+          <span id={s.appFullName} style={{fontSize: "1.5em" }}>-
             <span style={{color: "#00CED1", fontWeight: "bold"}}>S</span>upplier 
             <span style={{color: "#00CED1", fontWeight: "bold"}}>P</span>erformance 
             <span style={{color: "#00CED1", fontWeight: "bold"}}>A</span>nalysis 
