@@ -77,6 +77,12 @@
   }
 }
 
+#appFullName {
+  @media (max-width: breakpoint-max(lg)) {
+    display: none;
+  }
+}
+
 .searchCollapse {
   display: block;
 

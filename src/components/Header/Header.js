@@ -113,7 +113,20 @@ class Header extends React.Component {
   render() {
     return (
       <div>
-        <header className={s.logo}><span style={{fontSize: "3em", fontWeight: "bold"}}><span style={{color: "#00CED1" }}>S</span><span style={{color: "#00CED1" }}>P</span><span style={{color: "#00CED1" }}>A</span><span style={{color: "#00CED1" }}>R</span></span> <span style={{fontSize: "1.5em" }}>-<span style={{color: "#00CED1", fontWeight: "bold"}}>S</span>upplier <span style={{color: "#00CED1", fontWeight: "bold"}}>P</span>erformance <span style={{color: "#00CED1", fontWeight: "bold"}}>A</span>nalysis <span style={{color: "#00CED1", fontWeight: "bold"}}>R</span>epository-</span></header>
+        <header className={s.logo}>
+          <span style={{fontSize: "3em", fontWeight: "bold"}}>
+            <span style={{color: "#00CED1" }}>S</span>
+            <span style={{color: "#00CED1" }}>P</span>
+            <span style={{color: "#00CED1" }}>A</span>
+            <span style={{color: "#00CED1" }}>R</span>
+          </span> 
+          <span id="appFullName" style={{fontSize: "1.5em" }}>-
+            <span style={{color: "#00CED1", fontWeight: "bold"}}>S</span>upplier 
+            <span style={{color: "#00CED1", fontWeight: "bold"}}>P</span>erformance 
+            <span style={{color: "#00CED1", fontWeight: "bold"}}>A</span>nalysis 
+            <span style={{color: "#00CED1", fontWeight: "bold"}}>R</span>epository-
+          </span>
+        </header>
         <div style={{display: "flex", justifyContent: "flex-end", alignItems: "right"}}>
 
           <Navbar className={`d-print-none ${s.root}`}>
